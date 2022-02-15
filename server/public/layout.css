@@ -13,11 +13,122 @@
   width: 100%;
 }
 
-@media screen and (min-width: 768px) {
+.search-button {
+  background-color: #6610f2;
+  border: none;
+  color: white;
+  height: 30px;
+  width: 90px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+.home-page-font-size {
+  font-size: 15px;
+}
+
+::placeholder {
+  color: rgba(44, 43, 43, 0.171);
+  font-size: 15px;
+  font-family: "Abril Fatface", cursive;
+}
+
+form {
+  width: 80%;
+}
+
+.input-params {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  width: 50%;
+  font-family: "Abril Fatface", cursive;
+  font-size: 15px;
+  color: #6610f2;
+}
+
+@media screen and (min-width: 500px) {
   .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
     height: 100vh;
+  }
+
+  .search-button {
+    background-color: #6610f2;
+    border: none;
+    color: white;
+    height: 50px;
+    width: 110px;
+    border-radius: 5px;
+    font-size: 17px;
+  }
+
+  .home-page-font-size {
+    font-size: 25px;
+  }
+
+  ::placeholder {
+    color: rgba(44, 43, 43, 0.171);
+    font-size: 25px;
+    font-family: "Abril Fatface", cursive;
+  }
+
+  form {
+    width: 80%;
+  }
+
+  .input-params {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: 50%;
+    font-family: "Abril Fatface", cursive;
+    font-size: 25px;
+    color: #6610f2;
+  }
+}
+
+@media screen and (min-width: 805px) {
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 100vh;
+  }
+
+  .search-button {
+    background-color: #6610f2;
+    border: none;
+    color: white;
+    height: 50px;
+    width: 110px;
+    border-radius: 5px;
+    font-size: 20px;
+  }
+
+  .home-page-font-size {
+    font-size: 50px;
+  }
+
+  ::placeholder {
+    color: rgba(44, 43, 43, 0.171);
+    font-size: 30px;
+    font-family: "Abril Fatface", cursive;
+  }
+
+  form {
+    width: 80%;
+  }
+
+  .input-params {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: 50%;
+    font-family: "Abril Fatface", cursive;
+    font-size: 50px;
+    color: #6610f2;
   }
 }

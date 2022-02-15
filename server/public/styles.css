@@ -48,37 +48,13 @@
   align-items: center;
 }
 
-.input-params {
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  width: 50%;
-  font-family: "Abril Fatface", cursive;
-  font-size: 50px;
-  color: #6610f2;
-}
-
 .padding-top {
   padding-top: 15px;
-}
-
-.home-page-font-size {
-  font-size: 50px;
 }
 
 textarea:focus,
 input:focus {
   outline: none;
-}
-
-::placeholder {
-  color: rgba(44, 43, 43, 0.171);
-  font-size: 30px;
-  font-family: "Abril Fatface", cursive;
-}
-
-form {
-  width: 80%;
 }
 
 .vh-height {
@@ -87,14 +63,4 @@ form {
 
 .logo {
   height: 47px;
-}
-
-.search-button {
-  background-color: #6610f2;
-  border: none;
-  color: white;
-  height: 50px;
-  width: 110px;
-  border-radius: 5px;
-  font-size: 20px;
 }
