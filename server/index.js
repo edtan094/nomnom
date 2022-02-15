@@ -1,3 +1,4 @@
+import fetch from 'node-fetch';
 require('dotenv/config');
 const express = require('express');
 const errorMiddleware = require('./error-middleware');
