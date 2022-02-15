@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PageContainer({ children }) {
   return (
-    <div className="bg-light">
+    <div>
       <div className="container">
         {children}
       </div>
