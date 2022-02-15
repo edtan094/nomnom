@@ -2,11 +2,11 @@
   max-width: 475px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  height: 100vh;
 }
 
 .row {
   display: flex;
-  flex-wrap: wrap;
 }
 
 .column-full {
@@ -15,6 +15,9 @@
 
 @media screen and (min-width: 768px) {
   .container {
-    max-width: 950px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    height: 100vh;
   }
 }
