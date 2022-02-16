@@ -19,18 +19,20 @@ export default class Home extends React.Component {
 
   handleSearch(event) {
     event.preventDefault();
+    let userInput;
     const body = {
       method: 'GET'
     };
     fetch(`/api/yelp/${this.state.preference}/${this.state.location}`, body)
       .then(res => res.json())
       .then(result => {
-        console.log(result);
+        userInput = result;
         this.setState({
           result: { name: result.name, location: result.location, image: result.image_url }
         });
       })
       .catch(err => console.error(err));
+    window.location.hash = `result?term=${userInput}`;
   }
 
   handleInputPreference(event) {

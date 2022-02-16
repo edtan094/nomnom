@@ -64,3 +64,8 @@ input:focus {
 .logo {
   height: 47px;
 }
+
+a {
+  text-decoration: none;
+  color: white;
+}

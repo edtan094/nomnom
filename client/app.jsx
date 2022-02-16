@@ -2,23 +2,46 @@ import React from 'react';
 import Home from './pages/home';
 import Navbar from './components/navbar';
 import PageContainer from './components/page-container';
+import Result from './pages/result';
 import { parseRoute } from '../lib';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      view: 'home-page',
-      route: parseRoute(window.location.hash)
+      route: parseRoute(window.location.hash),
+      result: {
+        name: '',
+        location: '',
+        image: ''
+      }
     };
+  }
+
+  componentDidMount() {
+    window.addEventListener('hashchange', () => {
+      this.setState({
+        route: parseRoute(window.location.hash)
+      });
+    });
+  }
+
+  renderPage() {
+    const { path } = this.state.route;
+    if (path === '') {
+      return <Home result={this.state.result}/>;
+    }
+    if (path.includes('result')) {
+      return <Result />;
+    }
   }
 
   render() {
     return (
       <>
-      <Navbar view={this.state.view} />
+      <Navbar route={this.state.route} renderPage={this.renderPage}/>
       <PageContainer>
-        <Home />
+        {this.renderPage()}
       </PageContainer>
       </>
     );
