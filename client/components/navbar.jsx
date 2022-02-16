@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default class Navbar extends React.Component {
-  render() {
-    return (
+export default function Navbar(props) {
+
+  return (
       <header className="purple-background shadow">
         <div className="container navbar row align-center">
             <div className="column-full">
@@ -13,12 +13,11 @@ export default class Navbar extends React.Component {
               </div>
                 <div className="row justify-end align-center">
                   <a className='padding-right font-theme'>Home</a>
-                  <a className='font-theme'>Try Again</a>
+                {props.view === 'home-page' ? null : <a className='font-theme'>Try Again</a>}
                 </div>
               </div>
             </div>
         </div>
       </header>
-    );
-  }
+  );
 }
