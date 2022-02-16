@@ -21,9 +21,10 @@ export default class Home extends React.Component {
         Accept: 'application/json'
       }
     };
-    fetch(`/yelp/${this.state.preference}/${this.state.location}`, body)
+    fetch(`localhost:3000/yelp/${this.state.preference}/${this.state.location}`, body)
       .then(res => res.json())
-      .then(result => console.log(result));
+      .then(result => console.log(result))
+      .catch(err => console.error(err));
   }
 
   handleInputPreference(event) {
