@@ -15,13 +15,9 @@ export default class Home extends React.Component {
   handleSearch(event) {
     event.preventDefault();
     const body = {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
-      }
+      method: 'GET'
     };
-    fetch(`localhost:3000/yelp/${this.state.preference}/${this.state.location}`, body)
+    fetch(`yelp/${this.state.preference}/${this.state.location}`, body)
       .then(res => res.json())
       .then(result => console.log(result))
       .catch(err => console.error(err));
