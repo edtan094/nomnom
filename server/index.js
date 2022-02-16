@@ -4,6 +4,7 @@ require('dotenv/config');
 const express = require('express');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
+const ClientError = require('./client-error');
 const app = express();
 function random(length) {
   return Math.floor(Math.random() * length);
@@ -21,11 +22,16 @@ const body = {
 app.get('/yelp/:preference/:location', (req, res) => {
   const { location } = req.params;
   const { preference } = req.params;
+  if (!location || !preference) {
+    throw new ClientError(400, 'location and preference are required');
+  } else if (typeof location !== 'string' || typeof preference !== 'string') {
+    throw new ClientError(400, 'location and preferences cannot be numbers');
+  }
   fetch(`https://api.yelp.com/v3/businesses/search?categories=${preference}&location=${location}`, body)
     .then(response => response.json())
     .then(data => {
       const randomNumber = random(data.businesses.length);
-      return data.businesses[randomNumber];
+      res.status(200).json(data.businesses[randomNumber]);
     })
     .catch(error => console.error(error));
 });
