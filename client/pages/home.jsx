@@ -5,7 +5,12 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       preference: '',
-      location: ''
+      location: '',
+      result: {
+        name: '',
+        location: '',
+        image: ''
+      }
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleInputPreference = this.handleInputPreference.bind(this);
@@ -17,9 +22,14 @@ export default class Home extends React.Component {
     const body = {
       method: 'GET'
     };
-    fetch(`yelp/${this.state.preference}/${this.state.location}`, body)
+    fetch(`/api/yelp/${this.state.preference}/${this.state.location}`, body)
       .then(res => res.json())
-      .then(result => console.log(result))
+      .then(result => {
+        console.log(result);
+        this.setState({
+          result: { name: result.name, location: result.location, image: result.image_url }
+        });
+      })
       .catch(err => console.error(err));
   }
 

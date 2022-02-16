@@ -19,7 +19,7 @@ const body = {
       process.env.YELP_AUTHORIZATION
   }
 };
-app.get('/yelp/:preference/:location', (req, res) => {
+app.get('/api/yelp/:preference/:location', (req, res) => {
   const { location } = req.params;
   const { preference } = req.params;
   if (!location || !preference) {
