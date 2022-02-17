@@ -40,7 +40,7 @@ export default class Result extends React.Component {
       <div className='row'>
         <div className='column-half'>
           <div className='result-image-container row justify-center'>
-            <img src={this.state.result.image} className='result-image margin-top'></img>
+            <img src={this.state.result.image} className='result-image margin-top-responsive'></img>
           </div>
         </div>
         <div className='column-half'>
