@@ -5,6 +5,7 @@
   "description": "A full stack JavaScript solo project.",
   "main": "server/index.js",
   "scripts": {
+    "watch": "webpack --watch --mode=development --devtool=source-map",
     "build": "webpack --mode=production",
     "start": "node server/index.js",
     "dev": "npm-run-all --silent --parallel dev:*",
@@ -15,8 +16,10 @@
   },
   "dependencies": {
     "argon2": "^0.28.3",
+    "bootstrap": "^5.1.3",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "node-fetch": "^2.6.7",
     "pg": "^8.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
