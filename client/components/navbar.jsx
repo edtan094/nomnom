@@ -12,6 +12,9 @@ export default function Navbar(props) {
               </div>
                 <div className="row justify-end align-center">
                   <a href='' className='padding-right font-theme'>Home</a>
+                  {props.route.path.includes('result')
+                    ? <button onClick={() => window.location.reload()} className='padding-right font-theme purple-background no-borders white-text font-size-15 pointer'>Try Again</button>
+                    : null}
                 </div>
               </div>
             </div>

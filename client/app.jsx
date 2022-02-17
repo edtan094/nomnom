@@ -34,7 +34,7 @@ export default class App extends React.Component {
   render() {
     return (
       <>
-      <Navbar />
+      <Navbar route={this.state.route}/>
       <PageContainer>
         {this.renderPage()}
       </PageContainer>

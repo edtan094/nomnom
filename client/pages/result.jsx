@@ -39,15 +39,15 @@ export default class Result extends React.Component {
     return (
       <div className='row'>
         <div className='column-half'>
+          <div className='result-image-container row justify-center'>
+            <img src={this.state.result.image} className='result-image margin-top-responsive'></img>
+          </div>
+        </div>
+        <div className='column-half'>
           <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
           <p className='restaurant-info result-info-size'>{this.state.result.location.address1}</p>
           <p className='restaurant-info result-info-size'>{this.state.result.location.address2}</p>
           <p className='restaurant-info result-info-size'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
-        </div>
-        <div className='column-half'>
-          <div className='result-image-container row justify-center'>
-            <img src={this.state.result.image} className='result-image margin-top'></img>
-          </div>
         </div>
       </div>
     );
