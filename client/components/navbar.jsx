@@ -7,7 +7,7 @@ export default function Navbar(props) {
             <div className="column-full">
               <div className="row white-text justify-space-between">
               <div className='row align-center'>
-                <a className='font-theme heading padding-right'>NomNom</a>
+              <a href='' className='font-theme heading padding-right'>NomNom</a>
                 <img className='logo' src='./images/chocolate-chip-cookie-biscuits-clip-art-cookies-removebg-preview.png'></img>
               </div>
                 <div className="row justify-end align-center">

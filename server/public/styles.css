@@ -69,3 +69,11 @@ a {
   text-decoration: none;
   color: white;
 }
+
+.roboto-font {
+  font-family: "Roboto", sans-serif;
+}
+
+img {
+  max-width: 150px;
+}

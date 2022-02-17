@@ -9,12 +9,7 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      route: parseRoute(window.location.hash),
-      result: {
-        name: '',
-        location: '',
-        image: ''
-      }
+      route: parseRoute(window.location.hash)
     };
   }
 
@@ -28,11 +23,12 @@ export default class App extends React.Component {
 
   renderPage() {
     const { path } = this.state.route;
+    console.log(this.state.route.params);
     if (path === '') {
-      return <Home result={this.state.result}/>;
+      return <Home preferenceValue={this.state.preference} locationValue={this.state.location} result={this.state.result} preference={this.handleInputPreference} location={this.handleInputLocation} search={this.handleSearch}/>;
     }
     if (path.includes('result')) {
-      return <Result />;
+      return <Result userInput={this.state.result}/>;
     }
   }
 
