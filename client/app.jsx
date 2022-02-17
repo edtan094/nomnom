@@ -23,12 +23,11 @@ export default class App extends React.Component {
 
   renderPage() {
     const { path } = this.state.route;
-    console.log(this.state.route.params);
     if (path === '') {
-      return <Home preferenceValue={this.state.preference} locationValue={this.state.location} result={this.state.result} preference={this.handleInputPreference} location={this.handleInputLocation} search={this.handleSearch}/>;
+      return <Home />;
     }
     if (path.includes('result')) {
-      return <Result userInput={this.state.result}/>;
+      return <Result />;
     }
   }
 

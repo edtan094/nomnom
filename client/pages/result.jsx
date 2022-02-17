@@ -1,20 +1,5 @@
 import React from 'react';
-
-// export default function Result(props) {
-//   return (
-//     <div className='row'>
-//       <div className='column-half'>
-//         <h4 className='roboto-font'>{props.name}</h4>
-//         <p>{props.location}</p>
-//       </div>
-//       <div className='column-half'>
-//         <div className='result-image-container'>
-//           <img src={props.image} className='result-image'></img>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
+import { parseRoute } from '../../lib';
 
 export default class Result extends React.Component {
   constructor(props) {
@@ -29,14 +14,22 @@ export default class Result extends React.Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  handleSearch(event) {
-    event.preventDefault();
+  handleSearch() {
+    const { params } = parseRoute(window.location.hash);
+    const term = params.get('term');
+    const location = params.get('location');
     const body = {
       method: 'GET'
     };
-    fetch(`/api/yelp/${this.state.preference}/${this.state.location}`, body)
-      .then(res => res.json())
+    console.log(term);
+    console.log(location);
+    fetch(`/api/yelp/${term}/${location}`, body)
+      .then(res => {
+        console.log(res.json());
+        return res.json();
+      })
       .then(result => {
+        console.log(result);
         this.setState({
           result: { name: result.name, location: result.location, image: result.image_url }
         });
@@ -45,6 +38,7 @@ export default class Result extends React.Component {
   }
 
   render() {
+    this.handleSearch();
     return (
       <div className='row'>
         <div className='column-half'>
