@@ -51,6 +51,14 @@ form {
   width: 50%;
 }
 
+.result-title-size {
+  font-size: 15px;
+}
+
+.result-info-size {
+  font-size: 10px;
+}
+
 @media screen and (min-width: 500px) {
   .container {
     max-width: 1200px;
@@ -134,5 +142,13 @@ form {
     font-family: "Abril Fatface", cursive;
     font-size: 50px;
     color: #6610f2;
+  }
+
+  .result-title-size {
+    font-size: 30px;
+  }
+
+  .result-info-size {
+    font-size: 15px;
   }
 }
