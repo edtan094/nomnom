@@ -1,5 +1,6 @@
 import React from 'react';
 import { parseRoute } from '../../lib';
+import MapsComponent from '../components/google-maps';
 
 export default class Result extends React.Component {
   constructor(props) {
@@ -48,6 +49,7 @@ export default class Result extends React.Component {
           <p className='restaurant-info result-info-size'>{this.state.result.location.address1}</p>
           <p className='restaurant-info result-info-size'>{this.state.result.location.address2}</p>
           <p className='restaurant-info result-info-size'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
+          <MapsComponent />
         </div>
       </div>
     );
