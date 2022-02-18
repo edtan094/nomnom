@@ -10,7 +10,8 @@ export default class Result extends React.Component {
         name: '',
         location: '',
         image: ''
-      }
+      },
+      maps: null
     };
     this.handleSearch = this.handleSearch.bind(this);
   }
@@ -30,7 +31,8 @@ export default class Result extends React.Component {
       .then(res => res.json())
       .then(result => {
         this.setState({
-          result: { name: result.name, location: result.location, image: result.image_url }
+          result: { name: result.name, location: result.location, image: result.image_url },
+          maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
         });
       })
       .catch(err => console.error(err));
@@ -49,7 +51,7 @@ export default class Result extends React.Component {
           <p className='restaurant-info result-info-size'>{this.state.result.location.address1}</p>
           <p className='restaurant-info result-info-size'>{this.state.result.location.address2}</p>
           <p className='restaurant-info result-info-size'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
-          <MapsComponent />
+          <MapsComponent maps={this.state.maps}/>
         </div>
       </div>
     );

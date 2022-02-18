@@ -1,5 +1,6 @@
 require('dotenv/config');
 const path = require('path');
+const webpack = require('webpack');
 
 const clientPath = path.join(__dirname, 'client');
 const serverPublicPath = path.join(__dirname, 'server/public');
@@ -44,5 +45,8 @@ module.exports = {
   stats: 'summary',
   performance: {
     hints: false
-  }
+  },
+  plugins: [
+    new webpack.EnvironmentPlugin(['GOOGLE_MAPS_API_KEY'])
+  ]
 };
