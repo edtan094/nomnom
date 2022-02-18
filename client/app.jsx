@@ -27,7 +27,7 @@ export default class App extends React.Component {
       return <Home />;
     }
     if (path.includes('result')) {
-      return <Result />;
+      return <Result stars={this.props.stars}/>;
     }
   }
 

@@ -68,13 +68,22 @@ export default class Result extends React.Component {
         </div>
         <div className='column-half'>
           <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
+          <div>
+            {this.props.stars.map(index => {
+              return <i key={index} className={this.state.result.rating >= index ? 'fa-solid fa-star' : 'fa-regular fa-star'}></i>;
+            })}
+            {/* <i className="fa-solid fa-star"></i>
+            <i className="fa-solid fa-star"></i>
+            <i className="fa-solid fa-star"></i>
+            <i className="fa-solid fa-star-half-stroke"></i>
+            <i className="fa-regular fa-star"></i> */}
+          </div>
           <p className='restaurant-info result-info-size'>{this.state.result.location.address1}</p>
           <p className='restaurant-info result-info-size'>{this.state.result.location.address2}</p>
           <p className='restaurant-info result-info-size'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
             <MapsComponent maps={this.state.maps} />
         </div>
         <div>{this.state.result.rating}</div>
-        <div><i className="fa-solid fa-star-sharp"></i></div>
       </div>
     );
   }
