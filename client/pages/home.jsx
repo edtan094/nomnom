@@ -31,8 +31,9 @@ export default class Home extends React.Component {
         <form onSubmit={this.handleSubmit} method='get' className='home-page-form'>
           <div className='row'>
             <label className='font-theme home-page-font-size padding-right'>I want to eat</label>
-            <select onChange={this.handleInputPreference} value={this.state.preference} name='preferences'>
-              <option value="">None</option>
+            <select className='select-theme' onChange={this.handleInputPreference} value={this.state.preference} name='preferences' required>
+              <option value="">Select a Value</option>
+              <option value="no preference">No preference</option>
               <option value="tradamerican">American</option>
               <option value="brazilian">Brazilian</option>
               <option value="breakfast_brunch">Brunch</option>
@@ -90,7 +91,7 @@ export default class Home extends React.Component {
           </div>
           <div className='row padding-top'>
             <label className='font-theme home-page-font-size padding-right'>at</label>
-            <input onChange={this.handleInputLocation} value={this.state.location} className='input-params' placeholder="city name..." type="text" htmlFor='at' id='at' required></input>
+            <input onChange={this.handleInputLocation} value={this.state.location} className='input-theme' placeholder="city name..." type="text" htmlFor='at' id='at' required></input>
           </div>
           <div className='row justify-end'>
             <input className='search-button' type="submit" value="SEARCH"></input>
