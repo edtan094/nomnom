@@ -78,10 +78,6 @@ a {
   font-family: Roboto, sans-serif;
 }
 
-img {
-  max-width: 250px;
-}
-
 .restaurant-info {
   margin: 0;
 }
@@ -100,4 +96,8 @@ img {
 
 .pointer {
   cursor: pointer;
+}
+
+.result-image {
+  max-width: 65%;
 }
