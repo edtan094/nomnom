@@ -111,3 +111,13 @@ a {
   font-size: 20px;
   color: #6610f2;
 }
+
+.input-theme {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  width: 50%;
+  font-family: "Abril Fatface", cursive;
+  font-size: 23px;
+  color: #6610f2;
+}

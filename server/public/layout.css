@@ -37,7 +37,7 @@ form {
   width: 80%;
 }
 
-.input-theme {
+/* .input-theme {
   border-top: none;
   border-right: none;
   border-left: none;
@@ -45,7 +45,7 @@ form {
   font-family: "Abril Fatface", cursive;
   font-size: 15px;
   color: #6610f2;
-}
+} */
 
 .column-half {
   width: 50%;
@@ -95,7 +95,7 @@ form {
     width: 80%;
   }
 
-  .input-theme {
+  /* .input-theme {
     border-top: none;
     border-right: none;
     border-left: none;
@@ -103,7 +103,7 @@ form {
     font-family: "Abril Fatface", cursive;
     font-size: 25px;
     color: #6610f2;
-  }
+  } */
 }
 
 @media screen and (min-width: 805px) {
@@ -138,7 +138,7 @@ form {
     width: 80%;
   }
 
-  .input-theme {
+  /* .input-theme {
     border-top: none;
     border-right: none;
     border-left: none;
@@ -146,7 +146,7 @@ form {
     font-family: "Abril Fatface", cursive;
     font-size: 50px;
     color: #6610f2;
-  }
+  } */
 
   .result-title-size {
     font-size: 30px;
