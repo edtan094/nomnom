@@ -9,7 +9,13 @@ export default class Result extends React.Component {
       result: {
         name: '',
         location: '',
-        image: ''
+        image: '',
+        rating: null
+      },
+      reviews: {
+        first: '',
+        second: '',
+        third: ''
       },
       maps: null
     };
@@ -27,11 +33,25 @@ export default class Result extends React.Component {
     const body = {
       method: 'GET'
     };
+    let businessId;
     fetch(`/api/yelp/${term}/${location}`, body)
       .then(res => res.json())
       .then(result => {
+        businessId = result.id;
+        fetch(`/api/yelp/${businessId}`, body)
+          .then(res => res.json())
+          .then(reviews => {
+            this.setState({
+              reviews: {
+                first: reviews.reviews[0].text,
+                second: reviews.reviews[1].text,
+                third: reviews.reviews[2].text
+              }
+            });
+          })
+          .catch(err => console.error(err));
         this.setState({
-          result: { name: result.name, location: result.location, image: result.image_url },
+          result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating },
           maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
         });
       })
@@ -53,6 +73,8 @@ export default class Result extends React.Component {
           <p className='restaurant-info result-info-size'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
             <MapsComponent maps={this.state.maps} />
         </div>
+        <div>{this.state.result.rating}</div>
+        <div><i className="fa-solid fa-star-sharp"></i></div>
       </div>
     );
   }
