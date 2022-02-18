@@ -30,6 +30,7 @@ app.get('/api/yelp/:preference/:location', (req, res) => {
   fetch(`https://api.yelp.com/v3/businesses/search?categories=${preference}&location=${location}`, body)
     .then(response => response.json())
     .then(data => {
+      // console.log(data);
       const randomNumber = random(data.businesses.length);
       res.status(200).json(data.businesses[randomNumber]);
     })
