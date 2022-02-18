@@ -37,16 +37,6 @@ form {
   width: 80%;
 }
 
-.input-params {
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  width: 50%;
-  font-family: "Abril Fatface", cursive;
-  font-size: 15px;
-  color: #6610f2;
-}
-
 .column-half {
   width: 50%;
 }
@@ -94,16 +84,6 @@ form {
   form {
     width: 80%;
   }
-
-  .input-params {
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    width: 50%;
-    font-family: "Abril Fatface", cursive;
-    font-size: 25px;
-    color: #6610f2;
-  }
 }
 
 @media screen and (min-width: 805px) {
@@ -136,16 +116,6 @@ form {
 
   form {
     width: 80%;
-  }
-
-  .input-params {
-    border-top: none;
-    border-right: none;
-    border-left: none;
-    width: 50%;
-    font-family: "Abril Fatface", cursive;
-    font-size: 50px;
-    color: #6610f2;
   }
 
   .result-title-size {
