@@ -121,3 +121,7 @@ a {
   font-size: 23px;
   color: #6610f2;
 }
+
+.direction-column {
+  flex-direction: column;
+}

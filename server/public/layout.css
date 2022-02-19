@@ -53,6 +53,15 @@ form {
   margin-top: 50px;
 }
 
+.fa-solid {
+  color: #6610f2;
+  font-size: 12px;
+}
+
+.fa-regular {
+  font-size: 12px;
+}
+
 @media screen and (min-width: 500px) {
   .container {
     max-width: 1200px;
@@ -83,6 +92,15 @@ form {
 
   form {
     width: 80%;
+  }
+
+  .fa-solid {
+    color: #6610f2;
+    font-size: 18px;
+  }
+
+  .fa-regular {
+    font-size: 18px;
   }
 }
 
@@ -128,5 +146,14 @@ form {
 
   .margin-top-responsive {
     margin-top: 177px;
+  }
+
+  .fa-solid {
+    color: #6610f2;
+    font-size: 25px;
+  }
+
+  .fa-regular {
+    font-size: 25px;
   }
 }

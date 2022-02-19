@@ -1,7 +1,7 @@
 import React from 'react';
 import { parseRoute } from '../../lib';
 import MapsComponent from '../components/google-maps';
-
+import Accordion from '../components/accordion';
 export default class Result extends React.Component {
   constructor(props) {
     super(props);
@@ -43,9 +43,9 @@ export default class Result extends React.Component {
           .then(reviews => {
             this.setState({
               reviews: {
-                first: reviews.reviews[0].text,
-                second: reviews.reviews[1].text,
-                third: reviews.reviews[2].text
+                first: reviews.reviews[0],
+                second: reviews.reviews[1],
+                third: reviews.reviews[2]
               }
             });
           })
@@ -60,6 +60,7 @@ export default class Result extends React.Component {
 
   render() {
     return (
+      <>
       <div className='row'>
         <div className='column-half'>
           <div className='result-image-container row justify-center margin-top-responsive'>
@@ -85,6 +86,8 @@ export default class Result extends React.Component {
         </div>
         <div>{this.state.result.rating}</div>
       </div>
+      <Accordion review={this.state.reviews}/>
+      </>
     );
   }
 }
