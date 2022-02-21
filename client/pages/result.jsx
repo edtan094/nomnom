@@ -13,9 +13,24 @@ export default class Result extends React.Component {
         rating: null
       },
       reviews: {
-        first: {},
-        second: {},
-        third: {}
+        first: {
+          user: {
+            name: ''
+          }
+        },
+        text: '',
+        second: {
+          user: {
+            name: ''
+          },
+          text: ''
+        },
+        third: {
+          user: {
+            name: ''
+          },
+          text: ''
+        }
       },
       maps: null,
       listOfStarsRatings: []
