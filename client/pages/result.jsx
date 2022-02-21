@@ -7,39 +7,13 @@ export default class Result extends React.Component {
     super(props);
     this.state = {
       maps: null,
-      listOfStarsRatings: [],
+      reviews: [],
       result: {
         name: '',
         location: '',
         image: '',
         rating: null
-      },
-      reviews: [
-        {
-          review: {
-            user: {
-              name: ''
-            },
-            text: ''
-          }
-        },
-        {
-          review: {
-            user: {
-              name: ''
-            },
-            text: ''
-          }
-        },
-        {
-          review: {
-            user: {
-              name: ''
-            },
-            text: ''
-          }
-        }
-      ]
+      }
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.renderStars = this.renderStars.bind(this);
@@ -56,16 +30,16 @@ export default class Result extends React.Component {
     const emptyStar = Math.floor(5 - rating);
     const arrayStars = [];
     for (let i = 1; i <= fullStar; i++) {
-      arrayStars.push(<i key={`${i}-full-star`} className="fa-solid fa-star"></i>);
+      arrayStars.push(<i key={`${i}-full-star`} className="fa-solid fa-star theme-color star-size "></i>);
     }
     if (hasHalfStar) {
-      arrayStars.push(<i key="1-half-star" className="fa-solid fa-star-half-stroke"></i>);
+      arrayStars.push(<i key="1-half-star" className="fa-solid fa-star-half-stroke theme-color star-size "></i>);
     }
 
     for (let i = 1; i <= emptyStar; i++) {
-      arrayStars.push(<i key={`${i}-empty-star`} className="fa-regular fa-star"></i>);
+      arrayStars.push(<i key={`${i}-empty-star`} className="fa-regular fa-star theme-color star-size "></i>);
     }
-    this.setState({ listOfStarsRatings: arrayStars });
+    return arrayStars;
   }
 
   handleSearch() {
@@ -113,7 +87,7 @@ export default class Result extends React.Component {
         <div className='column-half'>
           <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
             <div>
-              {this.state.listOfStarsRatings.map(rating => rating)}
+              {this.renderStars().map(rating => rating)}
           </div>
           <p className='restaurant-info result-info-size'>{this.state.result.location.address1}</p>
           <p className='restaurant-info result-info-size'>{this.state.result.location.address2}</p>

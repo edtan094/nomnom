@@ -53,14 +53,8 @@ form {
   margin-top: 50px;
 }
 
-.fa-solid {
-  color: #6610f2;
+.star-size {
   font-size: 12px;
-}
-
-.fa-regular {
-  font-size: 12px;
-  color: #6610f2;
 }
 
 @media screen and (min-width: 500px) {
@@ -95,14 +89,8 @@ form {
     width: 80%;
   }
 
-  .fa-solid {
-    color: #6610f2;
+  .star-size {
     font-size: 18px;
-  }
-
-  .fa-regular {
-    font-size: 18px;
-    color: #6610f2;
   }
 }
 
@@ -150,13 +138,7 @@ form {
     margin-top: 177px;
   }
 
-  .fa-solid {
-    color: #6610f2;
+  .star-size {
     font-size: 25px;
-  }
-
-  .fa-regular {
-    font-size: 25px;
-    color: #6610f2;
   }
 }
