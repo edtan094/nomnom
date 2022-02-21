@@ -2,6 +2,7 @@ import React from 'react';
 import { parseRoute } from '../../lib';
 import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
+import TwilioButton from '../components/twilio-button';
 export default class Result extends React.Component {
   constructor(props) {
     super(props);
@@ -88,10 +89,17 @@ export default class Result extends React.Component {
           <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
             <div>
               {this.renderStars().map(rating => rating)}
+            </div>
+          <div className='row'>
+            <div className='column-half'>
+                <p className='restaurant-info result-info-size'>{this.state.result.location.address1}</p>
+                <p className='restaurant-info result-info-size'>{this.state.result.location.address2}</p>
+                <p className='restaurant-info result-info-size'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
+            </div>
+            <div className='column-half'>
+              <TwilioButton />
+            </div>
           </div>
-          <p className='restaurant-info result-info-size'>{this.state.result.location.address1}</p>
-          <p className='restaurant-info result-info-size'>{this.state.result.location.address2}</p>
-          <p className='restaurant-info result-info-size'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
             <MapsComponent maps={this.state.maps} />
         </div>
       </div>

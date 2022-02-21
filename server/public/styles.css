@@ -151,3 +151,22 @@ a {
 .theme-color {
   color: #6610f2;
 }
+
+.border-radius {
+  border-radius: 5px;
+}
+
+.twilio-button-height {
+  height: 42px;
+}
+
+.modal {
+  position: fixed;
+  background-color: white;
+  height: 187px;
+  width: 267px;
+}
+
+.margin-top-modal-button {
+  margin-top: 15px;
+}
