@@ -53,6 +53,10 @@ form {
   margin-top: 50px;
 }
 
+.star-size {
+  font-size: 12px;
+}
+
 @media screen and (min-width: 500px) {
   .container {
     max-width: 1200px;
@@ -83,6 +87,10 @@ form {
 
   form {
     width: 80%;
+  }
+
+  .star-size {
+    font-size: 18px;
   }
 }
 
@@ -128,5 +136,9 @@ form {
 
   .margin-top-responsive {
     margin-top: 177px;
+  }
+
+  .star-size {
+    font-size: 25px;
   }
 }

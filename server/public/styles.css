@@ -121,3 +121,33 @@ a {
   font-size: 23px;
   color: #6610f2;
 }
+
+.direction-column {
+  flex-direction: column;
+}
+
+.width-accordion {
+  width: 83%;
+}
+
+.border-bottom {
+  border-style: solid;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid;
+  border-color: #6610f2;
+}
+
+.review-image {
+  width: 50%;
+  max-height: 125px;
+}
+
+.accordion-padding-top {
+  padding-top: 30px;
+}
+
+.theme-color {
+  color: #6610f2;
+}
