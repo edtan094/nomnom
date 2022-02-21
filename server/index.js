@@ -6,6 +6,7 @@ const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const ClientError = require('./client-error');
 const app = express();
+const client = require('twilio')(`${process.env.TWILIO_SID}`, `${process.env.TWILIO_AUTH}`);
 function random(length) {
   return Math.floor(Math.random() * length);
 }
@@ -42,6 +43,17 @@ app.get('/api/yelp/:businessId', (req, res) => {
     .then(response => response.json())
     .then(reviews => res.status(200).json(reviews))
     .catch(error => console.error(error));
+});
+
+app.post('/twilio', function (req, res) {
+  client.messages
+    .create({
+      body: 'I want to code read NOW',
+      to: '+16268088436', // Text this number
+      from: '+18455529187' // From a valid Twilio number
+    })
+    .then(message => console.log(message.sid))
+    .catch(err => console.error(err));
 });
 app.use(errorMiddleware);
 
