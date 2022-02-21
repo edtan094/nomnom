@@ -45,11 +45,13 @@ app.get('/api/yelp/:businessId', (req, res) => {
     .catch(error => console.error(error));
 });
 
-app.post('/twilio', function (req, res) {
+app.post('/twilio/:phoneNumber/:address', function (req, res) {
+  const { phoneNumber } = req.params;
+  const { address } = req.params;
   client.messages
     .create({
-      body: 'I want to code read NOW',
-      to: '+16268088436', // Text this number
+      body: `${address}`,
+      to: `+1${phoneNumber}`, // Text this number
       from: '+18455529187' // From a valid Twilio number
     })
     .then(message => console.log(message.sid))
