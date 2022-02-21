@@ -60,6 +60,7 @@ form {
 
 .fa-regular {
   font-size: 12px;
+  color: #6610f2;
 }
 
 @media screen and (min-width: 500px) {
@@ -101,6 +102,7 @@ form {
 
   .fa-regular {
     font-size: 18px;
+    color: #6610f2;
   }
 }
 
@@ -155,5 +157,6 @@ form {
 
   .fa-regular {
     font-size: 25px;
+    color: #6610f2;
   }
 }

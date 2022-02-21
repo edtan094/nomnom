@@ -13,17 +13,38 @@ export default class Result extends React.Component {
         rating: null
       },
       reviews: {
-        first: '',
-        second: '',
-        third: ''
+        first: {},
+        second: {},
+        third: {}
       },
-      maps: null
+      maps: null,
+      listOfStarsRatings: []
     };
     this.handleSearch = this.handleSearch.bind(this);
+    this.renderStars = this.renderStars.bind(this);
   }
 
   componentDidMount() {
     this.handleSearch();
+  }
+
+  renderStars() {
+    const rating = this.state.result.rating;
+    const hasHalfStar = rating % 1 !== 0;
+    const fullStar = Math.floor(rating);
+    const emptyStar = Math.floor(5 - rating);
+    const arrayStars = [];
+    for (let i = 1; i <= fullStar; i++) {
+      arrayStars.push(<i key={`${i}-full-star`} className="fa-solid fa-star"></i>);
+    }
+    if (hasHalfStar) {
+      arrayStars.push(<i key="1-half-star" className="fa-solid fa-star-half-stroke"></i>);
+    }
+
+    for (let i = 1; i <= emptyStar; i++) {
+      arrayStars.push(<i key={`${i}-empty-star`} className="fa-regular fa-star"></i>);
+    }
+    this.setState({ listOfStarsRatings: arrayStars });
   }
 
   handleSearch() {
@@ -54,6 +75,7 @@ export default class Result extends React.Component {
           result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating },
           maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
         });
+        this.renderStars();
       })
       .catch(err => console.error(err));
   }
@@ -69,15 +91,8 @@ export default class Result extends React.Component {
         </div>
         <div className='column-half'>
           <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
-          <div>
-            {this.props.stars.map(index => {
-              return <i key={index} className={this.state.result.rating >= index ? 'fa-solid fa-star' : 'fa-regular fa-star'}></i>;
-            })}
-            {/* <i className="fa-solid fa-star"></i>
-            <i className="fa-solid fa-star"></i>
-            <i className="fa-solid fa-star"></i>
-            <i className="fa-solid fa-star-half-stroke"></i>
-            <i className="fa-regular fa-star"></i> */}
+            <div>
+              {this.state.listOfStarsRatings.map(rating => rating)}
           </div>
           <p className='restaurant-info result-info-size'>{this.state.result.location.address1}</p>
           <p className='restaurant-info result-info-size'>{this.state.result.location.address2}</p>
@@ -86,7 +101,7 @@ export default class Result extends React.Component {
         </div>
         <div>{this.state.result.rating}</div>
       </div>
-      <Accordion review={this.state.reviews}/>
+      <Accordion reviews={this.state.reviews}/>
       </>
     );
   }
