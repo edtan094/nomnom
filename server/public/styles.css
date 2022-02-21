@@ -129,3 +129,17 @@ a {
 .width-accordion {
   width: 83%;
 }
+
+.border-bottom {
+  border-style: solid;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid;
+  border-color: #6610f2;
+}
+
+.review-image {
+  width: 30%;
+  max-height: 125px;
+}

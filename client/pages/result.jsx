@@ -6,34 +6,40 @@ export default class Result extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      maps: null,
+      listOfStarsRatings: [],
       result: {
         name: '',
         location: '',
         image: '',
         rating: null
       },
-      reviews: {
-        first: {
-          user: {
-            name: ''
+      reviews: [
+        {
+          review: {
+            user: {
+              name: ''
+            },
+            text: ''
           }
         },
-        text: '',
-        second: {
-          user: {
-            name: ''
-          },
-          text: ''
+        {
+          review: {
+            user: {
+              name: ''
+            },
+            text: ''
+          }
         },
-        third: {
-          user: {
-            name: ''
-          },
-          text: ''
+        {
+          review: {
+            user: {
+              name: ''
+            },
+            text: ''
+          }
         }
-      },
-      maps: null,
-      listOfStarsRatings: []
+      ]
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.renderStars = this.renderStars.bind(this);
@@ -78,11 +84,11 @@ export default class Result extends React.Component {
           .then(res => res.json())
           .then(reviews => {
             this.setState({
-              reviews: {
-                first: reviews.reviews[0],
-                second: reviews.reviews[1],
-                third: reviews.reviews[2]
-              }
+              reviews: [
+                { review: reviews.reviews[0] },
+                { review: reviews.reviews[1] },
+                { review: reviews.reviews[2] }
+              ]
             });
           })
           .catch(err => console.error(err));
