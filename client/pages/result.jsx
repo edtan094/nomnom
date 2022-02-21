@@ -120,7 +120,6 @@ export default class Result extends React.Component {
           <p className='restaurant-info result-info-size'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
             <MapsComponent maps={this.state.maps} />
         </div>
-        <div>{this.state.result.rating}</div>
       </div>
       <Accordion reviews={this.state.reviews}/>
       </>
