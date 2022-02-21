@@ -140,6 +140,10 @@ a {
 }
 
 .review-image {
-  width: 30%;
+  width: 50%;
   max-height: 125px;
+}
+
+.accordion-padding-top {
+  padding-top: 30px;
 }
