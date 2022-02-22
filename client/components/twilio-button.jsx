@@ -5,7 +5,9 @@ export default class TwilioButton extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      phoneNumber: 0,
+      tel1: '',
+      tel2: '',
+      tel3: '',
       textSent: false
     };
     this.handleClick = this.handleClick.bind(this);
@@ -26,8 +28,15 @@ export default class TwilioButton extends React.Component {
           <div className={this.state.textSent ? 'row justify-center border-bottom-grey' : 'row justify-center border-bottom-grey padding-top padding-bottom'}>
             {this.state.textSent
               ? <p>Text sent!</p>
-              : <input onChange={this.handleInputPhoneNumber} type="tel" placeholder="phone number.."
-                value={this.state.phoneNumber} pattern="[0-9]{10}" size="11" className='twilio-input' required></input>}
+              : <div>
+                <input name="tel1" onChange={this.handleInputPhoneNumber} type="tel" placeholder="XXX"
+                  value={this.state.tel1} pattern="[0-9]{3}" size="2" className='twilio-input' maxLength="3" required></input>
+                <input name="tel2" onChange={this.handleInputPhoneNumber} type="tel" placeholder="XXX"
+                  value={this.state.tel2} pattern="[0-9]{3}" size="2" className='twilio-input' maxLength="3" required></input>
+                <input name="tel3" onChange={this.handleInputPhoneNumber} type="tel" placeholder="XXXX"
+                  value={this.state.tel3} pattern="[0-9]{4}" size="3" className='twilio-input' maxLength="4" required></input>
+              </div>
+                }
           </div>
           <div className='row justify-center'>
             <button className='purple-background no-borders white-text result-info-size pointer border-radius margin-top-modal-button send-button'>SEND</button>
@@ -38,7 +47,15 @@ export default class TwilioButton extends React.Component {
   }
 
   handleInputPhoneNumber(event) {
-    this.setState({ phoneNumber: event.target.value });
+    if (event.target.name === 'tel1') {
+      this.setState({ tel1: event.target.value });
+    }
+    if (event.target.name === 'tel2') {
+      this.setState({ tel2: event.target.value });
+    }
+    if (event.target.name === 'tel3') {
+      this.setState({ tel3: event.target.value });
+    }
   }
 
   handleSubmit(event) {
@@ -47,7 +64,7 @@ export default class TwilioButton extends React.Component {
       method: 'POST',
       headers: { 'Content-type': 'application/json' }
     };
-    fetch(`/api/twilio/${this.state.phoneNumber}/${this.props.address.display_address.map(address => {
+    fetch(`/api/twilio/${this.state.tel1}${this.state.tel2}${this.state.tel3}/${this.props.address.display_address.map(address => {
         return address;
       })}`, body)
       .then(res => res.json())
@@ -61,7 +78,7 @@ export default class TwilioButton extends React.Component {
 
   handleClick() {
     if (!this.state.modal) {
-      this.setState({ modal: true, textSent: false, phoneNumber: '' });
+      this.setState({ modal: true, textSent: false, tel1: '', tel2: '', tel3: '' });
     } else {
       this.setState({ modal: false });
     }
