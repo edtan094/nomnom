@@ -7,34 +7,45 @@ export default class TwilioButton extends React.Component {
       modal: false
     };
     this.handleClick = this.handleClick.bind(this);
+    this.renderOverlay = this.renderOverlay.bind(this);
     this.renderModal = this.renderModal.bind(this);
   }
 
   renderModal() {
     return (
       <div className='modal border-radius'>
-        <div className='row justify-center'><p>Enter your phone number</p></div>
-        <div className='row justify-center'>
+        <div className='row justify-center border-bottom-grey align-center'>
+          <p>Enter your phone number</p>
+          <i onClick={this.handleClick} className="pointer fa-solid fa-x margin-left"></i>
+        </div>
+        <div className='row justify-center border-bottom-grey padding-top padding-bottom'>
           <input className=''></input>
         </div>
         <div className='row justify-center'>
-          <button className='purple-background no-borders white-text font-size-15 pointer border-radius margin-top-modal-button'>SEND</button>
+          <button className='purple-background no-borders white-text result-info-size pointer border-radius margin-top-modal-button send-button'>SEND</button>
         </div>
       </div>
     );
   }
 
-  handleClick(event) {
-    if (event.target.className.includes('send-button')) {
-      this.renderModal();
+  renderOverlay() {
+    return <div className='position-fixed background-overlay'></div>;
+  }
+
+  handleClick() {
+    if (!this.state.modal) {
+      this.setState({ modal: true });
+    } else {
+      this.setState({ modal: false });
     }
   }
 
   render() {
     return (
       <>
-
-      <button onClick={this.handleClick} className='send-button purple-background no-borders white-text font-size-15 pointer border-radius twilio-button-height'>SEND TO YOUR PHONE</button>
+      {this.state.modal ? this.renderOverlay() : null}
+      {this.state.modal ? this.renderModal() : null}
+        <button onClick={this.handleClick} className='purple-background no-borders white-text result-info-size pointer border-radius twilio-button-height'>SEND TO YOUR PHONE</button>
       </>
     );
   }
