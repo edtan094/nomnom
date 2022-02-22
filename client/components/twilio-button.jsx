@@ -40,9 +40,10 @@ export default class TwilioButton extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     const body = {
-      method: 'POST'
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' }
     };
-    fetch(`/twilio/${this.state.phoneNumber}/${this.props.address.display_address[0]}`, body)
+    fetch(`/twilio/${this.state.phoneNumber}/${this.props.address.address1}`, body)
       .then(res => res.json())
       .then(console.log('text sent!'))
       .catch(err => console.error(err));
