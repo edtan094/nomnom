@@ -4,11 +4,14 @@ export default class TwilioButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      phoneNumber: ''
     };
     this.handleClick = this.handleClick.bind(this);
     this.renderOverlay = this.renderOverlay.bind(this);
     this.renderModal = this.renderModal.bind(this);
+    this.handleInputPhoneNumber = this.handleInputPhoneNumber.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   renderModal() {
@@ -18,14 +21,31 @@ export default class TwilioButton extends React.Component {
           <p>Enter your phone number</p>
           <i onClick={this.handleClick} className="pointer fa-solid fa-x margin-left"></i>
         </div>
-        <div className='row justify-center border-bottom-grey padding-top padding-bottom'>
-          <input className=''></input>
-        </div>
-        <div className='row justify-center'>
-          <button className='purple-background no-borders white-text result-info-size pointer border-radius margin-top-modal-button send-button'>SEND</button>
-        </div>
+        <form onSubmit={this.handleSubmit}>
+          <div className='row justify-center border-bottom-grey padding-top padding-bottom'>
+            <input onChange={this.handleInputPhoneNumber} value={this.state.phoneNumber} className='' required></input>
+          </div>
+          <div className='row justify-center'>
+            <button className='purple-background no-borders white-text result-info-size pointer border-radius margin-top-modal-button send-button'>SEND</button>
+          </div>
+        </form>
       </div>
     );
+  }
+
+  handleInputPhoneNumber(event) {
+    this.setState({ phoneNumber: event.target.value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const body = {
+      method: 'POST'
+    };
+    fetch(`/twilio/${this.state.phoneNumber}/${this.props.address.display_address[0]}`, body)
+      .then(res => res.json())
+      .then(console.log('text sent!'))
+      .catch(err => console.error(err));
   }
 
   renderOverlay() {
@@ -41,6 +61,7 @@ export default class TwilioButton extends React.Component {
   }
 
   render() {
+    console.log(this.props);
     return (
       <>
       {this.state.modal ? this.renderOverlay() : null}

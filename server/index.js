@@ -45,7 +45,7 @@ app.get('/api/yelp/:businessId', (req, res) => {
     .catch(error => console.error(error));
 });
 
-app.post('/twilio/:phoneNumber/:address', function (req, res) {
+app.post('/twilio/:phoneNumber/:address', (req, res) => {
   const { phoneNumber } = req.params;
   const { address } = req.params;
   client.messages
