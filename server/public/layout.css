@@ -27,13 +27,16 @@
   font-size: 15px;
 }
 
-::placeholder {
+.home-page-form::placeholder {
   color: rgba(44, 43, 43, 0.171);
   font-size: 15px;
   font-family: "Abril Fatface", cursive;
 }
 
-form {
+.home-page-form {
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+  font-family: "Abril Fatface", cursive;
   width: 80%;
 }
 
@@ -79,13 +82,10 @@ form {
     font-size: 25px;
   }
 
-  ::placeholder {
-    color: rgba(44, 43, 43, 0.171);
+  .home-page-form {
+    color: rgb(0, 0, 0);
     font-size: 25px;
     font-family: "Abril Fatface", cursive;
-  }
-
-  form {
     width: 80%;
   }
 
@@ -116,13 +116,10 @@ form {
     font-size: 50px;
   }
 
-  ::placeholder {
-    color: rgba(44, 43, 43, 0.171);
+  .home-page-form {
+    color: rgb(0, 0, 0);
     font-size: 30px;
     font-family: "Abril Fatface", cursive;
-  }
-
-  form {
     width: 80%;
   }
 
