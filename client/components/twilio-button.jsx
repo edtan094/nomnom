@@ -15,6 +15,7 @@ export default class TwilioButton extends React.Component {
     this.renderModal = this.renderModal.bind(this);
     this.handleInputPhoneNumber = this.handleInputPhoneNumber.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.moveToNextInput = this.moveToNextInput.bind(this);
   }
 
   renderModal() {
@@ -55,6 +56,16 @@ export default class TwilioButton extends React.Component {
     }
     if (event.target.name === 'tel3') {
       this.setState({ tel3: event.target.value });
+    }
+    this.moveToNextInput(event);
+  }
+
+  moveToNextInput(event) {
+    if (event.target.name === 'tel1' && event.target.value.length === 3) {
+      event.target.nextSibling.focus();
+    }
+    if (event.target.name === 'tel2' && event.target.value.length === 3) {
+      event.target.nextSibling.focus();
     }
   }
 

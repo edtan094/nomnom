@@ -20,7 +20,7 @@ const body = {
       process.env.YELP_AUTHORIZATION
   }
 };
-app.get('/api/yelp/:preference/:location', (req, res) => {
+app.get('/api/yelp/:preference/:location', (req, res, next) => {
   const { location } = req.params;
   const { preference } = req.params;
   if (!location || !preference) {
@@ -34,28 +34,30 @@ app.get('/api/yelp/:preference/:location', (req, res) => {
       const randomNumber = random(data.businesses.length);
       res.status(200).json(data.businesses[randomNumber]);
     })
-    .catch(error => console.error(error));
+    .catch(error => next(error));
 });
 
-app.get('/api/yelp/:businessId', (req, res) => {
+app.get('/api/yelp/:businessId', (req, res, next) => {
   const { businessId } = req.params;
   fetch(`https://api.yelp.com/v3/businesses/${businessId}/reviews`, body)
     .then(response => response.json())
     .then(reviews => res.status(200).json(reviews))
-    .catch(error => console.error(error));
+    .catch(error => next(error));
 });
 
-app.post('/api/twilio/:phoneNumber/:address', (req, res) => {
+app.post('/api/twilio/:phoneNumber/:address', (req, res, next) => {
   const { phoneNumber } = req.params;
   const { address } = req.params;
   client.messages
     .create({
       body: `${address}`,
       to: `+1${phoneNumber}`, // Text this number
-      from: '+18455529187' // From a valid Twilio number
+      from: `+1${process.env.TWILIO_PHONE}` // From a valid Twilio number
     })
-    .then(message => console.log(message.sid))
-    .catch(err => console.error(err));
+    .then(message => {
+      res.sendStatus(200);
+    })
+    .catch(error => next(error));
 });
 app.use(errorMiddleware);
 
