@@ -5,7 +5,8 @@ export default class TwilioButton extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      phoneNumber: ''
+      phoneNumber: '',
+      textSent: false
     };
     this.handleClick = this.handleClick.bind(this);
     this.renderOverlay = this.renderOverlay.bind(this);
@@ -23,7 +24,7 @@ export default class TwilioButton extends React.Component {
         </div>
         <form onSubmit={this.handleSubmit}>
           <div className='row justify-center border-bottom-grey padding-top padding-bottom'>
-            <input onChange={this.handleInputPhoneNumber} value={this.state.phoneNumber} className='' required></input>
+            {this.state.textSent ? <p>Text sent!</p> : <input onChange={this.handleInputPhoneNumber} value={this.state.phoneNumber} className='' required></input>}
           </div>
           <div className='row justify-center'>
             <button className='purple-background no-borders white-text result-info-size pointer border-radius margin-top-modal-button send-button'>SEND</button>
@@ -43,9 +44,9 @@ export default class TwilioButton extends React.Component {
       method: 'POST',
       headers: { 'Content-type': 'application/json' }
     };
-    fetch(`/twilio/${this.state.phoneNumber}/${this.props.address.address1}`, body)
+    fetch(`/api/twilio/${this.state.phoneNumber}/${this.props.address.address1}`, body)
       .then(res => res.json())
-      .then(console.log('text sent!'))
+      .then(this.setState({ textSent: true }))
       .catch(err => console.error(err));
   }
 
@@ -55,14 +56,13 @@ export default class TwilioButton extends React.Component {
 
   handleClick() {
     if (!this.state.modal) {
-      this.setState({ modal: true });
+      this.setState({ modal: true, textSent: false });
     } else {
       this.setState({ modal: false });
     }
   }
 
   render() {
-    console.log(this.props);
     return (
       <>
       {this.state.modal ? this.renderOverlay() : null}
