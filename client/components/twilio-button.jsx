@@ -5,7 +5,7 @@ export default class TwilioButton extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      phoneNumber: '',
+      phoneNumber: 0,
       textSent: false
     };
     this.handleClick = this.handleClick.bind(this);
@@ -23,8 +23,11 @@ export default class TwilioButton extends React.Component {
           <i onClick={this.handleClick} className="pointer fa-solid fa-x margin-left"></i>
         </div>
         <form onSubmit={this.handleSubmit} className="width-100">
-          <div className='row justify-center border-bottom-grey padding-top padding-bottom'>
-            {this.state.textSent ? <p>Text sent!</p> : <input onChange={this.handleInputPhoneNumber} value={this.state.phoneNumber} className='' required></input>}
+          <div className={this.state.textSent ? 'row justify-center border-bottom-grey' : 'row justify-center border-bottom-grey padding-top padding-bottom'}>
+            {this.state.textSent
+              ? <p>Text sent!</p>
+              : <input onChange={this.handleInputPhoneNumber} type="tel" placeholder="phone number.."
+                value={this.state.phoneNumber} pattern="[0-9]{10}" size="11" className='twilio-input' required></input>}
           </div>
           <div className='row justify-center'>
             <button className='purple-background no-borders white-text result-info-size pointer border-radius margin-top-modal-button send-button'>SEND</button>
@@ -45,8 +48,8 @@ export default class TwilioButton extends React.Component {
       headers: { 'Content-type': 'application/json' }
     };
     fetch(`/api/twilio/${this.state.phoneNumber}/${this.props.address.display_address.map(address => {
-      return address;
-    })}`, body)
+        return address;
+      })}`, body)
       .then(res => res.json())
       .then(this.setState({ textSent: true }))
       .catch(err => console.error(err));
