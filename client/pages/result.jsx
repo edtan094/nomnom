@@ -80,28 +80,30 @@ export default class Result extends React.Component {
     return (
       <>
       <div className='row'>
-        <div className='column-half'>
-          <div className='result-image-container row justify-center margin-top-responsive'>
+        <div className='row column-one-third'>
+            <div className='result-image-container row align-items-end'>
             <img src={this.state.result.image} className='result-image'></img>
           </div>
         </div>
-        <div className='column-half'>
+        <div className='column-two-thirds'>
           <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
-            <div>
+            <div className='margin-bottom-10'>
               {this.renderStars().map(rating => rating)}
             </div>
-          <div className='row'>
+          <div className='row-column-responsive'>
             <div className='column-half'>
-                <p className='restaurant-info result-info-size'>{this.state.result.location.address1}</p>
-                <p className='restaurant-info result-info-size'>{this.state.result.location.address2}</p>
-                <p className='restaurant-info result-info-size'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
+                <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.address1}</p>
+                <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.address2}</p>
+                <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
             </div>
             <div className='column-half'>
               <TwilioButton address={this.state.result.location}/>
             </div>
           </div>
-            <MapsComponent maps={this.state.maps} />
         </div>
+      </div>
+      <div className='row justify-center'>
+          <MapsComponent maps={this.state.maps} />
       </div>
       <Accordion reviews={this.state.reviews}/>
       </>

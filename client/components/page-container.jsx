@@ -3,7 +3,7 @@ import React from 'react';
 export default function PageContainer({ children }) {
   return (
     <div>
-      <div className="container">
+      <div className="container margin-top margin-bottom">
         {children}
       </div>
     </div>
