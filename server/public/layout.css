@@ -24,7 +24,7 @@
 }
 
 .home-page-font-size {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .column-half {
@@ -32,7 +32,7 @@
 }
 
 .result-title-size {
-  font-size: 15px;
+  font-size: 16px;
   margin-bottom: 10px;
 }
 
@@ -50,19 +50,19 @@
   border-left: none;
   width: 50%;
   font-family: "Abril Fatface", cursive;
-  font-size: 15px;
+  font-size: 16px;
   color: #6610f2;
 }
 
 .input-theme::placeholder {
   color: #6610f2;
-  font-size: 15px;
+  font-size: 16px;
   font-family: "Abril Fatface", cursive;
 }
 
 .column-two-thirds {
   width: 50%;
-  padding-left: 15px;
+  padding-left: 16px;
 }
 
 .column-one-third {
@@ -80,11 +80,11 @@
   width: 50%;
   font-family: "Abril Fatface", cursive;
   color: #6610f2;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 input {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 @media screen and (min-width: 500px) {
@@ -154,7 +154,7 @@ input {
   }
 
   .result-info-size {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   .star-size {

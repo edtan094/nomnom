@@ -95,7 +95,7 @@ a {
 }
 
 .font-size-15 {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .pointer {
@@ -229,4 +229,8 @@ a {
 
 .margin-bottom-10 {
   margin-bottom: 10px;
+}
+
+.justify-end-safari {
+  justify-content: flex-end;
 }

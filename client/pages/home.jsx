@@ -93,7 +93,7 @@ export default class Home extends React.Component {
             <label className='font-theme home-page-font-size padding-right'>at</label>
             <input onChange={this.handleInputLocation} value={this.state.location} className='input-theme' placeholder="city name..." type="text" htmlFor='at' id='at' required></input>
           </div>
-          <div className='row justify-end'>
+          <div className='row justify-end-safari'>
             <input className='search-button' type="submit" value="SEARCH"></input>
           </div>
         </form>
