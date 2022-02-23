@@ -13,6 +13,12 @@ export default class App extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.route !== prevState.route) {
+      window.scrollTo(0, 0);
+    }
+  }
+
   componentDidMount() {
     window.addEventListener('hashchange', () => {
       this.setState({

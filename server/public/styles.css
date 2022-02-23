@@ -86,12 +86,16 @@ a {
   margin-top: 50px;
 }
 
+.margin-bottom {
+  margin-bottom: 50px;
+}
+
 .no-borders {
   border: 0;
 }
 
 .font-size-15 {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .pointer {
@@ -99,27 +103,8 @@ a {
 }
 
 .result-image {
-  max-width: 65%;
-}
-
-.select-theme {
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  width: 50%;
-  font-family: "Abril Fatface", cursive;
-  font-size: 20px;
-  color: #6610f2;
-}
-
-.input-theme {
-  border-top: none;
-  border-right: none;
-  border-left: none;
-  width: 50%;
-  font-family: "Abril Fatface", cursive;
-  font-size: 23px;
-  color: #6610f2;
+  max-width: 100%;
+  max-height: 200px;
 }
 
 .direction-column {
@@ -127,7 +112,7 @@ a {
 }
 
 .width-accordion {
-  width: 83%;
+  width: 100%;
 }
 
 .border-bottom {
@@ -158,10 +143,11 @@ a {
 
 .twilio-button-height {
   height: 42px;
+  min-width: 120px;
 }
 
 .margin-top-modal-button {
-  margin-top: 15px;
+  margin-top: 5px;
 }
 
 .background-overlay {
@@ -200,7 +186,7 @@ a {
 .modal {
   position: fixed;
   background-color: white;
-  height: 20%;
+  height: 26%;
   width: 267px;
   left: 0;
   right: 0;
@@ -222,4 +208,33 @@ a {
 .twilio-input {
   margin-left: 3px;
   margin-right: 3px;
+}
+
+.align-flex-end {
+  align-items: flex-end;
+}
+
+.result-image-container {
+  width: 100%;
+  height: 100%;
+}
+
+.align-items-end {
+  align-items: flex-end;
+}
+
+.home-page-form {
+  width: 80%;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.justify-end-safari {
+  justify-content: flex-end;
+}
+
+.margin-top-10 {
+  margin-top: 10px;
 }

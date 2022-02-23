@@ -31,11 +31,11 @@ export default class TwilioButton extends React.Component {
               ? <p>Text sent!</p>
               : <div>
                 <input name="tel1" onChange={this.handleInputPhoneNumber} type="tel" placeholder="XXX"
-                  value={this.state.tel1} pattern="[0-9]{3}" size="2" className='twilio-input' maxLength="3" required></input>
+                  value={this.state.tel1} pattern="[0-9]{3}" size="4" className='twilio-input' maxLength="3" required></input>
                 <input name="tel2" onChange={this.handleInputPhoneNumber} type="tel" placeholder="XXX"
-                  value={this.state.tel2} pattern="[0-9]{3}" size="2" className='twilio-input' maxLength="3" required></input>
+                  value={this.state.tel2} pattern="[0-9]{3}" size="4" className='twilio-input' maxLength="3" required></input>
                 <input name="tel3" onChange={this.handleInputPhoneNumber} type="tel" placeholder="XXXX"
-                  value={this.state.tel3} pattern="[0-9]{4}" size="3" className='twilio-input' maxLength="4" required></input>
+                  value={this.state.tel3} pattern="[0-9]{4}" size="5" className='twilio-input' maxLength="4" required></input>
               </div>
                 }
           </div>
@@ -100,7 +100,8 @@ export default class TwilioButton extends React.Component {
       <>
       {this.state.modal ? this.renderOverlay() : null}
       {this.state.modal ? this.renderModal() : null}
-        <button onClick={this.handleClick} className='purple-background no-borders white-text result-info-size pointer border-radius twilio-button-height'>SEND TO YOUR PHONE</button>
+        <button onClick={this.handleClick} className='purple-background no-borders white-text result-info-size pointer border-radius
+        twilio-button-height'>SEND TO YOUR PHONE</button>
       </>
     );
   }

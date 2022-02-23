@@ -24,20 +24,7 @@
 }
 
 .home-page-font-size {
-  font-size: 15px;
-}
-
-.home-page-form::placeholder {
-  color: rgba(44, 43, 43, 0.171);
-  font-size: 15px;
-  font-family: "Abril Fatface", cursive;
-}
-
-.home-page-form {
-  color: rgb(0, 0, 0);
-  font-size: 15px;
-  font-family: "Abril Fatface", cursive;
-  width: 80%;
+  font-size: 16px;
 }
 
 .column-half {
@@ -45,19 +32,59 @@
 }
 
 .result-title-size {
-  font-size: 15px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .result-info-size {
   font-size: 10px;
 }
 
-.margin-top-responsive {
-  margin-top: 50px;
-}
-
 .star-size {
   font-size: 12px;
+}
+
+.select-theme {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  width: 50%;
+  font-family: "Abril Fatface", cursive;
+  font-size: 16px;
+  color: #6610f2;
+}
+
+.input-theme::placeholder {
+  color: #6610f2;
+  font-size: 16px;
+  font-family: "Abril Fatface", cursive;
+}
+
+.column-two-thirds {
+  width: 50%;
+  padding-left: 16px;
+}
+
+.column-one-third {
+  width: 50%;
+}
+
+.row-column-responsive {
+  flex-direction: column;
+}
+
+.input-theme {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  width: 50%;
+  font-family: "Abril Fatface", cursive;
+  color: #6610f2;
+  font-size: 16px;
+}
+
+input {
+  font-size: 16px;
 }
 
 @media screen and (min-width: 500px) {
@@ -82,15 +109,20 @@
     font-size: 25px;
   }
 
-  .home-page-form {
-    color: rgb(0, 0, 0);
-    font-size: 25px;
-    font-family: "Abril Fatface", cursive;
-    width: 80%;
-  }
-
   .star-size {
     font-size: 18px;
+  }
+
+  .column-two-thirds {
+    width: calc(200% / 3);
+  }
+
+  .column-one-third {
+    width: calc(100% / 3);
+  }
+
+  .row-column-responsive {
+    display: flex;
   }
 }
 
@@ -116,26 +148,55 @@
     font-size: 50px;
   }
 
-  .home-page-form {
-    color: rgb(0, 0, 0);
-    font-size: 30px;
-    font-family: "Abril Fatface", cursive;
-    width: 80%;
-  }
-
   .result-title-size {
     font-size: 30px;
+    margin-bottom: 10px;
   }
 
   .result-info-size {
-    font-size: 15px;
-  }
-
-  .margin-top-responsive {
-    margin-top: 177px;
+    font-size: 16px;
   }
 
   .star-size {
+    font-size: 25px;
+  }
+
+  .select-theme {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: 50%;
+    font-family: "Abril Fatface", cursive;
+    font-size: 25px;
+    color: #6610f2;
+  }
+
+  .input-theme::placeholder {
+    color: #6610f2;
+    font-size: 25px;
+    font-family: "Abril Fatface", cursive;
+  }
+
+  .column-two-thirds {
+    width: calc(200% / 3);
+  }
+
+  .column-one-third {
+    width: calc(100% / 3);
+  }
+
+  .row-column-responsive {
+    display: flex;
+    flex-direction: unset;
+  }
+
+  .input-theme {
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    width: 50%;
+    font-family: "Abril Fatface", cursive;
+    color: #6610f2;
     font-size: 25px;
   }
 }
