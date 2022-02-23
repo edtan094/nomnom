@@ -234,3 +234,7 @@ a {
 .justify-end-safari {
   justify-content: flex-end;
 }
+
+.margin-top-10 {
+  margin-top: 10px;
+}
