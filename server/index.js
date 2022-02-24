@@ -5,13 +5,48 @@ const express = require('express');
 const errorMiddleware = require('./error-middleware');
 const staticMiddleware = require('./static-middleware');
 const ClientError = require('./client-error');
+const argon2 = require('argon2');
+const pg = require('pg');
 const app = express();
 const client = require('twilio')(`${process.env.TWILIO_SID}`, `${process.env.TWILIO_AUTH}`);
+
 function random(length) {
   return Math.floor(Math.random() * length);
 }
 
+const db = new pg.Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
 app.use(staticMiddleware);
+const jsonMiddleware = express.json();
+app.use(jsonMiddleware);
+
+app.post('/api/auth/sign-up', (req, res, next) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    throw new ClientError(400, 'username and password are required fields');
+  }
+  argon2
+    .hash(password)
+    .then(hashedPassword => {
+      const sql = `
+      insert into "users" ("username", "hashedPassword")
+      values ($1, $2)
+      returning "userId", "username", "createdAt"
+      `;
+      const params = [username, hashedPassword];
+      return db.query(sql, params);
+    })
+    .then(result => {
+      const [user] = result.rows;
+      res.status(200).json(user);
+    })
+    .catch(error => next(error));
+});
 
 const body = {
   method: 'GET',

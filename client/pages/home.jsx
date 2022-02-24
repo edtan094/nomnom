@@ -26,6 +26,12 @@ export default class Home extends React.Component {
   }
 
   render() {
+    if (!this.props.signedIn) {
+      const url = new URL(window.location);
+      url.hash = 'sign-up';
+      window.location.replace(url);
+      return null;
+    }
     return (
       <div className='row center-of-page vh-height'>
         <form onSubmit={this.handleSubmit} method='get' className='home-page-form'>
@@ -91,7 +97,7 @@ export default class Home extends React.Component {
           </div>
           <div className='row padding-top'>
             <label className='font-theme home-page-font-size padding-right'>at</label>
-            <input onChange={this.handleInputLocation} value={this.state.location} className='input-theme' placeholder="location..." type="text" htmlFor='at' id='at' required></input>
+            <input onChange={this.handleInputLocation} value={this.state.location} className='input-theme' placeholder="location..." type="text" htmlFor='at' required></input>
           </div>
           <div className='row justify-end-safari'>
             <input className='search-button' type="submit" value="SEARCH"></input>
