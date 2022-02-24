@@ -84,6 +84,12 @@ export default class Result extends React.Component {
   }
 
   render() {
+    if (!this.props.signedIn) {
+      const url = new URL(window.location);
+      url.hash = 'sign-up';
+      window.location.replace(url);
+      return null;
+    }
     if (!this.state.resultFound) {
       return <NoResultFound />;
     } else {

@@ -26,6 +26,12 @@ export default class Home extends React.Component {
   }
 
   render() {
+    if (!this.props.signedIn) {
+      const url = new URL(window.location);
+      url.hash = 'sign-up';
+      window.location.replace(url);
+      return null;
+    }
     return (
       <div className='row center-of-page vh-height'>
         <form onSubmit={this.handleSubmit} method='get' className='home-page-form'>
