@@ -4,9 +4,9 @@ export default function NoResultFound(props) {
   return (
     <>
     <div className='row justify-center'>
-        <p className='font-theme no-result-font-size'>No Results Found.
+        <p className='font-theme no-result-font-size'>No Results Found. Please Visit
         <br></br>
-        Please Try Again.
+        The Home Page To Try Again.
       </p>
     </div>
     <div className='row justify-center'>
