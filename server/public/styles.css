@@ -186,7 +186,7 @@ a {
 .modal {
   position: fixed;
   background-color: white;
-  height: 26%;
+  height: 170px;
   width: 267px;
   left: 0;
   right: 0;
@@ -237,4 +237,13 @@ a {
 
 .margin-top-10 {
   margin-top: 10px;
+}
+
+.sad-cookie-image {
+  height: 164px;
+  width: 164px;
+}
+
+.no-result-font-size {
+  font-size: 30px;
 }

@@ -3,10 +3,12 @@ import { parseRoute } from '../../lib';
 import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
 import TwilioButton from '../components/twilio-button';
+import NoResultFound from '../components/no-result-found';
 export default class Result extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      resultFound: true,
       maps: null,
       reviews: [],
       result: {
@@ -54,59 +56,68 @@ export default class Result extends React.Component {
     fetch(`/api/yelp/${term}/${location}`, body)
       .then(res => res.json())
       .then(result => {
-        businessId = result.id;
-        fetch(`/api/yelp/${businessId}`, body)
-          .then(res => res.json())
-          .then(reviews => {
-            this.setState({
-              reviews: [
-                { review: reviews.reviews[0] },
-                { review: reviews.reviews[1] },
-                { review: reviews.reviews[2] }
-              ]
-            });
-          })
-          .catch(err => console.error(err));
-        this.setState({
-          result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating },
-          maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
-        });
-        this.renderStars();
+        if (result.total === 0) {
+          this.setState({ resultFound: false });
+        } else {
+          businessId = result.id;
+          fetch(`/api/yelp/${businessId}`, body)
+            .then(res => res.json())
+            .then(reviews => {
+              this.setState({
+                reviews: [
+                  { review: reviews.reviews[0] },
+                  { review: reviews.reviews[1] },
+                  { review: reviews.reviews[2] }
+                ]
+              });
+            })
+            .catch(err => console.error(err));
+          this.setState({
+            resultFound: true,
+            result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating },
+            maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
+          });
+          this.renderStars();
+        }
       })
       .catch(err => console.error(err));
   }
 
   render() {
-    return (
-      <>
-      <div className='row'>
-        <div className='row column-one-third'>
-            <div className='result-image-container row align-items-end'>
-            <img src={this.state.result.image} className='result-image'></img>
+    if (!this.state.resultFound) {
+      return <NoResultFound />;
+    } else {
+      return (
+        <>
+          <div className='row'>
+            <div className='row column-one-third'>
+              <div className='result-image-container row align-items-end'>
+                <img src={this.state.result.image} className='result-image'></img>
+              </div>
+            </div>
+            <div className='column-two-thirds'>
+              <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
+              <div className='margin-bottom-10'>
+                {this.renderStars().map(rating => rating)}
+              </div>
+              <div className='row-column-responsive'>
+                <div className='column-half'>
+                  <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.address1}</p>
+                  <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.address2}</p>
+                  <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
+                </div>
+                <div className='column-half'>
+                  <TwilioButton address={this.state.result.location} />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className='column-two-thirds'>
-          <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
-            <div className='margin-bottom-10'>
-              {this.renderStars().map(rating => rating)}
-            </div>
-          <div className='row-column-responsive'>
-            <div className='column-half'>
-                <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.address1}</p>
-                <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.address2}</p>
-                <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
-            </div>
-            <div className='column-half'>
-              <TwilioButton address={this.state.result.location}/>
-            </div>
+          <div className='row justify-center'>
+            <MapsComponent maps={this.state.maps} />
           </div>
-        </div>
-      </div>
-      <div className='row justify-center'>
-          <MapsComponent maps={this.state.maps} />
-      </div>
-      <Accordion reviews={this.state.reviews}/>
-      </>
-    );
+          <Accordion reviews={this.state.reviews} />
+        </>
+      );
+    }
   }
 }
