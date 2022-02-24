@@ -4,7 +4,7 @@ export default function PageNotFound(props) {
   return (
     <>
       <div className='row justify-center'>
-        <p className='font-theme no-result-font-size'>Oops! We could not find the
+        <p className='font-theme font-size-30'>Oops! We could not find the
         <br></br>
         page you were looking for!
         </p>

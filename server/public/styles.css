@@ -244,6 +244,16 @@ a {
   width: 164px;
 }
 
-.no-result-font-size {
+.font-size-30 {
   font-size: 30px;
+}
+
+.sign-up-button {
+  background-color: #6610f2;
+  border: none;
+  color: white;
+  height: 40px;
+  width: 130px;
+  border-radius: 5px;
+  font-size: 12px;
 }

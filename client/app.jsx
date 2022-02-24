@@ -14,6 +14,7 @@ export default class App extends React.Component {
       route: parseRoute(window.location.hash),
       signedIn: false
     };
+    this.guestSignIn = this.guestSignIn.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -30,12 +31,22 @@ export default class App extends React.Component {
     });
   }
 
+  guestSignIn(event) {
+    event.preventDefault();
+    this.setState({ signedIn: true });
+    const url = new URL(window.location);
+    url.hash = '#';
+    window.location.replace(url);
+    return null;
+
+  }
+
   renderPage() {
     const { path } = this.state.route;
     if (path === '') {
       return <Home signedIn={this.state.signedIn}/>;
     } else if (path === 'sign-up') {
-      return <LandingPage />;
+      return <LandingPage guestSignIn={this.guestSignIn}/>;
     } else if (path.includes('result')) {
       return <Result signedIn={this.state.signedIn}/>;
     } else {
