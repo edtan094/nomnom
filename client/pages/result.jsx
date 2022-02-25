@@ -1,5 +1,5 @@
 import React from 'react';
-import { parseRoute } from '../../lib';
+import parseRoute from '../../lib/parseRoute';
 import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
 import TwilioButton from '../components/twilio-button';
