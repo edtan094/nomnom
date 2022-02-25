@@ -20,12 +20,23 @@ export default class AuthForm extends React.Component {
       },
       body: JSON.stringify(this.state)
     };
-    fetch('/api/auth/sign-up', req)
-      .then(res => res.json())
-      .then(data => {
-        return data;
-      })
-      .catch(error => console.error(error));
+    if (window.location.hash === '#sign-up') {
+      fetch('/api/auth/sign-up', req)
+        .then(res => res.json())
+        .then(data => {
+          window.location.hash = '#sign-in';
+          this.setState({ username: '', password: '' });
+        })
+        .catch(error => console.error(error));
+    }
+    if (window.location.hash === '#sign-in') {
+      fetch('/api/auth/sign-in', req)
+        .then(res => res.json())
+        .then(data => {
+          this.props.handleSignIn(data);
+        })
+        .catch(error => console.error(error));
+    }
   }
 
   handleChange(event) {
@@ -39,14 +50,23 @@ export default class AuthForm extends React.Component {
         <form onSubmit={this.handleSubmit} method='get'>
           <div>
             <label htmlFor='username'></label>
-            <input onChange={this.handleChange} name="username" placeholder='username' value={this.state.username} className='margin-bottom-10' type='text' required></input>
+            <input onChange={this.handleChange} name="username" placeholder='username'
+            value={this.state.username} className='margin-bottom-10' type='text' required></input>
           </div>
           <div>
             <label htmlFor='password'></label>
-            <input onChange={this.handleChange} name="password" placeholder='password' value={this.state.password} className='margin-top-10 margin-bottom-10' type='password' required></input>
+            <input onChange={this.handleChange} name="password" placeholder='password'
+            value={this.state.password} className='margin-top-10 margin-bottom-10' type='password' required></input>
           </div>
           <div className='row justify-center'>
-            <button type='submit' className='sign-up-button margin-top-10'>SIGN UP</button>
+            {window.location.hash === '#sign-up'
+              ? <button type='submit' className='sign-up-button margin-top-10'>SIGN UP</button>
+              : <button type='submit' className='sign-up-button margin-top-10'>SIGN IN</button> }
+          </div>
+          <div>
+            {window.location.hash === '#sign-up'
+              ? <p>Already have an account? <a href='#sign-in' className='sign-in-up'>Sign in!</a></p>
+              : <p>Don&apos;t have an account? <a href='#sign-up' className='sign-in-up'>Sign up!</a></p>}
           </div>
           <div className='row justify-center'>
             <button type='button' onClick={this.props.guestSignIn} className='sign-up-button margin-top-10'>GUEST SIGN IN</button>

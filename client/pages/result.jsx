@@ -1,9 +1,11 @@
 import React from 'react';
-import { parseRoute } from '../../lib';
+import parseRoute from '../../lib/parseRoute';
 import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
 import TwilioButton from '../components/twilio-button';
 import NoResultFound from '../components/no-result-found';
+import Redirect from '../components/redirect';
+import AppContext from '../../lib/app-context';
 export default class Result extends React.Component {
   constructor(props) {
     super(props);
@@ -84,12 +86,8 @@ export default class Result extends React.Component {
   }
 
   render() {
-    if (!this.props.signedIn) {
-      const url = new URL(window.location);
-      url.hash = 'sign-up';
-      window.location.replace(url);
-      return null;
-    }
+    if (!this.context.user) return <Redirect to="sign-in" />;
+
     if (!this.state.resultFound) {
       return <NoResultFound />;
     } else {
@@ -127,3 +125,5 @@ export default class Result extends React.Component {
     }
   }
 }
+
+Result.contextType = AppContext;
