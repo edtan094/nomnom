@@ -23,6 +23,7 @@ export default class App extends React.Component {
     };
     this.guestSignIn = this.guestSignIn.bind(this);
     this.handleSignIn = this.handleSignIn.bind(this);
+    this.handleSignOut = this.handleSignOut.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -76,6 +77,11 @@ export default class App extends React.Component {
       .catch(error => console.error(error));
   }
 
+  handleSignOut(event) {
+    window.localStorage.removeItem('jwt');
+    this.setState({ user: null });
+  }
+
   renderPage() {
     const { path } = this.state.route;
     if (path === '') {
@@ -96,7 +102,7 @@ export default class App extends React.Component {
     return (
       <AppContext.Provider value={contextValue} >
         <>
-        <Navbar route={this.state.route}/>
+        <Navbar route={this.state.route} handleSignOut={this.handleSignOut}/>
         <PageContainer>
           {this.renderPage()}
         </PageContainer>
