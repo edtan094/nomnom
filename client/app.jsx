@@ -12,6 +12,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       route: parseRoute(window.location.hash),
+      user: null,
       signedIn: false
     };
     this.guestSignIn = this.guestSignIn.bind(this);
@@ -45,7 +46,7 @@ export default class App extends React.Component {
     const { path } = this.state.route;
     if (path === '') {
       return <Home signedIn={this.state.signedIn}/>;
-    } else if (path === 'sign-up') {
+    } else if (path === 'sign-up' || path === 'sign-in') {
       return <LandingPage guestSignIn={this.guestSignIn}/>;
     } else if (path.includes('result')) {
       return <Result signedIn={this.state.signedIn}/>;
