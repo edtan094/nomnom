@@ -44,7 +44,7 @@ app.post('/api/auth/sign-up', (req, res, next) => {
     })
     .then(result => {
       const [user] = result.rows;
-      res.status(200).json(user);
+      res.status(201).json(user);
     })
     .catch(error => next(error));
 });
@@ -76,7 +76,7 @@ app.post('/api/auth/sign-in', (req, res, next) => {
           }
           const payload = { userId, username };
           const token = jwt.sign(payload, process.env.TOKEN_SECRET);
-          res.json({ token, user: payload });
+          res.status(200).json({ token, user: payload });
         });
     })
     .catch(err => next(err));

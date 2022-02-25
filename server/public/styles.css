@@ -257,3 +257,8 @@ a {
   border-radius: 5px;
   font-size: 12px;
 }
+
+.sign-in-up {
+  color: blue;
+  cursor: pointer;
+}
