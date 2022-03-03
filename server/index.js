@@ -128,7 +128,7 @@ app.post('/api/twilio/:phoneNumber/:address', (req, res, next) => {
       from: `+1${process.env.TWILIO_PHONE}` // From a valid Twilio number
     })
     .then(message => {
-      res.sendStatus(200);
+      res.status(200).json({ success: true });
     })
     .catch(error => next(error));
 });
