@@ -145,7 +145,6 @@ export default class Result extends React.Component {
             <MapsComponent maps={this.state.maps} />
           </div>
           <Accordion reviews={this.state.reviews} />
-          <div className='height-13vh'></div>
         </>
       );
     }
