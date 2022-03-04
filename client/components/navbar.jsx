@@ -13,11 +13,11 @@ export default function Navbar(props) {
                 <div className="row justify-end align-center">
                   {props.route.path.includes('result')
                     ? <button onClick={() => window.location.reload()}
-                    className='padding-right font-theme purple-background no-borders white-text font-size-15 pointer'>Try Again</button>
+                    className='padding-right font-theme purple-background no-borders white-text font-size-16 pointer'>Try Again</button>
                     : null}
                   {props.route.path === '' || props.route.path.includes('result')
                     ? <button onClick={props.handleSignOut}
-                  className='padding-right font-theme purple-background no-borders white-text font-size-15 pointer'>Sign Out</button>
+                  className='padding-right font-theme purple-background no-borders white-text font-size-16 pointer'>Sign Out</button>
                     : null}
                 </div>
               </div>

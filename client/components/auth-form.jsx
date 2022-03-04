@@ -60,8 +60,8 @@ export default class AuthForm extends React.Component {
           </div>
           <div className='row justify-center'>
             {window.location.hash === '#sign-up'
-              ? <button type='submit' className='sign-up-button margin-top-10'>SIGN UP</button>
-              : <button type='submit' className='sign-up-button margin-top-10'>SIGN IN</button> }
+              ? <button type='submit' className='sign-up-button margin-top-10 pointer'>SIGN UP</button>
+              : <button type='submit' className='sign-up-button margin-top-10 pointer'>SIGN IN</button> }
           </div>
           <div>
             {window.location.hash === '#sign-up'
@@ -69,7 +69,7 @@ export default class AuthForm extends React.Component {
               : <p>Don&apos;t have an account? <a href='#sign-up' className='sign-in-up'>Sign up!</a></p>}
           </div>
           <div className='row justify-center'>
-            <button type='button' onClick={this.props.guestSignIn} className='sign-up-button margin-top-10'>GUEST SIGN IN</button>
+            <button type='button' onClick={this.props.guestSignIn} className='sign-up-button margin-top-10 pointer'>GUEST SIGN IN</button>
           </div>
         </form>
       </div>

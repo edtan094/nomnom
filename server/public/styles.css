@@ -27,11 +27,11 @@
 }
 
 .heading {
-  font-size: 25px;
+  font-size: 1.563rem;
 }
 
 .navbar {
-  height: 80px;
+  height: 5rem;
 }
 
 .align-self-center {
@@ -43,7 +43,7 @@
 }
 
 .padding-right {
-  padding-right: 15px;
+  padding-right: 0.938rem;
 }
 
 .center-of-page {
@@ -53,7 +53,7 @@
 }
 
 .padding-top {
-  padding-top: 15px;
+  padding-top: 0.938rem;
 }
 
 textarea:focus,
@@ -66,7 +66,7 @@ input:focus {
 }
 
 .logo {
-  height: 47px;
+  height: 2.938rem;
 }
 
 a {
@@ -83,19 +83,19 @@ a {
 }
 
 .margin-top {
-  margin-top: 50px;
+  margin-top: 3.125rem;
 }
 
 .margin-bottom {
-  margin-bottom: 50px;
+  margin-bottom: 3.125rem;
 }
 
 .no-borders {
   border: 0;
 }
 
-.font-size-15 {
-  font-size: 16px;
+.font-size-16 {
+  font-size: 1rem;
 }
 
 .pointer {
@@ -104,7 +104,7 @@ a {
 
 .result-image {
   max-width: 100%;
-  max-height: 200px;
+  max-height: 12.5rem;
 }
 
 .direction-column {
@@ -126,11 +126,11 @@ a {
 
 .review-image {
   width: 50%;
-  max-height: 125px;
+  max-height: 7.813rem;
 }
 
 .accordion-padding-top {
-  padding-top: 30px;
+  padding-top: 1.875rem;
 }
 
 .theme-color {
@@ -142,12 +142,12 @@ a {
 }
 
 .twilio-button-height {
-  height: 42px;
-  min-width: 120px;
+  height: 2.625rem;
+  min-width: 7.5rem;
 }
 
 .margin-top-modal-button {
-  margin-top: 5px;
+  margin-top: 0.313rem;
 }
 
 .background-overlay {
@@ -171,7 +171,7 @@ a {
 }
 
 .padding-bottom {
-  padding-bottom: 15px;
+  padding-bottom: 0.938rem;
 }
 
 .modal-input {
@@ -180,21 +180,21 @@ a {
 
 .send-button {
   width: 25%;
-  height: 35px;
+  height: 2.188rem;
 }
 
 .modal {
   position: fixed;
   background-color: white;
-  height: 170px;
-  width: 267px;
+  height: 10.625rem;
+  width: 16.688rem;
   left: 0;
   right: 0;
   margin: auto;
 }
 
 .margin-left {
-  margin-left: 15px;
+  margin-left: 0.938rem;
 }
 
 .z-index-1 {
@@ -206,8 +206,8 @@ a {
 }
 
 .twilio-input {
-  margin-left: 3px;
-  margin-right: 3px;
+  margin-left: 0.188rem;
+  margin-right: 0.188rem;
 }
 
 .align-flex-end {
@@ -228,30 +228,30 @@ a {
 }
 
 .margin-bottom-10 {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .margin-top-10 {
-  margin-top: 10px;
+  margin-top: 0.625rem;
 }
 
 .sad-cookie-image {
-  height: 164px;
-  width: 164px;
+  height: 10.25rem;
+  width: 10.25rem;
 }
 
 .font-size-30 {
-  font-size: 30px;
+  font-size: 1.875rem;
 }
 
 .sign-up-button {
   background-color: #6610f2;
   border: none;
   color: white;
-  height: 40px;
-  width: 130px;
+  height: 2.5rem;
+  width: 8.125rem;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .sign-in-up {
@@ -260,7 +260,7 @@ a {
 }
 
 .padding-bottom-100 {
-  padding-bottom: 100px;
+  padding-bottom: 6.25rem;
 }
 
 /* Loading spinner */
