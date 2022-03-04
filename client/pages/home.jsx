@@ -33,7 +33,7 @@ export default class Home extends React.Component {
         <form onSubmit={this.handleSubmit} method='get' className='home-page-form'>
           <div className='row'>
             <label className='font-theme home-page-font-size padding-right'>I want to eat</label>
-            <select className='select-theme' onChange={this.handleInputPreference} value={this.state.preference} name='preferences' required>
+            <select className='select-theme pointer' onChange={this.handleInputPreference} value={this.state.preference} name='preferences' required>
               <option value="">Select a Value</option>
               <option value="no preference">No preference</option>
               <option value="tradamerican">American</option>
@@ -95,8 +95,8 @@ export default class Home extends React.Component {
             <label className='font-theme home-page-font-size padding-right'>at</label>
             <input onChange={this.handleInputLocation} value={this.state.location} className='input-theme' placeholder="location..." type="text" htmlFor='at' required></input>
           </div>
-          <div className='row justify-end-safari'>
-            <input className='search-button' type="submit" value="SEARCH"></input>
+          <div className='row justify-end'>
+            <input className='search-button pointer' type="submit" value="SEARCH"></input>
           </div>
         </form>
       </div>

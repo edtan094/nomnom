@@ -88,6 +88,14 @@ export default class Result extends React.Component {
   render() {
     if (!this.context.user) return <Redirect to="sign-in" />;
 
+    if (this.state.resultFound === true && this.state.result.name === '') {
+      return (
+      <div className='row justify-center margin-top'>
+          <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+      );
+    }
+
     if (!this.state.resultFound) {
       return <NoResultFound />;
     } else {
