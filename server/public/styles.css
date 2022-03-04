@@ -259,6 +259,10 @@ a {
   cursor: pointer;
 }
 
+.height-13vh {
+  height: 13vh;
+}
+
 /* Loading spinner */
 .lds-roller {
   display: inline-block;
