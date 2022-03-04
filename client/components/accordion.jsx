@@ -18,7 +18,7 @@ export default class Accordion extends React.Component {
 
   render() {
     return (
-      <div className='row justify-center accordion-padding-top'>
+      <div className='row justify-center accordion-padding-top padding-bottom-100'>
         <div className='row direction-column width-accordion'>
           {this.props.reviews.map((reviews, index) => {
             const handleClick = () => this.setOpenReview(index);

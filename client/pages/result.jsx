@@ -10,6 +10,7 @@ export default class Result extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      networkError: false,
       resultFound: true,
       maps: null,
       reviews: [],
@@ -82,11 +83,35 @@ export default class Result extends React.Component {
           this.renderStars();
         }
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        this.setState({ networkError: true });
+        console.error(err);
+      });
   }
 
   render() {
     if (!this.context.user) return <Redirect to="sign-in" />;
+    if (this.state.networkError) {
+      return (
+        <>
+          <div className='row justify-center'>
+            <p className='font-theme font-size-30'>Sorry! There was an error connecting to the network!<br></br>
+            Please check your internet connection and try again.
+            </p>
+          </div>
+          <div className='row justify-center'>
+            <img className='sad-cookie-image' src='./images/sad-cookie-image.jpg'></img>
+          </div>
+        </>
+      );
+    }
+    if (this.state.resultFound === true && this.state.result.name === '') {
+      return (
+      <div className='row justify-center margin-top'>
+          <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+      </div>
+      );
+    }
 
     if (!this.state.resultFound) {
       return <NoResultFound />;
