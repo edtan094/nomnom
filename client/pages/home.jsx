@@ -32,7 +32,7 @@ export default class Home extends React.Component {
       <div className='row center-of-page vh-height'>
         <form onSubmit={this.handleSubmit} method='get' className='home-page-form'>
           <div className='row'>
-            <label className='font-theme home-page-font-size padding-right'>I want to eat</label>
+            <label className='home-page-font-size padding-right'>I want to eat</label>
             <select className='select-theme pointer' onChange={this.handleInputPreference} value={this.state.preference} name='preferences' required>
               <option value="">Select a Value</option>
               <option value="no preference">No preference</option>
@@ -92,7 +92,7 @@ export default class Home extends React.Component {
             </select>
           </div>
           <div className='row padding-top'>
-            <label className='font-theme home-page-font-size padding-right'>at</label>
+            <label className='home-page-font-size padding-right'>at</label>
             <input onChange={this.handleInputLocation} value={this.state.location} className='input-theme' placeholder="location..." type="text" htmlFor='at' required></input>
           </div>
           <div className='row justify-end'>

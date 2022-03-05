@@ -95,7 +95,7 @@ export default class Result extends React.Component {
       return (
         <>
           <div className='row justify-center'>
-            <p className='font-theme font-size-30'>Sorry! There was an error connecting to the network!<br></br>
+            <p className='font-size-30'>Sorry! There was an error connecting to the network!<br></br>
             Please check your internet connection and try again.
             </p>
           </div>
