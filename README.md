@@ -2,7 +2,7 @@
 
 A full stack JavaScript web application for users who are hungry and do not know where to eat.  
 
-I decided to build this web application because of my love for food and trying new restaurants/locations.  Typically, I would use yelp to decide where I should eat with my friends however, we would always have trouble deciding a location since there were always a lot of options.  One day, I had a thought that it would be cool if yelp could somehow limit the number of choices or just pick a location for the user.  I had this idea way before I started my journey into coding.  As I began to learn the necessary technologies to make a web application, I happily decided to pursue my take on a web application for hungry people.  
+I decided to build this web application because of my love for food and trying new restaurants/locations.  Typically, I would use yelp to decide where I should eat with my friends however, we would always have trouble deciding on a location since there were always a lot of options.  One day, I had a thought that it would be cool if yelp could somehow limit the number of choices or just pick a location for the user.  I had this idea way before I started my journey into coding.  As I began to learn the necessary technologies to make a web application, I happily decided to pursue my take on a web application for hungry people.  
 
 ## Technologies Used
 * HTML5
