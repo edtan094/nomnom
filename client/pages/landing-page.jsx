@@ -8,8 +8,8 @@ export default function LandingPage(props) {
     <div>
       <div className='row justify-center'>
         {window.location.hash === '#sign-up'
-          ? <p className='font-theme font-size-30'>Sign Up</p>
-          : <p className='font-theme font-size-30'>Sign In</p>}
+          ? <p className='font-size-30'>Sign Up</p>
+          : <p className='font-size-30'>Sign In</p>}
       </div>
       <AuthForm guestSignIn={props.guestSignIn} handleSignIn={props.handleSignIn}/>
     </div>

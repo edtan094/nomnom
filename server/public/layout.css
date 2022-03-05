@@ -1,5 +1,5 @@
 .container {
-  max-width: 475px;
+  max-width: 29.688rem;
   margin: 0 auto;
   padding: 0 1.5rem;
   height: 100vh;
@@ -17,14 +17,14 @@
   background-color: #6610f2;
   border: none;
   color: white;
-  height: 30px;
-  width: 90px;
+  height: 1.875rem;
+  width: 5.625rem;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .home-page-font-size {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .column-half {
@@ -32,16 +32,16 @@
 }
 
 .result-title-size {
-  font-size: 16px;
-  margin-bottom: 10px;
+  font-size: 1rem;
+  margin-bottom: 0.625rem;
 }
 
 .result-info-size {
-  font-size: 10px;
+  font-size: 0.625rem;
 }
 
 .star-size {
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 .select-theme {
@@ -50,19 +50,19 @@
   border-left: none;
   width: 50%;
   font-family: "Abril Fatface", cursive;
-  font-size: 16px;
+  font-size: 1rem;
   color: #6610f2;
 }
 
 .input-theme::placeholder {
   color: #6610f2;
-  font-size: 16px;
+  font-size: 1rem;
   font-family: "Abril Fatface", cursive;
 }
 
 .column-two-thirds {
   width: 50%;
-  padding-left: 16px;
+  padding-left: 1rem;
 }
 
 .column-one-third {
@@ -80,16 +80,16 @@
   width: 50%;
   font-family: "Abril Fatface", cursive;
   color: #6610f2;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 input {
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 @media screen and (min-width: 500px) {
   .container {
-    max-width: 1200px;
+    max-width: 75rem;
     margin: 0 auto;
     padding: 0 1.5rem;
     height: 100vh;
@@ -99,18 +99,18 @@ input {
     background-color: #6610f2;
     border: none;
     color: white;
-    height: 50px;
-    width: 110px;
+    height: 3.125rem;
+    width: 6.875rem;
     border-radius: 5px;
-    font-size: 17px;
+    font-size: 1.063rem;
   }
 
   .home-page-font-size {
-    font-size: 25px;
+    font-size: 1.563rem;
   }
 
   .star-size {
-    font-size: 18px;
+    font-size: 1.125rem;
   }
 
   .column-two-thirds {
@@ -128,7 +128,7 @@ input {
 
 @media screen and (min-width: 805px) {
   .container {
-    max-width: 1200px;
+    max-width: 75rem;
     margin: 0 auto;
     padding: 0 1.5rem;
     height: 100vh;
@@ -138,27 +138,27 @@ input {
     background-color: #6610f2;
     border: none;
     color: white;
-    height: 50px;
-    width: 110px;
+    height: 3.125rem;
+    width: 6.875rem;
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .home-page-font-size {
-    font-size: 50px;
+    font-size: 3.125rem;
   }
 
   .result-title-size {
-    font-size: 30px;
-    margin-bottom: 10px;
+    font-size: 1.875rem;
+    margin-bottom: 0.625rem;
   }
 
   .result-info-size {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .star-size {
-    font-size: 25px;
+    font-size: 1.563rem;
   }
 
   .select-theme {
@@ -167,13 +167,13 @@ input {
     border-left: none;
     width: 50%;
     font-family: "Abril Fatface", cursive;
-    font-size: 25px;
+    font-size: 1.563rem;
     color: #6610f2;
   }
 
   .input-theme::placeholder {
     color: #6610f2;
-    font-size: 25px;
+    font-size: 1.563rem;
     font-family: "Abril Fatface", cursive;
   }
 
@@ -197,6 +197,6 @@ input {
     width: 50%;
     font-family: "Abril Fatface", cursive;
     color: #6610f2;
-    font-size: 25px;
+    font-size: 1.563rem;
   }
 }

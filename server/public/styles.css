@@ -1,72 +1,53 @@
+/* Font */
+body,
 .font-theme {
   font-family: "Abril Fatface", cursive;
 }
 
-.align-center {
-  align-items: center;
+.heading {
+  font-size: 1.563rem;
+}
+
+.roboto-font {
+  font-family: Roboto, sans-serif;
+}
+
+.font-size-16 {
+  font-size: 1rem;
+}
+
+/* Colors */
+.purple-background {
+  background-color: #6610f2;
 }
 
 .white-text {
   color: white;
 }
 
-.justify-space-between {
-  justify-content: space-between;
+.font-size-30 {
+  font-size: 1.875rem;
 }
 
-.purple-background {
-  background-color: #6610f2;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.justify-end {
-  justify-content: flex-end;
-}
-
-.heading {
-  font-size: 25px;
-}
-
-.navbar {
-  height: 80px;
-}
-
-.align-self-center {
-  align-self: center;
-}
-
-.shadow {
-  box-shadow: 2px 2px rgba(0, 0, 0, 0.103);
-}
-
-.padding-right {
-  padding-right: 15px;
-}
-
-.center-of-page {
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-.padding-top {
-  padding-top: 15px;
-}
-
+/* Inputs, Buttons */
 textarea:focus,
 input:focus {
   outline: none;
 }
 
-.vh-height {
-  height: 100vh;
+.sign-up-button {
+  background-color: #6610f2;
+  border: none;
+  color: white;
+  height: 2.5rem;
+  width: 8.125rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
 }
 
-.logo {
-  height: 47px;
+.sign-in-up {
+  color: blue;
+  cursor: pointer;
 }
 
 a {
@@ -74,45 +55,31 @@ a {
   color: white;
 }
 
-.roboto-font {
-  font-family: Roboto, sans-serif;
-}
-
-.restaurant-info {
-  margin: 0;
-}
-
-.margin-top {
-  margin-top: 50px;
-}
-
-.margin-bottom {
-  margin-bottom: 50px;
-}
-
-.no-borders {
-  border: 0;
-}
-
-.font-size-15 {
-  font-size: 16px;
-}
-
 .pointer {
   cursor: pointer;
 }
 
-.result-image {
-  max-width: 100%;
-  max-height: 200px;
+.modal-input {
+  width: 80%;
 }
 
-.direction-column {
-  flex-direction: column;
+.send-button {
+  width: 25%;
+  height: 2.188rem;
 }
 
-.width-accordion {
-  width: 100%;
+.modal {
+  position: fixed;
+  background-color: white;
+  height: 10.625rem;
+  width: 16.688rem;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.no-borders {
+  border: 0;
 }
 
 .border-bottom {
@@ -124,17 +91,12 @@ a {
   border-color: #6610f2;
 }
 
-.review-image {
-  width: 50%;
-  max-height: 125px;
-}
-
-.accordion-padding-top {
-  padding-top: 30px;
-}
-
-.theme-color {
-  color: #6610f2;
+.border-bottom-grey {
+  border-style: solid;
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  border-color: rgb(131, 131, 131);
 }
 
 .border-radius {
@@ -142,12 +104,111 @@ a {
 }
 
 .twilio-button-height {
-  height: 42px;
-  min-width: 120px;
+  height: 2.625rem;
+  min-width: 7.5rem;
 }
 
 .margin-top-modal-button {
-  margin-top: 5px;
+  margin-top: 0.313rem;
+}
+
+.twilio-input {
+  margin-left: 0.188rem;
+  margin-right: 0.188rem;
+}
+
+/* Z index */
+.z-index-1 {
+  z-index: 1;
+}
+
+.z-index-2 {
+  z-index: 2;
+}
+
+/* Miscellaneous */
+.align-center {
+  align-items: center;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.navbar {
+  height: 5rem;
+}
+
+.align-self-center {
+  align-self: center;
+}
+
+.padding-right {
+  padding-right: 0.938rem;
+}
+
+.center-of-page {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.padding-top {
+  padding-top: 0.938rem;
+}
+
+.vh-height {
+  height: 100vh;
+}
+
+.logo {
+  height: 2.938rem;
+}
+
+.restaurant-info {
+  margin: 0;
+}
+
+.margin-top {
+  margin-top: 3.125rem;
+}
+
+.margin-bottom {
+  margin-bottom: 3.125rem;
+}
+
+.result-image {
+  max-width: 100%;
+  max-height: 12.5rem;
+}
+
+.direction-column {
+  flex-direction: column;
+}
+
+.width-accordion {
+  width: 100%;
+}
+
+.review-image {
+  width: 50%;
+  max-height: 7.813rem;
+}
+
+.accordion-padding-top {
+  padding-top: 1.875rem;
+}
+
+.theme-color {
+  color: #6610f2;
 }
 
 .background-overlay {
@@ -162,52 +223,12 @@ a {
   top: 0;
 }
 
-.border-bottom-grey {
-  border-style: solid;
-  border-top: 0;
-  border-right: 0;
-  border-left: 0;
-  border-color: rgb(131, 131, 131);
-}
-
 .padding-bottom {
-  padding-bottom: 15px;
-}
-
-.modal-input {
-  width: 80%;
-}
-
-.send-button {
-  width: 25%;
-  height: 35px;
-}
-
-.modal {
-  position: fixed;
-  background-color: white;
-  height: 170px;
-  width: 267px;
-  left: 0;
-  right: 0;
-  margin: auto;
+  padding-bottom: 0.938rem;
 }
 
 .margin-left {
-  margin-left: 15px;
-}
-
-.z-index-1 {
-  z-index: 1;
-}
-
-.z-index-2 {
-  z-index: 2;
-}
-
-.twilio-input {
-  margin-left: 3px;
-  margin-right: 3px;
+  margin-left: 0.938rem;
 }
 
 .align-flex-end {
@@ -228,39 +249,20 @@ a {
 }
 
 .margin-bottom-10 {
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
 }
 
 .margin-top-10 {
-  margin-top: 10px;
+  margin-top: 0.625rem;
 }
 
 .sad-cookie-image {
-  height: 164px;
-  width: 164px;
-}
-
-.font-size-30 {
-  font-size: 30px;
-}
-
-.sign-up-button {
-  background-color: #6610f2;
-  border: none;
-  color: white;
-  height: 40px;
-  width: 130px;
-  border-radius: 5px;
-  font-size: 12px;
-}
-
-.sign-in-up {
-  color: blue;
-  cursor: pointer;
+  height: 10.25rem;
+  width: 10.25rem;
 }
 
 .padding-bottom-100 {
-  padding-bottom: 100px;
+  padding-bottom: 6.25rem;
 }
 
 /* Loading spinner */
