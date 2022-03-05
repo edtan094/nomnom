@@ -35,7 +35,8 @@ Try the live demo [here](https://nomnom-project.herokuapp.com/#)
 * User can sign out
 
 ## Stretch Features (in progress)
-* User can add a bookmark to view later
+* User can add a bookmark
+* User can view a list of bookmarks
 * User can remove a bookmark
 
 ## Preview 
