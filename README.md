@@ -22,7 +22,7 @@ I decided to build this web application because of my love for food and trying n
 * [Yelp](https://www.yelp.com/developers/documentation/v3/get_started)
 
 ## Live Demo
-Try the live demo [here](https://nom-nomm.herokuapp.com/#)
+Try the live demo [here](https://nomnom-project.herokuapp.com/#)
 
 ## Features
 * User can set their preferences on types of food and location
