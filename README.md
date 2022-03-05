@@ -44,6 +44,37 @@ Try the live demo [here](https://nomnom-project.herokuapp.com/#)
 * Postgres
 
 ## Getting Started
-
-
+1. Clone the repository.
+  ```shell
+    git@github.com:edtan094/nomnom.git
+    cd nomnom
+  ```
+2. Install all dependencies with NPM. 
+  ```shell
+  npm install
+  ```
+3. Make a copy of the .env.example file.
+  ```shell
+  cp .env.example .env
+  ```
+4. Start postgreSQL
+  ```shell
+  sudo service postgresql start
+  ```
+5. Create a new database
+  ```shell
+  createdb nomnom
+  ```
+6. Import the example database to postgreSQL
+  ```shell
+  npm run db:import
+  ```
+7. Start the database (optional - if pgweb is installed)
+  ```shell
+  pgweb --db=wanderlist
+  ```
+8. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser
+  ```shell
+  npm run dev
+  ```
 
