@@ -71,7 +71,7 @@ Try the live demo [here](https://nomnom-project.herokuapp.com/#)
   ```
 7. Start the database (optional - if pgweb is installed)
   ```shell
-  pgweb --db=wanderlist
+  pgweb --db=nomnom
   ```
 8. Start the project. Once started you can view the application by opening http://localhost:3000 in your browser
   ```shell
