@@ -48,22 +48,22 @@ export default class AuthForm extends React.Component {
     return (
       <div className='row justify-center'>
         <form onSubmit={this.handleSubmit} method='get'>
-          <div>
+          <div className="row justify-center">
             <label htmlFor='username'></label>
             <input onChange={this.handleChange} name="username" placeholder='username'
-            value={this.state.username} className='margin-bottom-10' type='text' required></input>
+              value={this.state.username} className='margin-bottom-10' type='text' required></input>
           </div>
-          <div>
+          <div className="row justify-center margin-bottom">
             <label htmlFor='password'></label>
             <input onChange={this.handleChange} name="password" placeholder='password'
-            value={this.state.password} className='margin-top-10 margin-bottom-10' type='password' required></input>
+              value={this.state.password} className='margin-top-10 margin-bottom-10' type='password' required></input>
           </div>
           <div className='row justify-center'>
             {window.location.hash === '#sign-up'
               ? <button type='submit' className='sign-up-button margin-top-10'>SIGN UP</button>
               : <button type='submit' className='sign-up-button margin-top-10'>SIGN IN</button> }
           </div>
-          <div>
+          <div className="row justify-center">
             {window.location.hash === '#sign-up'
               ? <p>Already have an account? <a href='#sign-in' className='sign-in-up'>Sign in!</a></p>
               : <p>Don&apos;t have an account? <a href='#sign-up' className='sign-in-up'>Sign up!</a></p>}
