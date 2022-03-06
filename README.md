@@ -28,7 +28,7 @@ Try the live demo [here](https://nomnom-project.herokuapp.com/#)
 * User can set their preferences on types of food and location
 * User can try for another recommendation
 * User can view the location on a map using google maps api
-* User can read the reviews and ratings of a location
+* User can read the reviews and ratings of a location (yelp api provides reviews up to a certain word length. The rest of the review is cut off)
 * User can have the app text the address of the location they are interested in to their phone
 * User can create an account
 * User can sign in
