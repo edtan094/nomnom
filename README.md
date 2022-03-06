@@ -53,7 +53,7 @@ Try the live demo [here](https://nomnom-project.herokuapp.com/#)
 ## Getting Started
 1. Clone the repository.
   ```shell
-    git@github.com:edtan094/nomnom.git
+    git clone git@github.com:edtan094/nomnom.git
     cd nomnom
   ```
 2. Install all dependencies with NPM. 
@@ -76,7 +76,7 @@ Try the live demo [here](https://nomnom-project.herokuapp.com/#)
   ```shell
   npm run db:import
   ```
-7. Start the database (optional - if pgweb is installed)
+7. View the database (optional - if pgweb is installed)
   ```shell
   pgweb --db=nomnom
   ```
