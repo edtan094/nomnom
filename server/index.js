@@ -118,12 +118,11 @@ app.get('/api/yelp/:businessId', (req, res, next) => {
     .catch(error => next(error));
 });
 
-app.post('/api/twilio/:phoneNumber/:address', (req, res, next) => {
-  const { phoneNumber } = req.params;
-  const { address } = req.params;
+app.post('/api/twilio/:phoneNumber/:address/:name', (req, res, next) => {
+  const { phoneNumber, address, name } = req.params;
   client.messages
     .create({
-      body: `${address}`,
+      body: `Hello, this is a message from NomNom. The location ${name} is at ${address}`,
       to: `+1${phoneNumber}`, // Text this number
       from: `+1${process.env.TWILIO_PHONE}` // From a valid Twilio number
     })
