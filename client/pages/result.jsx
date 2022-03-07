@@ -136,7 +136,7 @@ export default class Result extends React.Component {
                   <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
                 </div>
                 <div className='column-half'>
-                  <TwilioButton address={this.state.result.location} />
+                  <TwilioButton address={this.state.result.location} name={this.state.result.name}/>
                 </div>
               </div>
             </div>
