@@ -133,7 +133,9 @@ app.post('/api/twilio/:phoneNumber/:address/:name', (req, res, next) => {
 });
 
 app.post('/api/bookmarks', (req, res, next) => {
-  const { userId, businessId, name, address1, address2, city, state, zipcode, latitude, longitude } = req.body;
+  const { userId } = req.userId;
+  const { id, image, name } = req.result;
+  const { latitude: lat, longitude: lng } = req.maps;
   const sql = `
       insert into "bookmarks" ("userId", "businessId", "name", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude")
       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)

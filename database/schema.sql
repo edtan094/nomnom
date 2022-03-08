@@ -17,8 +17,9 @@ create table "public"."users" (
 );
 
 create table "public"."bookmarks" (
-  "userId"         serial,
+  "userId"         integer         not null,
   "businessId"     text           not null,
+  "image"          text           not null,
   "name"           text           not null,
   "address1"       text           not null,
   "address2"       text           not null,
@@ -28,5 +29,6 @@ create table "public"."bookmarks" (
   "latitude"       text           not null,
   "longitude"      text           not null,
   "createdAt"      timestamptz(6) not null default now(),
-  primary key ("userId")
+  primary key ("businessId"),
+  unique ("businessId")
 );

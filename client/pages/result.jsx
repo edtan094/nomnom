@@ -24,6 +24,7 @@ export default class Result extends React.Component {
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.renderStars = this.renderStars.bind(this);
+    this.handleBookmark = this.handleBookmark.bind(this);
   }
 
   componentDidMount() {
@@ -53,18 +54,18 @@ export default class Result extends React.Component {
     const { params } = parseRoute(window.location.hash);
     const term = params.get('term');
     const location = params.get('location');
-    const body = {
+    const req = {
       method: 'GET'
     };
     let businessId;
-    fetch(`/api/yelp/${term}/${location}`, body)
+    fetch(`/api/yelp/${term}/${location}`, req)
       .then(res => res.json())
       .then(result => {
         if (result.total === 0) {
           this.setState({ resultFound: false });
         } else {
           businessId = result.id;
-          fetch(`/api/yelp/${businessId}`, body)
+          fetch(`/api/yelp/${businessId}`, req)
             .then(res => res.json())
             .then(reviews => {
               this.setState({
@@ -90,7 +91,24 @@ export default class Result extends React.Component {
       });
   }
 
+  handleBookmark() {
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      userId: JSON.stringify(this.context.userId),
+      result: JSON.stringify(this.state.result),
+      maps: JSON.stringify(this.state.maps)
+    };
+    fetch('/api/bookmarks', req)
+      .then(res => res.json())
+      .then(result => result)
+      .catch(err => console.error(err));
+  }
+
   render() {
+    console.log(this.state);
     if (!this.context.user) return <Redirect to="sign-in" />;
     if (this.state.networkError) {
       return (
@@ -129,6 +147,8 @@ export default class Result extends React.Component {
               <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
               <div className='margin-bottom-10'>
                 {this.renderStars().map(rating => rating)}
+                <button onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>
+                {/* <i className="fa-solid fa-bookmark"></i> */}
               </div>
               <div className='row-column-responsive'>
                 <div className='column-half'>
