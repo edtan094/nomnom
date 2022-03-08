@@ -131,6 +131,22 @@ app.post('/api/twilio/:phoneNumber/:address/:name', (req, res, next) => {
     })
     .catch(error => next(error));
 });
+
+app.post('/api/bookmarks', (req, res, next) => {
+  const { userId, businessId, name, address1, address2, city, state, zipcode, latitude, longitude } = req.body;
+  const sql = `
+      insert into "bookmarks" ("userId", "businessId", "name", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude")
+      values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      returning "userId", "businessId", "name", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude" "createdAt"
+      `;
+  const params = [userId, businessId, name, address1, address2, city, state, zipcode, latitude, longitude];
+  return db.query(sql, params)
+    .then(result => {
+      const [user] = result.rows;
+      res.status(201).json(user);
+    })
+    .catch(error => next(error));
+});
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

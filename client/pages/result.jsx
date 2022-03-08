@@ -18,7 +18,8 @@ export default class Result extends React.Component {
         name: '',
         location: '',
         image: '',
-        rating: null
+        rating: null,
+        id: ''
       }
     };
     this.handleSearch = this.handleSearch.bind(this);
@@ -77,7 +78,7 @@ export default class Result extends React.Component {
             .catch(err => console.error(err));
           this.setState({
             resultFound: true,
-            result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating },
+            result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id },
             maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
           });
           this.renderStars();
