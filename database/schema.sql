@@ -13,7 +13,6 @@ create table "public"."users" (
   "createdAt"      timestamptz(6) not null default now(),
   primary key ("userId"),
   unique ("username")
-
 );
 
 create table "public"."bookmarks" (
@@ -30,5 +29,5 @@ create table "public"."bookmarks" (
   "latitude"       text           not null,
   "longitude"      text           not null,
   "createdAt"      timestamptz(6) not null default now(),
-  primary key ("businessId"),
+  primary key ("businessId")
 );

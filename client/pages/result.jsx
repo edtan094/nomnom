@@ -92,9 +92,10 @@ export default class Result extends React.Component {
     const req = {
       method: 'POST',
       headers: {
-        'Content-Type': 'X-Access-Token'
+        'Content-Type': 'application/json',
+        'X-Access-Token': localStorage.getItem('jwt')
       },
-      body: JSON.stringify({ state: this.state, userId: this.context.user.userId })
+      body: JSON.stringify({ state: this.state })
     };
     fetch('/api/bookmarks', req)
       .then(res => res.json())
