@@ -14,3 +14,20 @@ create table "public"."users" (
   primary key ("userId"),
   unique ("username")
 );
+
+create table "public"."bookmarks" (
+  "userId"         integer         not null,
+  "businessId"     text           not null,
+  "image"          text           not null,
+  "name"           text           not null,
+  "rating"         text           not null,
+  "address1"       text           not null,
+  "address2"       text           not null,
+  "city"           text           not null,
+  "state"          text           not null,
+  "zipcode"        text           not null,
+  "latitude"       text           not null,
+  "longitude"      text           not null,
+  "createdAt"      timestamptz(6) not null default now(),
+  primary key ("businessId")
+);
