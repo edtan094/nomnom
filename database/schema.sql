@@ -21,6 +21,7 @@ create table "public"."bookmarks" (
   "businessId"     text           not null,
   "image"          text           not null,
   "name"           text           not null,
+  "rating"         text           not null,
   "address1"       text           not null,
   "address2"       text           not null,
   "city"           text           not null,

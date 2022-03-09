@@ -97,9 +97,7 @@ export default class Result extends React.Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      userId: JSON.stringify(this.context.userId),
-      result: JSON.stringify(this.state.result),
-      maps: JSON.stringify(this.state.maps)
+      body: JSON.stringify({ state: this.state, userId: this.context.user.userId })
     };
     fetch('/api/bookmarks', req)
       .then(res => res.json())
@@ -108,7 +106,6 @@ export default class Result extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     if (!this.context.user) return <Redirect to="sign-in" />;
     if (this.state.networkError) {
       return (
@@ -148,7 +145,6 @@ export default class Result extends React.Component {
               <div className='margin-bottom-10'>
                 {this.renderStars().map(rating => rating)}
                 <button onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>
-                {/* <i className="fa-solid fa-bookmark"></i> */}
               </div>
               <div className='row-column-responsive'>
                 <div className='column-half'>

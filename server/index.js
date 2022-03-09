@@ -133,15 +133,16 @@ app.post('/api/twilio/:phoneNumber/:address/:name', (req, res, next) => {
 });
 
 app.post('/api/bookmarks', (req, res, next) => {
-  const { userId } = req.userId;
-  const { id, image, name } = req.result;
-  const { latitude: lat, longitude: lng } = req.maps;
+  const { userId } = req.body;
+  const { id, image, name, rating } = req.body.state.result;
+  const { lat: latitude, lng: longitude } = req.body.state.maps;
+  const { address1, address2, city, state, zip_code: zipcode } = req.body.state.result.location;
   const sql = `
-      insert into "bookmarks" ("userId", "businessId", "name", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude")
-      values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      insert into "bookmarks" ("userId", "businessId", "image", "name", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude")
+      values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
       returning "userId", "businessId", "name", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude" "createdAt"
       `;
-  const params = [userId, businessId, name, address1, address2, city, state, zipcode, latitude, longitude];
+  const params = [userId, id, name, image, rating, address1, address2, city, state, zipcode, latitude, longitude];
   return db.query(sql, params)
     .then(result => {
       const [user] = result.rows;
