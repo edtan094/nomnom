@@ -54,18 +54,15 @@ export default class Result extends React.Component {
     const { params } = parseRoute(window.location.hash);
     const term = params.get('term');
     const location = params.get('location');
-    const req = {
-      method: 'GET'
-    };
     let businessId;
-    fetch(`/api/yelp/${term}/${location}`, req)
+    fetch(`/api/yelp/${term}/${location}`)
       .then(res => res.json())
       .then(result => {
         if (result.total === 0) {
           this.setState({ resultFound: false });
         } else {
           businessId = result.id;
-          fetch(`/api/yelp/${businessId}`, req)
+          fetch(`/api/yelp/${businessId}`)
             .then(res => res.json())
             .then(reviews => {
               this.setState({
@@ -95,7 +92,7 @@ export default class Result extends React.Component {
     const req = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'X-Access-Token'
       },
       body: JSON.stringify({ state: this.state, userId: this.context.user.userId })
     };

@@ -31,5 +31,4 @@ create table "public"."bookmarks" (
   "longitude"      text           not null,
   "createdAt"      timestamptz(6) not null default now(),
   primary key ("businessId"),
-  unique ("businessId")
 );
