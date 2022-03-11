@@ -20,11 +20,13 @@ export default class Result extends React.Component {
         image: '',
         rating: null,
         id: ''
-      }
+      },
+      bookmarked: false
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.renderStars = this.renderStars.bind(this);
     this.handleBookmark = this.handleBookmark.bind(this);
+    this.checkBookmark = this.checkBookmark.bind(this);
   }
 
   componentDidMount() {
@@ -80,6 +82,7 @@ export default class Result extends React.Component {
             maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
           });
           this.renderStars();
+          this.checkBookmark();
         }
       })
       .catch(err => {
@@ -100,6 +103,27 @@ export default class Result extends React.Component {
     fetch('/api/bookmarks', req)
       .then(res => res.json())
       .then(result => result)
+      .catch(err => console.error(err));
+  }
+
+  checkBookmark() {
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': localStorage.getItem('jwt')
+      }
+    };
+    fetch('/api/bookmarked', req)
+      .then(res => res.json())
+      .then(result => {
+        for (let i = 0; i < result.length; i++) {
+          if (result[i].businessId === this.state.result.id) {
+            this.setState({ bookmarked: true });
+            break;
+          }
+        }
+      })
       .catch(err => console.error(err));
   }
 
@@ -142,7 +166,9 @@ export default class Result extends React.Component {
               <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
               <div className='margin-bottom-10'>
                 {this.renderStars().map(rating => rating)}
-                <button onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>
+                {!this.state.bookmarked
+                  ? <button onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>
+                  : <button className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>}
               </div>
               <div className='row-column-responsive'>
                 <div className='column-half'>

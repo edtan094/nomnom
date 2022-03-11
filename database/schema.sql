@@ -22,7 +22,7 @@ create table "public"."bookmarks" (
   "name"           text           not null,
   "rating"         text           not null,
   "address1"       text           not null,
-  "address2"       text           not null,
+  "address2"       text           null,
   "city"           text           not null,
   "state"          text           not null,
   "zipcode"        text           not null,

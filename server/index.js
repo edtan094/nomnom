@@ -137,6 +137,9 @@ app.use(authorizationMiddleware);
 
 app.post('/api/bookmarks', (req, res, next) => {
   const { userId } = req.user;
+  if (!userId) {
+    throw new ClientError(401, 'invalid credentials');
+  }
   const { id: businessId, image, name, rating } = req.body.state.result;
   const { lat: latitude, lng: longitude } = req.body.state.maps;
   const { address1, address2, city, state, zip_code: zipcode } = req.body.state.result.location;
@@ -156,16 +159,17 @@ app.post('/api/bookmarks', (req, res, next) => {
 
 app.post('/api/bookmarked', (req, res, next) => {
   const { userId } = req.user;
-  const { id: businessId } = req.body;
+  if (!userId) {
+    throw new ClientError(401, 'invalid credentials');
+  }
   const sql = `
   select "businessId"
-      from "bookmarks
-      where "userId" = 1`;
-  const params = [userId, businessId];
+      from "bookmarks"
+      where "userId" = $1`;
+  const params = [userId];
   return db.query(sql, params)
     .then(result => {
-      const [id] = result.rows;
-      res.status(200).json(id);
+      res.status(200).json(result.rows);
     })
     .catch(error => next(error));
 });
