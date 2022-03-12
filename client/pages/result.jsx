@@ -27,6 +27,7 @@ export default class Result extends React.Component {
     this.renderStars = this.renderStars.bind(this);
     this.handleBookmark = this.handleBookmark.bind(this);
     this.checkBookmark = this.checkBookmark.bind(this);
+    this.bookmarkButton = this.bookmarkButton.bind(this);
   }
 
   componentDidMount() {
@@ -102,7 +103,7 @@ export default class Result extends React.Component {
     };
     fetch('/api/bookmarks', req)
       .then(res => res.json())
-      .then(result => result)
+      .then(result => this.setState({ bookmarked: true }))
       .catch(err => console.error(err));
   }
 
@@ -125,6 +126,22 @@ export default class Result extends React.Component {
         }
       })
       .catch(err => console.error(err));
+  }
+
+  bookmarkButton() {
+    const arrayButton = [];
+    if (this.state.bookmarked) {
+      arrayButton.push(<button key={1} className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>);
+    } else {
+      arrayButton.push(<button key={1} onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>);
+    }
+    return arrayButton;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.bookmarked !== prevState.bookmarked) {
+      this.bookmarkButton();
+    }
   }
 
   render() {
@@ -166,9 +183,7 @@ export default class Result extends React.Component {
               <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
               <div className='margin-bottom-10'>
                 {this.renderStars().map(rating => rating)}
-                {!this.state.bookmarked
-                  ? <button onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>
-                  : <button className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>}
+                {this.bookmarkButton().map(button => button)}
               </div>
               <div className='row-column-responsive'>
                 <div className='column-half'>
