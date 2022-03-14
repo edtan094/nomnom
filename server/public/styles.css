@@ -123,6 +123,13 @@ a {
   cursor: pointer;
 }
 
+.bookmark {
+  height: 7.625rem;
+  width: 20.938rem;
+  border: none;
+  background-color: white;
+}
+
 /* Z index */
 .z-index-1 {
   z-index: 1;
