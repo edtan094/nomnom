@@ -169,6 +169,23 @@ app.post('/api/bookmarked', (req, res, next) => {
   const params = [userId];
   return db.query(sql, params)
     .then(result => {
+      res.status(201).json(result.rows);
+    })
+    .catch(error => next(error));
+});
+
+app.get('/api/bookmarks', (req, res, next) => {
+  const { userId } = req.user;
+  if (!userId) {
+    throw new ClientError(401, 'invalid credentials');
+  }
+  const sql = `
+  select "businessId", "name", "image", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude"
+    from "bookmarks"
+    where "userId" = $1`;
+  const params = [userId];
+  return db.query(sql, params)
+    .then(result => {
       res.status(200).json(result.rows);
     })
     .catch(error => next(error));
