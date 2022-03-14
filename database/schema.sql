@@ -18,8 +18,8 @@ create table "public"."users" (
 create table "public"."bookmarks" (
   "userId"         integer         not null,
   "businessId"     text           not null,
-  "image"          text           not null,
   "name"           text           not null,
+  "image"          text           not null,
   "rating"         text           not null,
   "address1"       text           not null,
   "address2"       text           null,

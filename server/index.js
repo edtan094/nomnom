@@ -144,9 +144,9 @@ app.post('/api/bookmarks', (req, res, next) => {
   const { lat: latitude, lng: longitude } = req.body.state.maps;
   const { address1, address2, city, state, zip_code: zipcode } = req.body.state.result.location;
   const sql = `
-      insert into "bookmarks" ("userId", "businessId", "image", "name", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude")
+      insert into "bookmarks" ("userId", "businessId", "name", "image", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude")
       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-      returning "userId", "businessId", "name", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude" "createdAt"
+      returning "userId", "businessId", "name", "image", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude" "createdAt"
       `;
   const params = [userId, businessId, name, image, rating, address1, address2, city, state, zipcode, latitude, longitude];
   return db.query(sql, params)
