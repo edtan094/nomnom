@@ -87,6 +87,14 @@ input {
   font-size: 1rem;
 }
 
+.column-two-thirds-nonresponsive {
+  width: calc(200% / 3);
+}
+
+.column-one-third-nonresponsive {
+  width: calc(100% / 3);
+}
+
 @media screen and (min-width: 500px) {
   .container {
     max-width: 75rem;

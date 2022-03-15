@@ -126,8 +126,8 @@ a {
 .bookmark {
   height: 7.625rem;
   width: 20.938rem;
-  border: none;
   background-color: white;
+  border-color: #6610f2;
 }
 
 /* Z index */
@@ -140,6 +140,11 @@ a {
 }
 
 /* Miscellaneous */
+
+.text-align-initial {
+  text-align: initial;
+}
+
 .align-center {
   align-items: center;
 }

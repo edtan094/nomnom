@@ -3,6 +3,7 @@ import Home from './pages/home';
 import Navbar from './components/navbar';
 import PageContainer from './components/page-container';
 import Result from './pages/result';
+import Bookmarks from './pages/bookmarks';
 import LandingPage from './pages/landing-page';
 import PageNotFound from './pages/page-not-found';
 import parseRoute from '../lib/parseRoute';
@@ -90,6 +91,8 @@ export default class App extends React.Component {
       return <LandingPage guestSignIn={this.guestSignIn} handleSignIn={this.handleSignIn}/>;
     } else if (path.includes('result')) {
       return <Result />;
+    } else if (path === 'bookmarks') {
+      return <Bookmarks />;
     } else {
       return <PageNotFound />;
     }
