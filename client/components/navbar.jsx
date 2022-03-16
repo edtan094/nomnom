@@ -15,9 +15,9 @@ export default function Navbar(props) {
                     ? <button onClick={() => window.location.reload()}
                     className='padding-right font-theme purple-background no-borders white-text font-size-16 pointer'>Try Again</button>
                     : null}
-                  {props.route.path === '' || props.route.path.includes('result')
+                  {props.route.path === '' || props.route.path.includes('result') || props.route.path === 'bookmarks'
                     ? <button onClick={props.handleSignOut}
-                  className='padding-right font-theme purple-background no-borders white-text font-size-16 pointer'>Sign Out</button>
+                  className='padding-right font-theme purple-background no-borders white-text font-size-16 pointer'><i className="fa-solid fa-bars"></i></button>
                     : null}
                 </div>
               </div>

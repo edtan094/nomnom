@@ -5,17 +5,16 @@ import Redirect from '../components/redirect';
 export default class Bookmarks extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { bookmarks: { rating: 3 } };
+    this.state = { bookmarks: [] };
     this.getBookmarks = this.getBookmarks.bind(this);
     this.renderStars = this.renderStars.bind(this);
   }
 
   componentDidMount() {
-    // this.getBookmarks();
+    this.getBookmarks();
   }
 
-  renderStars() {
-    const rating = this.state.bookmarks.rating;
+  renderStars(rating) {
     const hasHalfStar = rating % 1 !== 0;
     const fullStar = Math.floor(rating);
     const emptyStar = Math.floor(5 - rating);
@@ -50,62 +49,24 @@ export default class Bookmarks extends React.Component {
     if (!this.context.user) return <Redirect to="sign-in" />;
     return (
       <div className='row justify-center'>
-        <div className='column-half-responsive padding-top'>
-          <button className='row border-radius bookmark'>
-            <div className='column-two-thirds-nonresponsive'>
-              <p className='roboto-font result-info-size text-align-initial'>Hiro Nori</p>
-              <div className='text-align-initial'>{this.renderStars()}</div>
-              <p className='roboto-font result-info-size text-align-initial'>2222 Michelson Dr<br></br>
-                Ste 234,<br></br>
-                Irvine, CA 92612</p>
+        {this.state.bookmarks.map(business => {
+          return (
+            <div key={business.businessId} className='column-half-responsive padding-top'>
+              <button className='row border-radius bookmark'>
+                <div className='column-two-thirds-nonresponsive'>
+                  <p className='roboto-font result-info-size text-align-initial'>{business.name}</p>
+                  <div className='text-align-initial'>{this.renderStars(business.rating)}</div>
+                  <p className='roboto-font result-info-size text-align-initial'>{business.address1}</p>
+                  <p className='roboto-font result-info-size text-align-initial'>{business.address2}</p>
+                  <p className='roboto-font result-info-size text-align-initial'>{business.city} {business.state} {business.zipcode}</p>
+                </div>
+                <div className='column-one-third-nonresponsive'>
+                  <img className='bookmark-image' src={business.image}></img>
+                </div>
+              </button>
             </div>
-            <div className='column-one-third-nonresponsive'>
-              <img className='bookmark-image' src='https://s3-media2.fl.yelpcdn.com/bphoto/zMlMh3bufK9prGSZMrFowQ/o.jpg'></img>
-            </div>
-          </button>
-        </div>
-        <div className='column-half-responsive padding-top'>
-          <button className='row border-radius bookmark'>
-            <div className='column-two-thirds-nonresponsive'>
-              <p className='roboto-font result-info-size text-align-initial'>Hiro Nori</p>
-              <div className='text-align-initial'>{this.renderStars()}</div>
-              <p className='roboto-font result-info-size text-align-initial'>2222 Michelson Dr<br></br>
-                Ste 234,<br></br>
-                Irvine, CA 92612</p>
-            </div>
-            <div className='column-one-third-nonresponsive'>
-              <img className='bookmark-image' src='https://s3-media2.fl.yelpcdn.com/bphoto/zMlMh3bufK9prGSZMrFowQ/o.jpg'></img>
-            </div>
-          </button>
-        </div>
-        <div className='column-half-responsive padding-top'>
-          <button className='row border-radius bookmark'>
-            <div className='column-two-thirds-nonresponsive'>
-              <p className='roboto-font result-info-size text-align-initial'>Hiro Nori</p>
-              <div className='text-align-initial'>{this.renderStars()}</div>
-              <p className='roboto-font result-info-size text-align-initial'>2222 Michelson Dr<br></br>
-                Ste 234,<br></br>
-                Irvine, CA 92612</p>
-            </div>
-            <div className='column-one-third-nonresponsive'>
-              <img className='bookmark-image' src='https://s3-media2.fl.yelpcdn.com/bphoto/zMlMh3bufK9prGSZMrFowQ/o.jpg'></img>
-            </div>
-          </button>
-        </div>
-        <div className='column-half-responsive padding-top'>
-          <button className='row border-radius bookmark'>
-            <div className='column-two-thirds-nonresponsive'>
-              <p className='roboto-font result-info-size text-align-initial'>Hiro Nori</p>
-              <div className='text-align-initial'>{this.renderStars()}</div>
-              <p className='roboto-font result-info-size text-align-initial'>2222 Michelson Dr<br></br>
-                Ste 234,<br></br>
-                Irvine, CA 92612</p>
-            </div>
-            <div className='column-one-third-nonresponsive'>
-              <img className='bookmark-image' src='https://s3-media2.fl.yelpcdn.com/bphoto/zMlMh3bufK9prGSZMrFowQ/o.jpg'></img>
-            </div>
-          </button>
-        </div>
+          );
+        })}
       </div>
     );
   }
