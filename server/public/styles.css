@@ -124,10 +124,15 @@ a {
 }
 
 .bookmark {
-  height: 7.625rem;
-  width: 20.938rem;
+  height: 11.625rem;
+  width: 23.938rem;
   background-color: white;
   border-color: #6610f2;
+}
+
+.bookmark-image {
+  max-width: 7.5rem;
+  max-height: 9.5rem;
 }
 
 /* Z index */

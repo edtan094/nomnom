@@ -7,6 +7,7 @@
 
 .row {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .column-full {
@@ -93,6 +94,10 @@ input {
 
 .column-one-third-nonresponsive {
   width: calc(100% / 3);
+}
+
+.column-half-responsive {
+  width: 100%;
 }
 
 @media screen and (min-width: 500px) {
@@ -206,5 +211,9 @@ input {
     font-family: "Abril Fatface", cursive;
     color: #6610f2;
     font-size: 1.563rem;
+  }
+
+  .column-half-responsive {
+    width: 50%;
   }
 }
