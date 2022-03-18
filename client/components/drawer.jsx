@@ -17,7 +17,7 @@ function MenuDrawer({ isOpen, close, handleSignOut }) {
       <div className='row direction-column align-center'>
         <a href='#bookmarks' className='black' onClick={close}>Bookmarks</a>
         <button onClick={handleClick}
-        className='font-theme no-borders font-size-16 pointer white-background-color'>
+        className='font-theme no-borders font-size-16 pointer white-background-color margin-top'>
         Sign Out
       </button>
       </div>
