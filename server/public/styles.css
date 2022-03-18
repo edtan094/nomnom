@@ -135,6 +135,14 @@ a {
   max-height: 9.5rem;
 }
 
+.white-background-color {
+  background-color: white;
+}
+
+.black {
+  color: black;
+}
+
 /* Z index */
 .z-index-1 {
   z-index: 1;
@@ -189,7 +197,7 @@ a {
 }
 
 .vh-height {
-  height: 100vh;
+  height: 75vh;
 }
 
 .logo {
@@ -286,6 +294,44 @@ a {
 
 .padding-bottom-100 {
   padding-bottom: 6.25rem;
+}
+
+.drawer {
+  right: 0;
+  top: 0;
+  position: absolute;
+  z-index: 1;
+  width: 275px;
+  min-height: 100%;
+  padding-top: 1rem;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.45);
+  transform: translateX(283px);
+  transition: transform 0.2s ease-in-out;
+}
+
+.drawer.is-open {
+  transform: translateX(0);
+}
+
+.shade {
+  top: 0;
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  background-color: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease-in-out;
+}
+
+.shade.is-drawn {
+  opacity: 0.5;
+  pointer-events: all;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0;
 }
 
 /* Loading spinner */

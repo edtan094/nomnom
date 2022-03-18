@@ -2,7 +2,8 @@
   max-width: 29.688rem;
   margin: 0 auto;
   padding: 0 1.5rem;
-  height: 100vh;
+
+  /* height: 100vh; */
 }
 
 .row {
@@ -105,7 +106,8 @@ input {
     max-width: 75rem;
     margin: 0 auto;
     padding: 0 1.5rem;
-    height: 100vh;
+
+    /* height: 100vh; */
   }
 
   .search-button {
@@ -144,7 +146,8 @@ input {
     max-width: 75rem;
     margin: 0 auto;
     padding: 0 1.5rem;
-    height: 100vh;
+
+    /* height: 100vh; */
   }
 
   .search-button {

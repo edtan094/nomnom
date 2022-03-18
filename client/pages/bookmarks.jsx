@@ -52,13 +52,13 @@ export default class Bookmarks extends React.Component {
         {this.state.bookmarks.map(business => {
           return (
             <div key={business.businessId} className='column-half-responsive padding-top'>
-              <button className='row border-radius bookmark'>
+              <button className='row border-radius bookmark align-center'>
                 <div className='column-two-thirds-nonresponsive'>
                   <p className='roboto-font result-info-size text-align-initial'>{business.name}</p>
                   <div className='text-align-initial'>{this.renderStars(business.rating)}</div>
-                  <p className='roboto-font result-info-size text-align-initial'>{business.address1}</p>
-                  <p className='roboto-font result-info-size text-align-initial'>{business.address2}</p>
-                  <p className='roboto-font result-info-size text-align-initial'>{business.city} {business.state} {business.zipcode}</p>
+                  <p className='roboto-font result-info-size text-align-initial margin-bottom-0'>{business.address1}</p>
+                  {business.address2 && <p className='roboto-font result-info-size text-align-initial restaurant-info'>{business.address2}</p>}
+                  <p className='roboto-font result-info-size text-align-initial restaurant-info'>{business.city} {business.state} {business.zipcode}</p>
                 </div>
                 <div className='column-one-third-nonresponsive'>
                   <img className='bookmark-image' src={business.image}></img>
