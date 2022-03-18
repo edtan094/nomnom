@@ -61,7 +61,6 @@ export default class Result extends React.Component {
     fetch(`/api/yelp/${term}/${location}`)
       .then(res => res.json())
       .then(result => {
-        console.log(result);
         if (result.total === 0) {
           this.setState({ resultFound: false });
         } else {

@@ -192,7 +192,6 @@ app.get('/api/bookmarks', (req, res, next) => {
 });
 
 app.get('/api/bookmark/:businessId', (req, res, next) => {
-  console.log('hello there!');
   const { userId } = req.user;
   if (!userId) {
     throw new ClientError(401, 'invalid credentials');

@@ -27,7 +27,7 @@ export default class Navbar extends React.Component {
                   ? <button onClick={() => window.location.reload()}
                     className='padding-right font-theme purple-background no-borders white-text font-size-16 pointer'>Try Again</button>
                   : null}
-                {this.props.route.path === '' || this.props.route.path.includes('result') || this.props.route.path === 'bookmarks'
+                {this.props.route.path === '' || this.props.route.path.includes('result') || this.props.route.path.includes('bookmark')
                   ? <button onClick={this.toggleOpen}
                     className='padding-right font-theme purple-background no-borders white-text font-size-16 pointer'><i className="fa-solid fa-bars"></i></button>
                   : null}

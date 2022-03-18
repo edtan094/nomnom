@@ -53,8 +53,20 @@ export default class Bookmarks extends React.Component {
 
   render() {
     if (!this.context.user) return <Redirect to="sign-in" />;
+    if (this.state.bookmarks[0] === undefined) {
+      return (
+        <>
+          <div className='row justify-center'>
+            <p className='font-size-30'>No Bookmarks Found!</p>
+          </div>
+          <div className='row justify-center'>
+            <img className='sad-cookie-image' src='./images/sad-cookie-image.jpg'></img>
+          </div>
+        </>
+      );
+    }
     return (
-      <div className='row justify-center'>
+      <div className='row'>
         {this.state.bookmarks.map(business => {
           return (
             <div key={business.businessId} id={business.businessId} className='column-half-responsive padding-top bookmark-result'>

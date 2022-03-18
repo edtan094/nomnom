@@ -58,16 +58,13 @@ export default class BookmarkResult extends React.Component {
         'X-Access-Token': localStorage.getItem('jwt')
       }
     };
-    let businessId;
     fetch(`/api/bookmark/${id}`, req)
       .then(res => res.json())
       .then(result => {
-        console.log('result', result);
         if (result.total === 0) {
           this.setState({ resultFound: false });
         } else {
-          businessId = result.id;
-          fetch(`/api/yelp/${businessId}`)
+          fetch(`/api/yelp/${id}`)
             .then(res => res.json())
             .then(reviews => {
               this.setState({
@@ -81,11 +78,21 @@ export default class BookmarkResult extends React.Component {
             .catch(err => console.error(err));
           this.setState({
             resultFound: true,
-            result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id },
-            maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
+            result: {
+              name: result[0].name,
+              address1: result[0].address1,
+              address2: result[0].address2,
+              address3: result[0].address3,
+              city: result[0].city,
+              state: result[0].state,
+              zipcode: result[0].zipcode,
+              image: result[0].image,
+              rating: result[0].rating,
+              id: result[0].id
+            },
+            maps: { lat: parseFloat(result[0].latitude), lng: parseFloat(result[0].longitude) }
           });
           this.renderStars();
-          // this.checkBookmark();
         }
       })
       .catch(err => {
@@ -129,16 +136,17 @@ export default class BookmarkResult extends React.Component {
               <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
               <div className='margin-bottom-10'>
                 {this.renderStars().map(rating => rating)}
-                {this.bookmarkButton().map(button => button)}
               </div>
               <div className='row-column-responsive'>
                 <div className='column-half'>
-                  <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.address1}</p>
-                  <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.address2}</p>
-                  <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
+                  <p className='restaurant-info result-info-size roboto-font'>{this.state.result.address1}</p>
+                  <p className='restaurant-info result-info-size roboto-font'>{this.state.result.address2}</p>
+                  <p className='restaurant-info result-info-size roboto-font'>{this.state.result.city} {this.state.result.state} {this.state.result.zipcode}</p>
                 </div>
                 <div className='column-half'>
-                  <TwilioButton address={this.state.result.location} name={this.state.result.name} />
+                  <TwilioButton address={{ display_address: [this.state.result.address1, this.state.result.address2, this.state.result.address3, this.state.result.city, this.state.result.state, this.state.result.zipcode] }
+                  }
+                  name={this.state.result.name} />
                 </div>
               </div>
             </div>
