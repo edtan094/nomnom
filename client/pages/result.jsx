@@ -4,6 +4,7 @@ import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
 import TwilioButton from '../components/twilio-button';
 import NoResultFound from '../components/no-result-found';
+import Rating from '../components/rating';
 import Redirect from '../components/redirect';
 import AppContext from '../../lib/app-context';
 export default class Result extends React.Component {
@@ -20,34 +21,18 @@ export default class Result extends React.Component {
         image: '',
         rating: null,
         id: ''
-      }
+      },
+      bookmarked: false
     };
     this.handleSearch = this.handleSearch.bind(this);
-    this.renderStars = this.renderStars.bind(this);
+    // this.renderStars = this.renderStars.bind(this);
     this.handleBookmark = this.handleBookmark.bind(this);
+    this.checkBookmark = this.checkBookmark.bind(this);
+    this.bookmarkButton = this.bookmarkButton.bind(this);
   }
 
   componentDidMount() {
     this.handleSearch();
-  }
-
-  renderStars() {
-    const rating = this.state.result.rating;
-    const hasHalfStar = rating % 1 !== 0;
-    const fullStar = Math.floor(rating);
-    const emptyStar = Math.floor(5 - rating);
-    const arrayStars = [];
-    for (let i = 1; i <= fullStar; i++) {
-      arrayStars.push(<i key={`${i}-full-star`} className="fa-solid fa-star theme-color star-size "></i>);
-    }
-    if (hasHalfStar) {
-      arrayStars.push(<i key="1-half-star" className="fa-solid fa-star-half-stroke theme-color star-size "></i>);
-    }
-
-    for (let i = 1; i <= emptyStar; i++) {
-      arrayStars.push(<i key={`${i}-empty-star`} className="fa-regular fa-star theme-color star-size "></i>);
-    }
-    return arrayStars;
   }
 
   handleSearch() {
@@ -79,7 +64,7 @@ export default class Result extends React.Component {
             result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id },
             maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
           });
-          this.renderStars();
+          this.checkBookmark();
         }
       })
       .catch(err => {
@@ -99,8 +84,45 @@ export default class Result extends React.Component {
     };
     fetch('/api/bookmarks', req)
       .then(res => res.json())
-      .then(result => result)
+      .then(result => this.setState({ bookmarked: true }))
       .catch(err => console.error(err));
+  }
+
+  checkBookmark() {
+    const req = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': localStorage.getItem('jwt')
+      }
+    };
+    fetch('/api/bookmarked', req)
+      .then(res => res.json())
+      .then(result => {
+        for (let i = 0; i < result.length; i++) {
+          if (result[i].businessId === this.state.result.id) {
+            this.setState({ bookmarked: true });
+            break;
+          }
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
+  bookmarkButton() {
+    const arrayButton = [];
+    if (this.state.bookmarked) {
+      arrayButton.push(<button key={1} className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>);
+    } else {
+      arrayButton.push(<button key={1} onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>);
+    }
+    return arrayButton;
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.bookmarked !== prevState.bookmarked) {
+      this.bookmarkButton();
+    }
   }
 
   render() {
@@ -141,8 +163,8 @@ export default class Result extends React.Component {
             <div className='column-two-thirds'>
               <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
               <div className='margin-bottom-10'>
-                {this.renderStars().map(rating => rating)}
-                <button onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>
+                <Rating rating={this.state.result.rating}/>
+                {this.bookmarkButton().map(button => button)}
               </div>
               <div className='row-column-responsive'>
                 <div className='column-half'>

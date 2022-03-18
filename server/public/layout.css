@@ -2,11 +2,13 @@
   max-width: 29.688rem;
   margin: 0 auto;
   padding: 0 1.5rem;
-  height: 100vh;
+
+  /* height: 100vh; */
 }
 
 .row {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .column-full {
@@ -87,12 +89,25 @@ input {
   font-size: 1rem;
 }
 
+.column-two-thirds-nonresponsive {
+  width: calc(200% / 3);
+}
+
+.column-one-third-nonresponsive {
+  width: calc(100% / 3);
+}
+
+.column-half-responsive {
+  width: 100%;
+}
+
 @media screen and (min-width: 500px) {
   .container {
     max-width: 75rem;
     margin: 0 auto;
     padding: 0 1.5rem;
-    height: 100vh;
+
+    /* height: 100vh; */
   }
 
   .search-button {
@@ -131,7 +146,8 @@ input {
     max-width: 75rem;
     margin: 0 auto;
     padding: 0 1.5rem;
-    height: 100vh;
+
+    /* height: 100vh; */
   }
 
   .search-button {
@@ -198,5 +214,9 @@ input {
     font-family: "Abril Fatface", cursive;
     color: #6610f2;
     font-size: 1.563rem;
+  }
+
+  .column-half-responsive {
+    width: 50%;
   }
 }

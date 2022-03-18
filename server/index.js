@@ -137,15 +137,18 @@ app.use(authorizationMiddleware);
 
 app.post('/api/bookmarks', (req, res, next) => {
   const { userId } = req.user;
-  const { id, image, name, rating } = req.body.state.result;
+  if (!userId) {
+    throw new ClientError(401, 'invalid credentials');
+  }
+  const { id: businessId, image, name, rating } = req.body.state.result;
   const { lat: latitude, lng: longitude } = req.body.state.maps;
   const { address1, address2, city, state, zip_code: zipcode } = req.body.state.result.location;
   const sql = `
-      insert into "bookmarks" ("userId", "businessId", "image", "name", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude")
+      insert into "bookmarks" ("userId", "businessId", "name", "image", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude")
       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
-      returning "userId", "businessId", "name", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude" "createdAt"
+      returning "userId", "businessId", "name", "image", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude" "createdAt"
       `;
-  const params = [userId, id, name, image, rating, address1, address2, city, state, zipcode, latitude, longitude];
+  const params = [userId, businessId, name, image, rating, address1, address2, city, state, zipcode, latitude, longitude];
   return db.query(sql, params)
     .then(result => {
       const [user] = result.rows;
@@ -153,6 +156,59 @@ app.post('/api/bookmarks', (req, res, next) => {
     })
     .catch(error => next(error));
 });
+
+app.post('/api/bookmarked', (req, res, next) => {
+  const { userId } = req.user;
+  if (!userId) {
+    throw new ClientError(401, 'invalid credentials');
+  }
+  const sql = `
+  select "businessId"
+      from "bookmarks"
+      where "userId" = $1`;
+  const params = [userId];
+  return db.query(sql, params)
+    .then(result => {
+      res.status(201).json(result.rows);
+    })
+    .catch(error => next(error));
+});
+
+app.get('/api/bookmarks', (req, res, next) => {
+  const { userId } = req.user;
+  if (!userId) {
+    throw new ClientError(401, 'invalid credentials');
+  }
+  const sql = `
+  select "businessId", "name", "image", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude"
+    from "bookmarks"
+    where "userId" = $1`;
+  const params = [userId];
+  return db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(error => next(error));
+});
+
+app.get('/api/bookmark/:businessId', (req, res, next) => {
+  const { userId } = req.user;
+  if (!userId) {
+    throw new ClientError(401, 'invalid credentials');
+  }
+  const { businessId } = req.params;
+  const sql = `
+  select "businessId", "name", "image", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude"
+    from "bookmarks"
+    where "businessId" = $1`;
+  const params = [businessId];
+  return db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(error => next(error));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

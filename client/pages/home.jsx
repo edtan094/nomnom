@@ -44,6 +44,7 @@ export default class Home extends React.Component {
               <option value="chicken_wings">Chicken Wings</option>
               <option value="chinese">Chinese</option>
               <option value="comfortfood">Comfort Food</option>
+              <option value="desserts">Dessert</option>
               <option value="hotdogs">Fast Food</option>
               <option value="filipino">Filipino</option>
               <option value="fishnchips">Fish & Chips</option>
