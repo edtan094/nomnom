@@ -191,6 +191,25 @@ app.get('/api/bookmarks', (req, res, next) => {
     .catch(error => next(error));
 });
 
+app.get('/api/bookmark/:businessId', (req, res, next) => {
+  console.log('hello there!');
+  const { userId } = req.user;
+  if (!userId) {
+    throw new ClientError(401, 'invalid credentials');
+  }
+  const { businessId } = req.params;
+  const sql = `
+  select "businessId", "name", "image", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude"
+    from "bookmarks"
+    where "businessId" = $1`;
+  const params = [businessId];
+  return db.query(sql, params)
+    .then(result => {
+      res.status(200).json(result.rows);
+    })
+    .catch(error => next(error));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

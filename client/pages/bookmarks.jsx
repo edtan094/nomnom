@@ -8,6 +8,7 @@ export default class Bookmarks extends React.Component {
     this.state = { bookmarks: [] };
     this.getBookmarks = this.getBookmarks.bind(this);
     this.renderStars = this.renderStars.bind(this);
+    this.visitBookmark = this.visitBookmark.bind(this);
   }
 
   componentDidMount() {
@@ -45,14 +46,19 @@ export default class Bookmarks extends React.Component {
       .catch(err => console.error(err));
   }
 
+  visitBookmark(event, businessId) {
+    event.preventDefault();
+    window.location.hash = `bookmark-location?businessId=${event.target.closest('.bookmark-result').id}`;
+  }
+
   render() {
     if (!this.context.user) return <Redirect to="sign-in" />;
     return (
       <div className='row justify-center'>
         {this.state.bookmarks.map(business => {
           return (
-            <div key={business.businessId} className='column-half-responsive padding-top'>
-              <button className='row border-radius bookmark align-center'>
+            <div key={business.businessId} id={business.businessId} className='column-half-responsive padding-top bookmark-result'>
+              <button onClick={this.visitBookmark} className='row border-radius bookmark align-center'>
                 <div className='column-two-thirds-nonresponsive'>
                   <p className='roboto-font result-info-size text-align-initial'>{business.name}</p>
                   <div className='text-align-initial'>{this.renderStars(business.rating)}</div>

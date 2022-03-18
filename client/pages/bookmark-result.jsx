@@ -1,12 +1,12 @@
 import React from 'react';
-import parseRoute from '../../lib/parseRoute';
+import AppContext from '../../lib/app-context';
+import Redirect from '../components/redirect';
+import TwilioButton from '../components/twilio-button';
 import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
-import TwilioButton from '../components/twilio-button';
-import NoResultFound from '../components/no-result-found';
-import Redirect from '../components/redirect';
-import AppContext from '../../lib/app-context';
-export default class Result extends React.Component {
+import parseRoute from '../../lib/parseRoute';
+
+export default class BookmarkResult extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,18 +20,14 @@ export default class Result extends React.Component {
         image: '',
         rating: null,
         id: ''
-      },
-      bookmarked: false
+      }
     };
-    this.handleSearch = this.handleSearch.bind(this);
+    this.renderBookmark = this.renderBookmark.bind(this);
     this.renderStars = this.renderStars.bind(this);
-    this.handleBookmark = this.handleBookmark.bind(this);
-    this.checkBookmark = this.checkBookmark.bind(this);
-    this.bookmarkButton = this.bookmarkButton.bind(this);
   }
 
   componentDidMount() {
-    this.handleSearch();
+    this.renderBookmark();
   }
 
   renderStars() {
@@ -53,15 +49,20 @@ export default class Result extends React.Component {
     return arrayStars;
   }
 
-  handleSearch() {
+  renderBookmark() {
     const { params } = parseRoute(window.location.hash);
-    const term = params.get('term');
-    const location = params.get('location');
+    const id = params.get('businessId');
+    const req = {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': localStorage.getItem('jwt')
+      }
+    };
     let businessId;
-    fetch(`/api/yelp/${term}/${location}`)
+    fetch(`/api/bookmark/${id}`, req)
       .then(res => res.json())
       .then(result => {
-        console.log(result);
+        console.log('result', result);
         if (result.total === 0) {
           this.setState({ resultFound: false });
         } else {
@@ -84,65 +85,13 @@ export default class Result extends React.Component {
             maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
           });
           this.renderStars();
-          this.checkBookmark();
+          // this.checkBookmark();
         }
       })
       .catch(err => {
         this.setState({ networkError: true });
         console.error(err);
       });
-  }
-
-  handleBookmark() {
-    const req = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Access-Token': localStorage.getItem('jwt')
-      },
-      body: JSON.stringify({ state: this.state })
-    };
-    fetch('/api/bookmarks', req)
-      .then(res => res.json())
-      .then(result => this.setState({ bookmarked: true }))
-      .catch(err => console.error(err));
-  }
-
-  checkBookmark() {
-    const req = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Access-Token': localStorage.getItem('jwt')
-      }
-    };
-    fetch('/api/bookmarked', req)
-      .then(res => res.json())
-      .then(result => {
-        for (let i = 0; i < result.length; i++) {
-          if (result[i].businessId === this.state.result.id) {
-            this.setState({ bookmarked: true });
-            break;
-          }
-        }
-      })
-      .catch(err => console.error(err));
-  }
-
-  bookmarkButton() {
-    const arrayButton = [];
-    if (this.state.bookmarked) {
-      arrayButton.push(<button key={1} className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>);
-    } else {
-      arrayButton.push(<button key={1} onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>);
-    }
-    return arrayButton;
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.bookmarked !== prevState.bookmarked) {
-      this.bookmarkButton();
-    }
   }
 
   render() {
@@ -152,7 +101,7 @@ export default class Result extends React.Component {
         <>
           <div className='row justify-center'>
             <p className='font-size-30'>Sorry! There was an error connecting to the network!<br></br>
-            Please check your internet connection and try again.
+              Please check your internet connection and try again.
             </p>
           </div>
           <div className='row justify-center'>
@@ -163,14 +112,10 @@ export default class Result extends React.Component {
     }
     if (this.state.resultFound === true && this.state.result.name === '') {
       return (
-      <div className='row justify-center margin-top'>
+        <div className='row justify-center margin-top'>
           <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-      </div>
+        </div>
       );
-    }
-
-    if (!this.state.resultFound) {
-      return <NoResultFound />;
     } else {
       return (
         <>
@@ -193,7 +138,7 @@ export default class Result extends React.Component {
                   <p className='restaurant-info result-info-size roboto-font'>{this.state.result.location.city} {this.state.result.location.state} {this.state.result.location.zip_code}</p>
                 </div>
                 <div className='column-half'>
-                  <TwilioButton address={this.state.result.location} name={this.state.result.name}/>
+                  <TwilioButton address={this.state.result.location} name={this.state.result.name} />
                 </div>
               </div>
             </div>
@@ -208,4 +153,4 @@ export default class Result extends React.Component {
   }
 }
 
-Result.contextType = AppContext;
+BookmarkResult.contextType = AppContext;

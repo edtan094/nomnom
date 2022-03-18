@@ -26,8 +26,8 @@ create table "public"."bookmarks" (
   "city"           text           not null,
   "state"          text           not null,
   "zipcode"        text           not null,
-  "latitude"       text           not null,
-  "longitude"      text           not null,
+  "latitude"       text          not null,
+  "longitude"      text          not null,
   "createdAt"      timestamptz(6) not null default now(),
   primary key ("businessId")
 );
