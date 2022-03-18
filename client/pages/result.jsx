@@ -4,6 +4,7 @@ import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
 import TwilioButton from '../components/twilio-button';
 import NoResultFound from '../components/no-result-found';
+import Rating from '../components/rating';
 import Redirect from '../components/redirect';
 import AppContext from '../../lib/app-context';
 export default class Result extends React.Component {
@@ -24,7 +25,7 @@ export default class Result extends React.Component {
       bookmarked: false
     };
     this.handleSearch = this.handleSearch.bind(this);
-    this.renderStars = this.renderStars.bind(this);
+    // this.renderStars = this.renderStars.bind(this);
     this.handleBookmark = this.handleBookmark.bind(this);
     this.checkBookmark = this.checkBookmark.bind(this);
     this.bookmarkButton = this.bookmarkButton.bind(this);
@@ -32,25 +33,6 @@ export default class Result extends React.Component {
 
   componentDidMount() {
     this.handleSearch();
-  }
-
-  renderStars() {
-    const rating = this.state.result.rating;
-    const hasHalfStar = rating % 1 !== 0;
-    const fullStar = Math.floor(rating);
-    const emptyStar = Math.floor(5 - rating);
-    const arrayStars = [];
-    for (let i = 1; i <= fullStar; i++) {
-      arrayStars.push(<i key={`${i}-full-star`} className="fa-solid fa-star theme-color star-size "></i>);
-    }
-    if (hasHalfStar) {
-      arrayStars.push(<i key="1-half-star" className="fa-solid fa-star-half-stroke theme-color star-size "></i>);
-    }
-
-    for (let i = 1; i <= emptyStar; i++) {
-      arrayStars.push(<i key={`${i}-empty-star`} className="fa-regular fa-star theme-color star-size "></i>);
-    }
-    return arrayStars;
   }
 
   handleSearch() {
@@ -82,7 +64,6 @@ export default class Result extends React.Component {
             result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id },
             maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
           });
-          this.renderStars();
           this.checkBookmark();
         }
       })
@@ -182,7 +163,7 @@ export default class Result extends React.Component {
             <div className='column-two-thirds'>
               <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
               <div className='margin-bottom-10'>
-                {this.renderStars().map(rating => rating)}
+                <Rating rating={this.state.result.rating}/>
                 {this.bookmarkButton().map(button => button)}
               </div>
               <div className='row-column-responsive'>

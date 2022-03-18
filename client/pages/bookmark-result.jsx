@@ -2,6 +2,7 @@ import React from 'react';
 import AppContext from '../../lib/app-context';
 import Redirect from '../components/redirect';
 import TwilioButton from '../components/twilio-button';
+import Rating from '../components/rating';
 import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
 import parseRoute from '../../lib/parseRoute';
@@ -23,30 +24,10 @@ export default class BookmarkResult extends React.Component {
       }
     };
     this.renderBookmark = this.renderBookmark.bind(this);
-    this.renderStars = this.renderStars.bind(this);
   }
 
   componentDidMount() {
     this.renderBookmark();
-  }
-
-  renderStars() {
-    const rating = this.state.result.rating;
-    const hasHalfStar = rating % 1 !== 0;
-    const fullStar = Math.floor(rating);
-    const emptyStar = Math.floor(5 - rating);
-    const arrayStars = [];
-    for (let i = 1; i <= fullStar; i++) {
-      arrayStars.push(<i key={`${i}-full-star`} className="fa-solid fa-star theme-color star-size "></i>);
-    }
-    if (hasHalfStar) {
-      arrayStars.push(<i key="1-half-star" className="fa-solid fa-star-half-stroke theme-color star-size "></i>);
-    }
-
-    for (let i = 1; i <= emptyStar; i++) {
-      arrayStars.push(<i key={`${i}-empty-star`} className="fa-regular fa-star theme-color star-size "></i>);
-    }
-    return arrayStars;
   }
 
   renderBookmark() {
@@ -92,7 +73,6 @@ export default class BookmarkResult extends React.Component {
             },
             maps: { lat: parseFloat(result[0].latitude), lng: parseFloat(result[0].longitude) }
           });
-          this.renderStars();
         }
       })
       .catch(err => {
@@ -135,7 +115,7 @@ export default class BookmarkResult extends React.Component {
             <div className='column-two-thirds'>
               <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
               <div className='margin-bottom-10'>
-                {this.renderStars().map(rating => rating)}
+                <Rating rating={this.state.result.rating}/>
               </div>
               <div className='row-column-responsive'>
                 <div className='column-half'>
