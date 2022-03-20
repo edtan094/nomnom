@@ -1,4 +1,11 @@
+.body-container {
+  overflow-x: hidden;
+  position: relative;
+  height: 100vh;
+}
+
 /* Font */
+
 body,
 .font-theme {
   font-family: "Abril Fatface", cursive;
@@ -301,7 +308,7 @@ a {
   top: 0;
   position: absolute;
   z-index: 1;
-  width: 275px;
+  width: 17.188rem;
   min-height: 100%;
   padding-top: 1rem;
   background-color: rgb(255, 255, 255);
