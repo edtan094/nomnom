@@ -4,6 +4,7 @@ import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
 import TwilioButton from '../components/twilio-button';
 import NoResultFound from '../components/no-result-found';
+import LoadingSpinner from '../components/loading-spinner';
 import Rating from '../components/rating';
 import Redirect from '../components/redirect';
 import AppContext from '../../lib/app-context';
@@ -25,10 +26,10 @@ export default class Result extends React.Component {
       bookmarked: false
     };
     this.handleSearch = this.handleSearch.bind(this);
-    // this.renderStars = this.renderStars.bind(this);
     this.handleBookmark = this.handleBookmark.bind(this);
     this.checkBookmark = this.checkBookmark.bind(this);
     this.bookmarkButton = this.bookmarkButton.bind(this);
+    this.deleteBookmark = this.deleteBookmark.bind(this);
   }
 
   componentDidMount() {
@@ -109,10 +110,24 @@ export default class Result extends React.Component {
       .catch(err => console.error(err));
   }
 
+  deleteBookmark() {
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': localStorage.getItem('jwt')
+      },
+      body: JSON.stringify({ businessId: this.state.result.id })
+    };
+    fetch('/api/bookmark', req)
+      .then(result => this.setState({ bookmarked: false }))
+      .catch(err => console.error(err));
+  }
+
   bookmarkButton() {
     const arrayButton = [];
     if (this.state.bookmarked) {
-      arrayButton.push(<button key={1} className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>);
+      arrayButton.push(<button key={1} onClick={this.deleteBookmark} className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>);
     } else {
       arrayButton.push(<button key={1} onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>);
     }
@@ -142,11 +157,7 @@ export default class Result extends React.Component {
       );
     }
     if (this.state.resultFound === true && this.state.result.name === '') {
-      return (
-      <div className='row justify-center margin-top'>
-          <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-      </div>
-      );
+      return <LoadingSpinner />;
     }
 
     if (!this.state.resultFound) {

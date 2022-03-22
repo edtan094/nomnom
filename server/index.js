@@ -209,6 +209,24 @@ app.get('/api/bookmark/:businessId', (req, res, next) => {
     .catch(error => next(error));
 });
 
+app.delete('/api/bookmark/', (req, res, next) => {
+  const { businessId } = req.body;
+  const { userId } = req.user;
+  if (!userId) {
+    throw new ClientError(401, 'invalid credentials');
+  }
+  const sql = `
+  delete from "bookmarks"
+ where "businessId" = $1
+   and "userId"    = $2`;
+  const params = [businessId, userId];
+  return db.query(sql, params)
+    .then(result => {
+      res.status(204).json({ deleted: true });
+    })
+    .catch(error => next(error));
+});
+
 app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {

@@ -2,11 +2,12 @@ import React from 'react';
 import AppContext from '../../lib/app-context';
 import Redirect from '../components/redirect';
 import Rating from '../components/rating';
+import LoadingSpinner from '../components/loading-spinner';
 
 export default class Bookmarks extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { bookmarks: [] };
+    this.state = { bookmarks: [], bookmarksLoaded: false };
     this.getBookmarks = this.getBookmarks.bind(this);
     this.visitBookmark = this.visitBookmark.bind(this);
   }
@@ -24,7 +25,7 @@ export default class Bookmarks extends React.Component {
     };
     fetch('/api/bookmarks', req)
       .then(res => res.json())
-      .then(result => this.setState({ bookmarks: result }))
+      .then(result => this.setState({ bookmarks: result, bookmarksLoaded: true }))
       .catch(err => console.error(err));
   }
 
@@ -35,6 +36,9 @@ export default class Bookmarks extends React.Component {
 
   render() {
     if (!this.context.user) return <Redirect to="sign-in" />;
+    if (this.state.bookmarksLoaded === false) {
+      return <LoadingSpinner />;
+    }
     if (this.state.bookmarks[0] === undefined) {
       return (
         <>

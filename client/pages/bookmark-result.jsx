@@ -4,6 +4,7 @@ import Redirect from '../components/redirect';
 import TwilioButton from '../components/twilio-button';
 import Rating from '../components/rating';
 import MapsComponent from '../components/google-maps';
+import LoadingSpinner from '../components/loading-spinner';
 import Accordion from '../components/accordion';
 import parseRoute from '../../lib/parseRoute';
 
@@ -11,6 +12,7 @@ export default class BookmarkResult extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      bookmarked: true,
       networkError: false,
       resultFound: true,
       maps: null,
@@ -24,10 +26,37 @@ export default class BookmarkResult extends React.Component {
       }
     };
     this.renderBookmark = this.renderBookmark.bind(this);
+    this.bookmarkButton = this.bookmarkButton.bind(this);
+    this.deleteBookmark = this.deleteBookmark.bind(this);
   }
 
   componentDidMount() {
     this.renderBookmark();
+  }
+
+  bookmarkButton() {
+    const arrayButton = [];
+    if (this.state.bookmarked) {
+      arrayButton.push(<button key={1} onClick={this.deleteBookmark} className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>);
+    }
+    return arrayButton;
+  }
+
+  deleteBookmark() {
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': localStorage.getItem('jwt')
+      },
+      body: JSON.stringify({ businessId: this.state.result.id })
+    };
+    fetch('/api/bookmark', req)
+      .then(result => this.setState({ bookmarked: false }))
+      .then(result => {
+        window.location.hash = 'bookmarks';
+      })
+      .catch(err => console.error(err));
   }
 
   renderBookmark() {
@@ -69,7 +98,7 @@ export default class BookmarkResult extends React.Component {
               zipcode: result[0].zipcode,
               image: result[0].image,
               rating: result[0].rating,
-              id: result[0].id
+              id: result[0].businessId
             },
             maps: { lat: parseFloat(result[0].latitude), lng: parseFloat(result[0].longitude) }
           });
@@ -98,11 +127,7 @@ export default class BookmarkResult extends React.Component {
       );
     }
     if (this.state.resultFound === true && this.state.result.name === '') {
-      return (
-        <div className='row justify-center margin-top'>
-          <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-        </div>
-      );
+      return <LoadingSpinner />;
     } else {
       return (
         <>
@@ -116,6 +141,7 @@ export default class BookmarkResult extends React.Component {
               <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
               <div className='margin-bottom-10'>
                 <Rating rating={this.state.result.rating}/>
+                {this.bookmarkButton().map(button => button)}
               </div>
               <div className='row-column-responsive'>
                 <div className='column-half'>
