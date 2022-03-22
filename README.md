@@ -40,10 +40,11 @@ Try the live demo [here](https://nomnom-project.herokuapp.com/#)
 * User can remove a bookmark
 
 ## Preview 
-![final-project-preview](https://user-images.githubusercontent.com/90667339/156860426-cd554783-3331-466a-a88b-fcf0bd8b2d63.gif)
-![final-project-preview II](https://user-images.githubusercontent.com/90667339/156860505-8611299a-39de-4662-9e1f-0241ccfc6026.gif)
+![NomNom-preview](https://user-images.githubusercontent.com/90667339/159589713-d506e9c2-36ef-4d7c-a3e3-d2413842e591.gif)
+![NomNom-preview-II](https://user-images.githubusercontent.com/90667339/159589731-4886e745-e58d-48c8-9838-0cc67d5c3348.gif)
 
 # Development
+
 
 ### System Requirements
 * Node.js 16 or higher
