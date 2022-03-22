@@ -28,6 +28,7 @@ export default class Result extends React.Component {
     this.handleBookmark = this.handleBookmark.bind(this);
     this.checkBookmark = this.checkBookmark.bind(this);
     this.bookmarkButton = this.bookmarkButton.bind(this);
+    this.deleteBookmark = this.deleteBookmark.bind(this);
   }
 
   componentDidMount() {
@@ -117,7 +118,7 @@ export default class Result extends React.Component {
       },
       body: JSON.stringify({ businessId: this.state.result.id })
     };
-    fetch('/api/bookmarks', req)
+    fetch('/api/bookmark', req)
       .then(res => res.json())
       .then(result => this.setState({ bookmarked: false }))
       .catch(err => console.error(err));
@@ -126,7 +127,7 @@ export default class Result extends React.Component {
   bookmarkButton() {
     const arrayButton = [];
     if (this.state.bookmarked) {
-      arrayButton.push(<button key={1} className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>);
+      arrayButton.push(<button key={1} onClick={this.deleteBookmark} className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>);
     } else {
       arrayButton.push(<button key={1} onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>);
     }

@@ -222,7 +222,7 @@ app.delete('/api/bookmark/', (req, res, next) => {
   const params = [businessId, userId];
   return db.query(sql, params)
     .then(result => {
-      res.status(204).json(result.rows);
+      res.status(200).json({ deleted: true });
     })
     .catch(error => next(error));
 });
