@@ -209,7 +209,7 @@ app.get('/api/bookmark/:businessId', (req, res, next) => {
     .catch(error => next(error));
 });
 
-app.delete('/api/bookmark/:businessId', (req, res, next) => {
+app.delete('/api/bookmark/', (req, res, next) => {
   const { businessId } = req.body;
   const { userId } = req.user;
   if (!userId) {
@@ -217,15 +217,14 @@ app.delete('/api/bookmark/:businessId', (req, res, next) => {
   }
   const sql = `
   delete from "bookmarks"
- where "businessId" = '$1'
+ where "businessId" = $1
    and "userId"    = $2`;
   const params = [businessId, userId];
   return db.query(sql, params)
     .then(result => {
-      res.status(200).json(result.rows);
+      res.status(204).json(result.rows);
     })
     .catch(error => next(error));
-
 });
 
 app.use(errorMiddleware);

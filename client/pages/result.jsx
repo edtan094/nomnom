@@ -25,7 +25,6 @@ export default class Result extends React.Component {
       bookmarked: false
     };
     this.handleSearch = this.handleSearch.bind(this);
-    // this.renderStars = this.renderStars.bind(this);
     this.handleBookmark = this.handleBookmark.bind(this);
     this.checkBookmark = this.checkBookmark.bind(this);
     this.bookmarkButton = this.bookmarkButton.bind(this);
@@ -106,6 +105,21 @@ export default class Result extends React.Component {
           }
         }
       })
+      .catch(err => console.error(err));
+  }
+
+  deleteBookmark() {
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': localStorage.getItem('jwt')
+      },
+      body: JSON.stringify({ businessId: this.state.result.id })
+    };
+    fetch('/api/bookmarks', req)
+      .then(res => res.json())
+      .then(result => this.setState({ bookmarked: false }))
       .catch(err => console.error(err));
   }
 
