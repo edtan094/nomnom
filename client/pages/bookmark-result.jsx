@@ -62,6 +62,7 @@ export default class BookmarkResult extends React.Component {
       .then(res => res.json())
       .then(result => this.setState({ bookmarked: false }))
       .catch(err => console.error(err));
+    window.location.hash = 'bookmarks';
   }
 
   renderBookmark() {
