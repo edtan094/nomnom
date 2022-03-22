@@ -4,6 +4,7 @@ import Redirect from '../components/redirect';
 import TwilioButton from '../components/twilio-button';
 import Rating from '../components/rating';
 import MapsComponent from '../components/google-maps';
+import LoadingSpinner from '../components/loading-spinner';
 import Accordion from '../components/accordion';
 import parseRoute from '../../lib/parseRoute';
 
@@ -33,18 +34,10 @@ export default class BookmarkResult extends React.Component {
     this.renderBookmark();
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.bookmarked !== prevState.bookmarked) {
-      this.bookmarkButton();
-    }
-  }
-
   bookmarkButton() {
     const arrayButton = [];
     if (this.state.bookmarked) {
       arrayButton.push(<button key={1} onClick={this.deleteBookmark} className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>);
-    } else {
-      arrayButton.push(<button key={1} onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>);
     }
     return arrayButton;
   }
@@ -60,8 +53,10 @@ export default class BookmarkResult extends React.Component {
     };
     fetch('/api/bookmark', req)
       .then(result => this.setState({ bookmarked: false }))
+      .then(result => {
+        window.location.hash = 'bookmarks';
+      })
       .catch(err => console.error(err));
-    window.location.hash = 'bookmarks';
   }
 
   renderBookmark() {
@@ -132,11 +127,7 @@ export default class BookmarkResult extends React.Component {
       );
     }
     if (this.state.resultFound === true && this.state.result.name === '') {
-      return (
-        <div className='row justify-center margin-top'>
-          <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-        </div>
-      );
+      return <LoadingSpinner />;
     } else {
       return (
         <>

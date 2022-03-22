@@ -4,6 +4,7 @@ import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
 import TwilioButton from '../components/twilio-button';
 import NoResultFound from '../components/no-result-found';
+import LoadingSpinner from '../components/loading-spinner';
 import Rating from '../components/rating';
 import Redirect from '../components/redirect';
 import AppContext from '../../lib/app-context';
@@ -156,11 +157,7 @@ export default class Result extends React.Component {
       );
     }
     if (this.state.resultFound === true && this.state.result.name === '') {
-      return (
-      <div className='row justify-center margin-top'>
-          <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-      </div>
-      );
+      return <LoadingSpinner />;
     }
 
     if (!this.state.resultFound) {

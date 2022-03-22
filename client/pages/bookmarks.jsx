@@ -2,6 +2,7 @@ import React from 'react';
 import AppContext from '../../lib/app-context';
 import Redirect from '../components/redirect';
 import Rating from '../components/rating';
+import LoadingSpinner from '../components/loading-spinner';
 
 export default class Bookmarks extends React.Component {
   constructor(props) {
@@ -36,11 +37,7 @@ export default class Bookmarks extends React.Component {
   render() {
     if (!this.context.user) return <Redirect to="sign-in" />;
     if (this.state.bookmarksLoaded === false) {
-      return (
-        <div className='row justify-center margin-top'>
-          <div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
-        </div>
-      );
+      return <LoadingSpinner />;
     }
     if (this.state.bookmarks[0] === undefined) {
       return (
