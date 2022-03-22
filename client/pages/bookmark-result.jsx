@@ -11,6 +11,7 @@ export default class BookmarkResult extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      bookmarked: true,
       networkError: false,
       resultFound: true,
       maps: null,
@@ -24,10 +25,43 @@ export default class BookmarkResult extends React.Component {
       }
     };
     this.renderBookmark = this.renderBookmark.bind(this);
+    this.bookmarkButton = this.bookmarkButton.bind(this);
+    this.deleteBookmark = this.deleteBookmark.bind(this);
   }
 
   componentDidMount() {
     this.renderBookmark();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.bookmarked !== prevState.bookmarked) {
+      this.bookmarkButton();
+    }
+  }
+
+  bookmarkButton() {
+    const arrayButton = [];
+    if (this.state.bookmarked) {
+      arrayButton.push(<button key={1} onClick={this.deleteBookmark} className='bookmark-button margin-left'><i className="star-size fa-solid fa-bookmark"></i></button>);
+    } else {
+      arrayButton.push(<button key={1} onClick={this.handleBookmark} className='bookmark-button margin-left'><i className="fa-regular fa-bookmark star-size"></i></button>);
+    }
+    return arrayButton;
+  }
+
+  deleteBookmark() {
+    const req = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Access-Token': localStorage.getItem('jwt')
+      },
+      body: JSON.stringify({ businessId: this.state.result.id })
+    };
+    fetch('/api/bookmark', req)
+      .then(res => res.json())
+      .then(result => this.setState({ bookmarked: false }))
+      .catch(err => console.error(err));
   }
 
   renderBookmark() {
@@ -69,7 +103,7 @@ export default class BookmarkResult extends React.Component {
               zipcode: result[0].zipcode,
               image: result[0].image,
               rating: result[0].rating,
-              id: result[0].id
+              id: result[0].businessId
             },
             maps: { lat: parseFloat(result[0].latitude), lng: parseFloat(result[0].longitude) }
           });
@@ -116,6 +150,7 @@ export default class BookmarkResult extends React.Component {
               <h4 className='roboto-font margin-top result-title-size'>{this.state.result.name}</h4>
               <div className='margin-bottom-10'>
                 <Rating rating={this.state.result.rating}/>
+                {this.bookmarkButton().map(button => button)}
               </div>
               <div className='row-column-responsive'>
                 <div className='column-half'>
