@@ -119,7 +119,6 @@ export default class Result extends React.Component {
       body: JSON.stringify({ businessId: this.state.result.id })
     };
     fetch('/api/bookmark', req)
-      .then(res => res.json())
       .then(result => this.setState({ bookmarked: false }))
       .catch(err => console.error(err));
   }
