@@ -16,17 +16,20 @@ export default class Bookmarks extends React.Component {
     this.getBookmarks();
   }
 
-  getBookmarks() {
+  async getBookmarks() {
     const req = {
       headers: {
         'Content-Type': 'application/json',
         'X-Access-Token': localStorage.getItem('jwt')
       }
     };
-    fetch('/api/bookmarks', req)
-      .then(res => res.json())
-      .then(result => this.setState({ bookmarks: result, bookmarksLoaded: true }))
-      .catch(err => console.error(err));
+    try {
+      const res = await fetch('/api/bookmarks', req);
+      const result = await res.json();
+      this.setState({ bookmarks: result, bookmarksLoaded: true });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   visitBookmark(event, businessId) {

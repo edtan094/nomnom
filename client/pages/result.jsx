@@ -36,45 +36,38 @@ export default class Result extends React.Component {
     this.handleSearch();
   }
 
-  handleSearch() {
+  async handleSearch() {
     const { params } = parseRoute(window.location.hash);
     const term = params.get('term');
     const location = params.get('location');
     let businessId;
-    fetch(`/api/yelp/${term}/${location}`)
-      .then(res => res.json())
-      .then(result => {
-        if (result.total === 0) {
-          this.setState({ resultFound: false });
-        } else {
-          businessId = result.id;
-          fetch(`/api/yelp/${businessId}`)
-            .then(res => res.json())
-            .then(reviews => {
-              this.setState({
-                reviews: [
-                  { review: reviews.reviews[0] },
-                  { review: reviews.reviews[1] },
-                  { review: reviews.reviews[2] }
-                ]
-              });
-            })
-            .catch(err => console.error(err));
-          this.setState({
-            resultFound: true,
-            result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id },
-            maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude }
-          });
-          this.checkBookmark();
-        }
-      })
-      .catch(err => {
-        this.setState({ networkError: true });
-        console.error(err);
-      });
+    try {
+      const res = await fetch(`/api/yelp/${term}/${location}`);
+      const result = await res.json();
+      if (result.total === 0) {
+        await this.setState({ resultFound: false });
+      } else {
+        businessId = result.id;
+        const resReviews = await fetch(`/api/yelp/${businessId}`);
+        const reviews = await resReviews.json();
+        await this.setState({
+          resultFound: true,
+          result: { name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id },
+          maps: { lat: result.coordinates.latitude, lng: result.coordinates.longitude },
+          reviews: [
+            { review: reviews.reviews[0] },
+            { review: reviews.reviews[1] },
+            { review: reviews.reviews[2] }
+          ]
+        });
+        this.checkBookmark();
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  handleBookmark() {
+  async handleBookmark() {
     const req = {
       method: 'POST',
       headers: {
@@ -83,13 +76,15 @@ export default class Result extends React.Component {
       },
       body: JSON.stringify({ state: this.state })
     };
-    fetch('/api/bookmarks', req)
-      .then(res => res.json())
-      .then(result => this.setState({ bookmarked: true }))
-      .catch(err => console.error(err));
+    try {
+      await fetch('/api/bookmarks', req);
+      await this.setState({ bookmarked: true });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  checkBookmark() {
+  async checkBookmark() {
     const req = {
       method: 'POST',
       headers: {
@@ -97,20 +92,21 @@ export default class Result extends React.Component {
         'X-Access-Token': localStorage.getItem('jwt')
       }
     };
-    fetch('/api/bookmarked', req)
-      .then(res => res.json())
-      .then(result => {
-        for (let i = 0; i < result.length; i++) {
-          if (result[i].businessId === this.state.result.id) {
-            this.setState({ bookmarked: true });
-            break;
-          }
+    try {
+      const res = await fetch('/api/bookmarked', req);
+      const result = await res.json();
+      for (let i = 0; i < result.length; i++) {
+        if (result[i].businessId === this.state.result.id) {
+          this.setState({ bookmarked: true });
+          break;
         }
-      })
-      .catch(err => console.error(err));
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  deleteBookmark() {
+  async deleteBookmark() {
     const req = {
       method: 'DELETE',
       headers: {
@@ -119,9 +115,12 @@ export default class Result extends React.Component {
       },
       body: JSON.stringify({ businessId: this.state.result.id })
     };
-    fetch('/api/bookmark', req)
-      .then(result => this.setState({ bookmarked: false }))
-      .catch(err => console.error(err));
+    try {
+      await fetch('/api/bookmark', req);
+      this.setState({ bookmarked: false });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   bookmarkButton() {

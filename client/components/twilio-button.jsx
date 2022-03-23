@@ -69,18 +69,20 @@ export default class TwilioButton extends React.Component {
     }
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const req = {
       method: 'POST',
       headers: { 'Content-type': 'application/json' }
     };
-    fetch(`/api/twilio/${this.state.tel1}${this.state.tel2}${this.state.tel3}/${this.props.address.display_address.map(address => {
+    try {
+      await fetch(`/api/twilio/${this.state.tel1}${this.state.tel2}${this.state.tel3}/${this.props.address.display_address.map(address => {
         return address;
-      })}/${this.props.name}`, req)
-      .then(res => res.json())
-      .then(this.setState({ textSent: true }))
-      .catch(err => console.error(err));
+      })}/${this.props.name}`, req);
+      this.setState({ textSent: true });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   renderOverlay() {
