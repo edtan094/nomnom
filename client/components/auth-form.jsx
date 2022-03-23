@@ -11,7 +11,7 @@ export default class AuthForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const req = {
       method: 'POST',
@@ -21,21 +21,22 @@ export default class AuthForm extends React.Component {
       body: JSON.stringify(this.state)
     };
     if (window.location.hash === '#sign-up') {
-      fetch('/api/auth/sign-up', req)
-        .then(res => res.json())
-        .then(data => {
-          window.location.hash = '#sign-in';
-          this.setState({ username: '', password: '' });
-        })
-        .catch(error => console.error(error));
+      try {
+        await fetch('/api/auth/sign-up', req);
+        window.location.hash = '#sign-in';
+        this.setState({ username: '', password: '' });
+      } catch (err) {
+        console.error(err);
+      }
     }
     if (window.location.hash === '#sign-in') {
-      fetch('/api/auth/sign-in', req)
-        .then(res => res.json())
-        .then(data => {
-          this.props.handleSignIn(data);
-        })
-        .catch(error => console.error(error));
+      try {
+        const res = await fetch('/api/auth/sign-in', req);
+        const data = await res.json();
+        this.props.handleSignIn(data);
+      } catch (err) {
+        console.error(err);
+      }
     }
   }
 

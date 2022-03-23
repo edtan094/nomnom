@@ -42,7 +42,7 @@ export default class BookmarkResult extends React.Component {
     return arrayButton;
   }
 
-  deleteBookmark() {
+  async deleteBookmark() {
     const req = {
       method: 'DELETE',
       headers: {
@@ -51,15 +51,16 @@ export default class BookmarkResult extends React.Component {
       },
       body: JSON.stringify({ businessId: this.state.result.id })
     };
-    fetch('/api/bookmark', req)
-      .then(result => this.setState({ bookmarked: false }))
-      .then(result => {
-        window.location.hash = 'bookmarks';
-      })
-      .catch(err => console.error(err));
+    try {
+      await fetch('/api/bookmark', req);
+      this.setState({ bookmarked: false });
+      window.location.hash = 'bookmarks';
+    } catch (err) {
+      console.error(err);
+    }
   }
 
-  renderBookmark() {
+  async renderBookmark() {
     const { params } = parseRoute(window.location.hash);
     const id = params.get('businessId');
     const req = {
@@ -68,46 +69,39 @@ export default class BookmarkResult extends React.Component {
         'X-Access-Token': localStorage.getItem('jwt')
       }
     };
-    fetch(`/api/bookmark/${id}`, req)
-      .then(res => res.json())
-      .then(result => {
-        if (result.total === 0) {
-          this.setState({ resultFound: false });
-        } else {
-          fetch(`/api/yelp/${id}`)
-            .then(res => res.json())
-            .then(reviews => {
-              this.setState({
-                reviews: [
-                  { review: reviews.reviews[0] },
-                  { review: reviews.reviews[1] },
-                  { review: reviews.reviews[2] }
-                ]
-              });
-            })
-            .catch(err => console.error(err));
-          this.setState({
-            resultFound: true,
-            result: {
-              name: result[0].name,
-              address1: result[0].address1,
-              address2: result[0].address2,
-              address3: result[0].address3,
-              city: result[0].city,
-              state: result[0].state,
-              zipcode: result[0].zipcode,
-              image: result[0].image,
-              rating: result[0].rating,
-              id: result[0].businessId
-            },
-            maps: { lat: parseFloat(result[0].latitude), lng: parseFloat(result[0].longitude) }
-          });
-        }
-      })
-      .catch(err => {
-        this.setState({ networkError: true });
-        console.error(err);
-      });
+    try {
+      const res = await fetch(`/api/bookmark/${id}`, req);
+      const result = await res.json();
+      if (result.total === 0) {
+        this.setState({ resultFound: false });
+      } else {
+        const resReviews = await fetch(`/api/yelp/${id}`);
+        const reviews = await resReviews.json();
+        this.setState({
+          resultFound: true,
+          result: {
+            name: result[0].name,
+            address1: result[0].address1,
+            address2: result[0].address2,
+            address3: result[0].address3,
+            city: result[0].city,
+            state: result[0].state,
+            zipcode: result[0].zipcode,
+            image: result[0].image,
+            rating: result[0].rating,
+            id: result[0].businessId
+          },
+          maps: { lat: parseFloat(result[0].latitude), lng: parseFloat(result[0].longitude) },
+          reviews: [
+            { review: reviews.reviews[0] },
+            { review: reviews.reviews[1] },
+            { review: reviews.reviews[2] }
+          ]
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   render() {
