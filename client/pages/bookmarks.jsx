@@ -60,14 +60,14 @@ export default class Bookmarks extends React.Component {
           return (
             <div key={business.businessId} id={business.businessId} className='column-half-responsive padding-top bookmark-result'>
               <button onClick={this.visitBookmark} className='row border-radius bookmark align-center'>
-                <div className='column-two-thirds-nonresponsive'>
+                <div className='column-half-nonresponsive'>
                   <p className='roboto-font result-info-size text-align-initial'>{business.name}</p>
                   <div className='text-align-initial'><Rating rating={business.rating}/></div>
                   <p className='roboto-font result-info-size text-align-initial margin-bottom-0'>{business.address1}</p>
                   {business.address2 && <p className='roboto-font result-info-size text-align-initial restaurant-info'>{business.address2}</p>}
                   <p className='roboto-font result-info-size text-align-initial restaurant-info'>{business.city} {business.state} {business.zipcode}</p>
                 </div>
-                <div className='column-one-third-nonresponsive'>
+                <div className='column-half-nonresponsive'>
                   <img className='bookmark-image' src={business.image}></img>
                 </div>
               </button>

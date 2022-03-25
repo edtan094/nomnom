@@ -89,12 +89,8 @@ input {
   font-size: 1rem;
 }
 
-.column-two-thirds-nonresponsive {
-  width: calc(200% / 3);
-}
-
-.column-one-third-nonresponsive {
-  width: calc(100% / 3);
+.column-half-nonresponsive {
+  width: 50%;
 }
 
 .column-half-responsive {
