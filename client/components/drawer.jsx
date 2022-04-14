@@ -37,7 +37,7 @@ function MenuShade({ isDrawn, close }) {
 export default function Drawer(props) {
   return (
       <>
-      <MenuShade isDrawn={props.isOpen} open={props.toggleOpen}/>
+      <MenuShade isDrawn={props.isOpen} close={props.toggleOpen}/>
       <MenuDrawer isOpen={props.isOpen} close={props.toggleOpen} handleSignOut={props.handleSignOut}/>
       </>
   );
