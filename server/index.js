@@ -140,9 +140,9 @@ app.post('/api/bookmarks', (req, res, next) => {
   if (!userId) {
     throw new ClientError(401, 'invalid credentials');
   }
-  const { id: businessId, image, name, rating } = req.body.state.result;
-  const { lat: latitude, lng: longitude } = req.body.state.maps;
-  const { address1, address2, city, state, zip_code: zipcode } = req.body.state.result.location;
+  const { id: businessId, image, name, rating } = req.body.result;
+  const { lat: latitude, lng: longitude } = req.body.maps;
+  const { address1, address2, city, state, zip_code: zipcode } = req.body.result.location;
   const sql = `
       insert into "bookmarks" ("userId", "businessId", "name", "image", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude")
       values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
