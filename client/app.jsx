@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Home from './pages/home';
 import Navbar from './components/navbar';
 import PageContainer from './components/page-container';
@@ -11,41 +11,48 @@ import parseRoute from '../lib/parseRoute';
 import decodeToken from '../lib/decode-token';
 import AppContext from '../lib/app-context';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      route: parseRoute(window.location.hash),
-      user: null,
-      isAuthorizing: true,
-      guestUser: {
-        username: 'guestUser',
-        password: 'guestUser'
-      }
-    };
-    this.guestSignIn = this.guestSignIn.bind(this);
-    this.handleSignIn = this.handleSignIn.bind(this);
-    this.handleSignOut = this.handleSignOut.bind(this);
-  }
+// to retrieve prevState of route in App
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+}
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.route !== prevState.route) {
+export default function App(props) {
+
+  const [route, setRoute] = useState(parseRoute(window.location.hash));
+  const prevRoute = usePrevious(route);
+  const [user, setUser] = useState(null);
+  const [isAuthorizing, setIsAuthorizing] = useState(true);
+  const [guestUser] = useState({
+    username: 'guestUser',
+    password: 'guestUser'
+  });
+
+  useEffect(() => {
+    if (route !== prevRoute) {
       window.scrollTo(0, 0);
     }
-  }
+  });
 
-  componentDidMount() {
+  useEffect(() => {
     window.addEventListener('hashchange', () => {
-      this.setState({
-        route: parseRoute(window.location.hash)
-      });
+      setRoute(parseRoute(window.location.hash));
     });
     const token = window.localStorage.getItem('jwt');
     const user = token ? decodeToken(token) : null;
-    this.setState({ user, isAuthorizing: false });
-  }
+    setUser(user);
+    setIsAuthorizing(false);
+    return () => {
+      window.removeEventListener('hashchange', () => {
+        setRoute(parseRoute(window.location.hash));
+      });
+    };
+  }, []);
 
-  handleSignIn(data) {
+  const handleSignIn = data => {
     if (data.error === 'invalid login') {
       const url = new URL(window.location);
       url.hash = '#sign-in';
@@ -54,42 +61,42 @@ export default class App extends React.Component {
     } else {
       const { user, token } = data;
       window.localStorage.setItem('jwt', token);
-      this.setState({ user, signedIn: true });
+      setUser(user);
       const url = new URL(window.location);
       url.hash = '#';
       window.location.replace(url);
       return null;
     }
-  }
+  };
 
-  guestSignIn(event) {
+  const guestSignIn = event => {
     event.preventDefault();
     const req = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(this.state.guestUser)
+      body: JSON.stringify(guestUser)
     };
     fetch('/api/auth/sign-in', req)
       .then(res => res.json())
       .then(data => {
-        this.handleSignIn(data);
+        handleSignIn(data);
       })
       .catch(error => console.error(error));
-  }
+  };
 
-  handleSignOut(event) {
+  const handleSignOut = event => {
     window.localStorage.removeItem('jwt');
-    this.setState({ user: null });
-  }
+    setUser(null);
+  };
 
-  renderPage() {
-    const { path } = this.state.route;
+  const renderPage = () => {
+    const { path } = route;
     if (path === '') {
-      return <Home signedIn={this.state.signedIn}/>;
+      return <Home />;
     } else if (path === 'sign-up' || path === 'sign-in') {
-      return <LandingPage guestSignIn={this.guestSignIn} handleSignIn={this.handleSignIn}/>;
+      return <LandingPage guestSignIn={guestSignIn} handleSignIn={handleSignIn} />;
     } else if (path.includes('result')) {
       return <Result />;
     } else if (path === 'bookmarks') {
@@ -99,21 +106,18 @@ export default class App extends React.Component {
     } else {
       return <PageNotFound />;
     }
-  }
+  };
 
-  render() {
-    const { user } = this.state;
-    const contextValue = { user };
-    if (this.state.isAuthorizing) return null;
-    return (
-      <AppContext.Provider value={contextValue} >
-        <>
-        <Navbar route={this.state.route} handleSignOut={this.handleSignOut}/>
+  const contextValue = { user };
+  if (isAuthorizing) return null;
+  return (
+    <AppContext.Provider value={contextValue} >
+      <>
+        <Navbar route={route} handleSignOut={handleSignOut} />
         <PageContainer>
-          {this.renderPage()}
+          {renderPage()}
         </PageContainer>
-        </>
-      </AppContext.Provider>
-    );
-  }
+      </>
+    </AppContext.Provider>
+  );
 }
