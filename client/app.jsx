@@ -69,7 +69,7 @@ export default function App(props) {
     }
   };
 
-  const guestSignIn = event => {
+  const guestSignIn = async event => {
     event.preventDefault();
     const req = {
       method: 'POST',
@@ -78,12 +78,13 @@ export default function App(props) {
       },
       body: JSON.stringify(guestUser)
     };
-    fetch('/api/auth/sign-in', req)
-      .then(res => res.json())
-      .then(data => {
-        handleSignIn(data);
-      })
-      .catch(error => console.error(error));
+    try {
+      const res = await fetch('/api/auth/sign-in', req);
+      const data = await res.json();
+      handleSignIn(data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const handleSignOut = event => {
