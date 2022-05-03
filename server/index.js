@@ -109,31 +109,35 @@ app.get('/api/yelp/:preference/:location', async (req, res, next) => {
   }
 });
 
-app.get('/api/yelp/:businessId', (req, res, next) => {
+app.get('/api/yelp/:businessId', async (req, res, next) => {
   const { businessId } = req.params;
-  fetch(`https://api.yelp.com/v3/businesses/${businessId}/reviews`, body)
-    .then(response => response.json())
-    .then(reviews => res.status(200).json(reviews))
-    .catch(error => next(error));
+  try {
+    const response = await fetch(`https://api.yelp.com/v3/businesses/${businessId}/reviews`, body);
+    const reviews = await response.json();
+    res.status(200).json(reviews);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-app.post('/api/twilio/:phoneNumber/:address/:name', (req, res, next) => {
+app.post('/api/twilio/:phoneNumber/:address/:name', async (req, res, next) => {
   const { phoneNumber, address, name } = req.params;
-  client.messages
-    .create({
+  try {
+    await client.messages.create({
       body: `Hello, this is a message from NomNom. The location ${name} is at ${address}`,
       to: `+1${phoneNumber}`, // Text this number
       from: `+1${process.env.TWILIO_PHONE}` // From a valid Twilio number
-    })
-    .then(message => {
-      res.status(200).json({ success: true });
-    })
-    .catch(error => next(error));
+    });
+    res.status(200).json({ success: true });
+  } catch (err) {
+    console.error(err);
+  }
+
 });
 
 app.use(authorizationMiddleware);
 
-app.post('/api/bookmarks', (req, res, next) => {
+app.post('/api/bookmarks', async (req, res, next) => {
   const { userId } = req.user;
   if (!userId) {
     throw new ClientError(401, 'invalid credentials');
@@ -147,15 +151,16 @@ app.post('/api/bookmarks', (req, res, next) => {
       returning "userId", "businessId", "name", "image", "rating", "address1", "address2", "city", "state", "zipcode", "latitude", "longitude" "createdAt"
       `;
   const params = [userId, businessId, name, image, rating, address1, address2, city, state, zipcode, latitude, longitude];
-  return db.query(sql, params)
-    .then(result => {
-      const [user] = result.rows;
-      res.status(201).json(user);
-    })
-    .catch(error => next(error));
+  try {
+    const result = await db.query(sql, params);
+    const [bookmarks] = result.rows;
+    res.status(201).json(bookmarks);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-app.post('/api/bookmarked', (req, res, next) => {
+app.post('/api/bookmarked', async (req, res, next) => {
   const { userId } = req.user;
   if (!userId) {
     throw new ClientError(401, 'invalid credentials');
@@ -165,14 +170,15 @@ app.post('/api/bookmarked', (req, res, next) => {
       from "bookmarks"
       where "userId" = $1`;
   const params = [userId];
-  return db.query(sql, params)
-    .then(result => {
-      res.status(201).json(result.rows);
-    })
-    .catch(error => next(error));
+  try {
+    const result = await db.query(sql, params);
+    res.status(201).json(result.rows);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-app.get('/api/bookmarks', (req, res, next) => {
+app.get('/api/bookmarks', async (req, res, next) => {
   const { userId } = req.user;
   if (!userId) {
     throw new ClientError(401, 'invalid credentials');
@@ -182,14 +188,15 @@ app.get('/api/bookmarks', (req, res, next) => {
     from "bookmarks"
     where "userId" = $1`;
   const params = [userId];
-  return db.query(sql, params)
-    .then(result => {
-      res.status(200).json(result.rows);
-    })
-    .catch(error => next(error));
+  try {
+    const result = await db.query(sql, params);
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-app.get('/api/bookmark/:businessId', (req, res, next) => {
+app.get('/api/bookmark/:businessId', async (req, res, next) => {
   const { userId } = req.user;
   if (!userId) {
     throw new ClientError(401, 'invalid credentials');
@@ -200,14 +207,15 @@ app.get('/api/bookmark/:businessId', (req, res, next) => {
     from "bookmarks"
     where "businessId" = $1`;
   const params = [businessId];
-  return db.query(sql, params)
-    .then(result => {
-      res.status(200).json(result.rows);
-    })
-    .catch(error => next(error));
+  try {
+    const result = await db.query(sql, params);
+    res.status(200).json(result.rows);
+  } catch (err) {
+    console.error(err);
+  }
 });
 
-app.delete('/api/bookmark/', (req, res, next) => {
+app.delete('/api/bookmark/', async (req, res, next) => {
   const { businessId } = req.body;
   const { userId } = req.user;
   if (!userId) {
@@ -218,11 +226,12 @@ app.delete('/api/bookmark/', (req, res, next) => {
  where "businessId" = $1
    and "userId"    = $2`;
   const params = [businessId, userId];
-  return db.query(sql, params)
-    .then(result => {
-      res.status(204).json({ deleted: true });
-    })
-    .catch(error => next(error));
+  try {
+    await db.query(sql, params);
+    res.status(204).json({ deleted: true });
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 app.use(errorMiddleware);
