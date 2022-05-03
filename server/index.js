@@ -90,7 +90,7 @@ const body = {
       process.env.YELP_AUTHORIZATION
   }
 };
-app.get('/api/yelp/:preference/:location', (req, res, next) => {
+app.get('/api/yelp/:preference/:location', async (req, res, next) => {
   const { location } = req.params;
   const { preference } = req.params;
   if (!location || !preference) {
@@ -98,17 +98,19 @@ app.get('/api/yelp/:preference/:location', (req, res, next) => {
   } else if (typeof location !== 'string' || typeof preference !== 'string') {
     throw new ClientError(400, 'location and preferences cannot be numbers');
   }
-  fetch(`https://api.yelp.com/v3/businesses/search?categories=${preference}&location=${location}`, body)
-    .then(response => response.json())
-    .then(data => {
-      if (data.total === 0) {
-        res.status(200).json(data);
-      } else {
-        const randomNumber = random(data.businesses.length);
-        res.status(200).json(data.businesses[randomNumber]);
-      }
-    })
-    .catch(error => next(error));
+  fetch(`https://api.yelp.com/v3/businesses/search?categories=${preference}&location=${location}`, body);
+  try {
+    const result = await fetch(`https://api.yelp.com/v3/businesses/search?categories=${preference}&location=${location}`, body);
+    const data = await result.json();
+    if (data.total === 0) {
+      res.status(200).json(data);
+    } else {
+      const randomNumber = random(data.businesses.length);
+      res.status(200).json(data.businesses[randomNumber]);
+    }
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 app.get('/api/yelp/:businessId', (req, res, next) => {
