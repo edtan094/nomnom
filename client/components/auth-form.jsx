@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function AuthForm(props) {
+export default function AuthForm({ handleSignIn, guestSignIn }) {
   const [userInfo, setUserInfo] = useState({ username: '', password: '' });
 
   const handleSubmit = async event => {
@@ -20,12 +20,11 @@ export default function AuthForm(props) {
       } catch (err) {
         console.error(err);
       }
-    }
-    if (window.location.hash === '#sign-in') {
+    } else if (window.location.hash === '#sign-in') {
       try {
         const res = await fetch('/api/auth/sign-in', req);
         const data = await res.json();
-        props.handleSignIn(data);
+        handleSignIn(data);
       } catch (err) {
         console.error(err);
       }
@@ -61,7 +60,7 @@ export default function AuthForm(props) {
             : <p>Don&apos;t have an account? <a href='#sign-up' className='sign-in-up'>Sign up!</a></p>}
         </div>
         <div className='row justify-center'>
-          <button type='button' onClick={props.guestSignIn} className='sign-up-button margin-top-10 pointer'>GUEST SIGN IN</button>
+          <button type='button' onClick={guestSignIn} className='sign-up-button margin-top-10 pointer'>GUEST SIGN IN</button>
         </div>
       </form>
     </div>
