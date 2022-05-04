@@ -39,7 +39,7 @@ export default function Result(props) {
     const location = params.get('location');
     let businessId;
     try {
-      const res = await fetch(`/api/yelp/${term}/${location}`);
+      const res = await fetch(`/api/yelp/search/${term}/${location}`);
       const result = await res.json();
       if (result.total === 0) {
         setResultFound(false);

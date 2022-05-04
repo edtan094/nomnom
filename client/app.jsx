@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Home from './pages/home';
+// import Home from './pages/home';
+import Home from './pages/home-search-bar';
 import Navbar from './components/navbar';
 import PageContainer from './components/page-container';
 import Result from './pages/result';
