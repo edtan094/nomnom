@@ -10,6 +10,8 @@ const jwt = require('jsonwebtoken');
 const pg = require('pg');
 const app = express();
 const client = require('twilio')(`${process.env.TWILIO_SID}`, `${process.env.TWILIO_AUTH}`);
+const yelp = require('yelp-fusion');
+const yelpClient = yelp.client('W4CcdNTwuZ8DWLGbXypGKYBwFVgsQMu-SN1pYvQG364wp9TSh2g2yQTmcdMgtPPpYj5ivTgKn1BuWKYH_kZSlzD1nKeTaa9FRokJNbHJC8quZHYYWC1sA3vkV0f0YXYx');
 const authorizationMiddleware = require('./authorization-middleware');
 
 function random(length) {
@@ -86,6 +88,19 @@ const body = {
       process.env.YELP_AUTHORIZATION
   }
 };
+
+// testing yelp npm
+app.get('/api/yelp/search', (req, res, next) => {
+  yelpClient.search({
+    term: 'sup',
+    location: 'irvine'
+  }).then(response => {
+    console.log(response.jsonBody.businesses[0].name);
+  }).catch(e => {
+    console.log(e);
+  });
+});
+
 app.get('/api/yelp/:preference/:location', async (req, res, next) => {
   const { location } = req.params;
   const { preference } = req.params;
