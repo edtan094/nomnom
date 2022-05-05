@@ -11,7 +11,7 @@ const pg = require('pg');
 const app = express();
 const client = require('twilio')(`${process.env.TWILIO_SID}`, `${process.env.TWILIO_AUTH}`);
 const yelp = require('yelp-fusion');
-const yelpClient = yelp.client('W4CcdNTwuZ8DWLGbXypGKYBwFVgsQMu-SN1pYvQG364wp9TSh2g2yQTmcdMgtPPpYj5ivTgKn1BuWKYH_kZSlzD1nKeTaa9FRokJNbHJC8quZHYYWC1sA3vkV0f0YXYx');
+const yelpClient = yelp.client(process.env.YELP_NPM_AUTHORIZATION);
 const authorizationMiddleware = require('./authorization-middleware');
 
 function random(length) {
@@ -81,6 +81,25 @@ app.post('/api/auth/sign-in', async (req, res, next) => {
   }
 });
 
+app.get('/api/yelp/search/:search/:location', async (req, res, next) => {
+  const { search, location } = req.params;
+  if (!location || !search) {
+    throw new ClientError(400, 'location and preference are required');
+  } else if (typeof location !== 'string' || typeof search !== 'string') {
+    throw new ClientError(400, 'location and preferences cannot be numbers');
+  }
+  try {
+    const response = await yelpClient.search({
+      term: search,
+      location: location
+    });
+    const randomNumber = random(response.jsonBody.businesses.length);
+    res.status(200).send(response.jsonBody.businesses[randomNumber]);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 const body = {
   method: 'GET',
   headers: {
@@ -88,51 +107,6 @@ const body = {
       process.env.YELP_AUTHORIZATION
   }
 };
-
-// testing yelp npm
-app.get('/api/yelp/search/:search/:location', (req, res, next) => {
-  const { search, location } = req.params;
-  if (!location || !search) {
-    throw new ClientError(400, 'location and preference are required');
-  } else if (typeof location !== 'string' || typeof search !== 'string') {
-    throw new ClientError(400, 'location and preferences cannot be numbers');
-  }
-  yelpClient.search({
-    term: search,
-    location: location
-  }).then(response => {
-    const randomNumber = random(response.jsonBody.businesses.length);
-    res.status(200).send(response.jsonBody.businesses[randomNumber]);
-  }).catch(err => {
-    if (err.statusCode === 400) {
-      return res.json({ error: 'No results' });
-    }
-    next(err);
-  });
-});
-
-// app.get('/api/yelp/:preference/:location', async (req, res, next) => {
-//   const { location } = req.params;
-//   const { preference } = req.params;
-//   if (!location || !preference) {
-//     throw new ClientError(400, 'location and preference are required');
-//   } else if (typeof location !== 'string' || typeof preference !== 'string') {
-//     throw new ClientError(400, 'location and preferences cannot be numbers');
-//   }
-//   fetch(`https://api.yelp.com/v3/businesses/search?categories=${preference}&location=${location}`, body);
-//   try {
-//     const result = await fetch(`https://api.yelp.com/v3/businesses/search?categories=${preference}&location=${location}`, body);
-//     const data = await result.json();
-//     if (data.total === 0) {
-//       res.status(200).json(data);
-//     } else {
-//       const randomNumber = random(data.businesses.length);
-//       res.status(200).json(data.businesses[randomNumber]);
-//     }
-//   } catch (err) {
-//     console.error(err);
-//   }
-// });
 
 app.get('/api/yelp/:businessId', async (req, res, next) => {
   const { businessId } = req.params;

@@ -4,10 +4,10 @@ import MapsComponent from '../components/google-maps';
 import Accordion from '../components/accordion';
 import TwilioButton from '../components/twilio-button';
 import NoResultFound from '../components/no-result-found';
-import LoadingSpinner from '../components/loading-spinner';
 import Rating from '../components/rating';
 import Redirect from '../components/redirect';
 import AppContext from '../../lib/app-context';
+import SearchAnimation from '../components/search-animation';
 
 export default function Result(props) {
 
@@ -49,6 +49,7 @@ export default function Result(props) {
         const reviews = await resReviews.json();
         setNetworkError(false);
         setResultFound(true);
+        // set Timeout is used to delay the results from being shown to the user to show loading
         setTimeout(() => setResult({ name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id }), 4000);
         setMaps({ lat: result.coordinates.latitude, lng: result.coordinates.longitude });
         setReviews([
@@ -146,8 +147,8 @@ export default function Result(props) {
       </>
     );
   }
-  if (resultFound === true && result) {
-    return <LoadingSpinner />;
+  if (resultFound === true && result.name === '') {
+    return <SearchAnimation />;
   }
 
   if (!resultFound) {
