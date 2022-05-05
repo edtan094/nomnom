@@ -49,7 +49,7 @@ export default function Result(props) {
         const reviews = await resReviews.json();
         setNetworkError(false);
         setResultFound(true);
-        setResult({ name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id });
+        setTimeout(() => setResult({ name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id }), 4000);
         setMaps({ lat: result.coordinates.latitude, lng: result.coordinates.longitude });
         setReviews([
           { review: reviews.reviews[0] },
@@ -146,7 +146,7 @@ export default function Result(props) {
       </>
     );
   }
-  if (resultFound === true && result.name === '') {
+  if (resultFound === true && result) {
     return <LoadingSpinner />;
   }
 
