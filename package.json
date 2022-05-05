@@ -24,7 +24,8 @@
     "pg": "^8.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "twilio": "^3.74.0"
+    "twilio": "^3.74.0",
+    "yelp-fusion": "^3.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",

@@ -342,6 +342,24 @@ a {
   margin-bottom: 0;
 }
 
+/* search animation */
+.magnifying-glass {
+  height: 10.25rem;
+  width: 10.25rem;
+  position: absolute;
+  animation: my-orbit 3s linear infinite;
+}
+
+@keyframes my-orbit {
+  from {
+    transform: rotate(0deg) translateX(30px) rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg) translateX(30px) rotate(-360deg);
+  }
+}
+
 /* Loading spinner */
 .lds-roller {
   display: inline-block;
