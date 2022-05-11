@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Redirect from '../components/redirect';
 import AppContext from '../../lib/app-context';
 
 export default function Home(props) {
   const [preference, setPreference] = useState('');
   const [location, setLocation] = useState('');
+  const [autocomplete, setAutocomplete] = useState([]);
 
   const handleInputPreference = event => {
     setPreference(event.target.value);
@@ -13,6 +14,22 @@ export default function Home(props) {
   const handleInputLocation = event => {
     setLocation(event.target.value);
   };
+
+  useEffect(() => {
+    const fetchAutocomplete = async () => {
+      try {
+        const res = await fetch(`/api/yelp/autocomplete/${preference}`);
+        const result = await res.json();
+        setAutocomplete(result);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchAutocomplete();
+    console.log(preference);
+    console.log(autocomplete);
+  }, [preference]);
 
   const handleSubmit = event => {
     event.preventDefault();

@@ -134,6 +134,18 @@ app.post('/api/twilio/:phoneNumber/:address/:name', async (req, res, next) => {
 
 });
 
+app.get('/api/yelp/autocomplete/:search', async (req, res, next) => {
+  const { search } = req.params;
+  try {
+    const response = await yelpClient.autocomplete({
+      text: search
+    });
+    res.status(200).json(response.jsonBody.terms);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
 app.use(authorizationMiddleware);
 
 app.post('/api/bookmarks', async (req, res, next) => {
