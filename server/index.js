@@ -136,6 +136,8 @@ app.post('/api/twilio/:phoneNumber/:address/:name', async (req, res, next) => {
 
 app.get('/api/yelp/autocomplete/:search', async (req, res, next) => {
   const { search } = req.params;
+  console.log('search', search);
+  console.log('typeof search', typeof search);
   try {
     const response = await yelpClient.autocomplete({
       text: search

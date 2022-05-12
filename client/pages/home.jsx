@@ -17,18 +17,18 @@ export default function Home(props) {
 
   useEffect(() => {
     const fetchAutocomplete = async () => {
-      try {
-        const res = await fetch(`/api/yelp/autocomplete/${preference}`);
-        const result = await res.json();
-        setAutocomplete(result);
-      } catch (err) {
-        console.error(err);
+      if (preference !== '') {
+        try {
+          const res = await fetch(`/api/yelp/autocomplete/${preference}`);
+          const result = await res.json();
+          setAutocomplete(result);
+          console.log('autocomplete', autocomplete);
+        } catch (err) {
+          console.error(err);
+        }
       }
     };
-
     fetchAutocomplete();
-    console.log(preference);
-    console.log(autocomplete);
   }, [preference]);
 
   const handleSubmit = event => {
