@@ -22,7 +22,6 @@ export default function Home(props) {
           const res = await fetch(`/api/yelp/autocomplete/${preference}`);
           const result = await res.json();
           setAutocomplete(result);
-          console.log('autocomplete', autocomplete);
         } catch (err) {
           console.error(err);
         }
@@ -30,6 +29,11 @@ export default function Home(props) {
     };
     fetchAutocomplete();
   }, [preference]);
+
+  const handleAutocompleteButton = event => {
+    // console.log(event.target.value);
+    // setPreference(text);
+  };
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -46,6 +50,11 @@ export default function Home(props) {
         <div className='row'>
           <label className='home-page-font-size padding-right'>I want to eat</label>
           <input onChange={handleInputPreference} value={preference} name='preferences' className='input-theme' placeholder='preference...' type="text" htmlFor="at" required></input>
+        </div>
+        <div className='row'>
+          <ul className='autocomplete-container responsive-margin-left'>
+            {autocomplete.map(autocomplete => <li key={autocomplete.text}><button onClick={handleAutocompleteButton} className='autocomplete'>{autocomplete.text}</button></li>)}
+          </ul>
         </div>
         <div className='row padding-top'>
           <label className='home-page-font-size padding-right'>at</label>

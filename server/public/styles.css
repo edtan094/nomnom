@@ -342,6 +342,23 @@ a {
   margin-bottom: 0;
 }
 
+/* autocomplete */
+.autocomplete {
+  border: none;
+  background: white;
+  color: #6610f2;
+}
+
+.autocomplete-container {
+  list-style: none;
+  padding-left: 0;
+  width: 50%;
+  border-top: 0;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
 /* search animation */
 .magnifying-glass {
   height: 10.25rem;

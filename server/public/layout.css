@@ -2,8 +2,6 @@
   max-width: 29.688rem;
   margin: 0 auto;
   padding: 0 1.5rem;
-
-  /* height: 100vh; */
 }
 
 .row {
@@ -97,13 +95,15 @@ input {
   width: 100%;
 }
 
+.responsive-margin-left {
+  margin: 0 0 0 104.94px;
+}
+
 @media screen and (min-width: 500px) {
   .container {
     max-width: 75rem;
     margin: 0 auto;
     padding: 0 1.5rem;
-
-    /* height: 100vh; */
   }
 
   .search-button {
@@ -135,6 +135,10 @@ input {
   .row-column-responsive {
     display: flex;
   }
+
+  .responsive-margin-left {
+    margin: 0 0 0 155.53px;
+  }
 }
 
 @media screen and (min-width: 805px) {
@@ -142,8 +146,6 @@ input {
     max-width: 75rem;
     margin: 0 auto;
     padding: 0 1.5rem;
-
-    /* height: 100vh; */
   }
 
   .search-button {
@@ -214,5 +216,9 @@ input {
 
   .column-half-responsive {
     width: 50%;
+  }
+
+  .responsive-margin-left {
+    margin: 0 0 0 296.06px;
   }
 }
