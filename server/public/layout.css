@@ -83,6 +83,12 @@
   font-size: 1rem;
 }
 
+.autocomplete-text {
+  font-family: "Abril Fatface", cursive;
+  color: #6610f2;
+  font-size: 1rem;
+}
+
 input {
   font-size: 1rem;
 }
@@ -220,5 +226,11 @@ input {
 
   .responsive-margin-left {
     margin: 0 0 0 296.06px;
+  }
+
+  .autocomplete-text {
+    font-family: "Abril Fatface", cursive;
+    color: #6610f2;
+    font-size: 1.563rem;
   }
 }

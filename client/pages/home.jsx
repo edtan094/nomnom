@@ -30,9 +30,8 @@ export default function Home(props) {
     fetchAutocomplete();
   }, [preference]);
 
-  const handleAutocompleteButton = event => {
-    // console.log(event.target.value);
-    // setPreference(text);
+  const handleAutocompleteButton = text => {
+    setPreference(text);
   };
 
   const handleSubmit = event => {
@@ -52,9 +51,9 @@ export default function Home(props) {
           <input onChange={handleInputPreference} value={preference} name='preferences' className='input-theme' placeholder='preference...' type="text" htmlFor="at" required></input>
         </div>
         <div className='row'>
-          <ul className='autocomplete-container responsive-margin-left'>
-            {autocomplete.map(autocomplete => <li key={autocomplete.text}><button onClick={handleAutocompleteButton} className='autocomplete'>{autocomplete.text}</button></li>)}
-          </ul>
+            {preference !== ''
+              ? <ul className='autocomplete-container responsive-margin-left'> {autocomplete.map(autocomplete => <li key={autocomplete.text}><button onClick={() => handleAutocompleteButton(autocomplete.text)} className='autocomplete autocomplete-text'>{autocomplete.text}</button></li>)}</ul>
+              : null}
         </div>
         <div className='row padding-top'>
           <label className='home-page-font-size padding-right'>at</label>
