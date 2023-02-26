@@ -7,18 +7,19 @@ const containerStyle = {
   margin: '15px 0 0 0'
 };
 
-function MapsComponent(props) {
+function MapsComponent({ coordinates }) {
+  const payload = { lat: coordinates.latitude, lng: coordinates.longitude };
   return (
       <LoadScript
         googleMapsApiKey={process.env.GOOGLE_MAPS_API_KEY}
       >
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={props.maps}
+          center={payload}
           zoom={15}
         >
           <>
-            <Marker position={props.maps} />
+            <Marker position={payload} />
           </>
         </GoogleMap>
       </LoadScript>

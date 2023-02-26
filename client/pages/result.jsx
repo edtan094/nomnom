@@ -13,14 +13,16 @@ export default function Result(props) {
 
   const [networkError, setNetworkError] = useState(false);
   const [resultFound, setResultFound] = useState(true);
-  const [maps, setMaps] = useState(null);
-  const [reviews, setReviews] = useState([]);
+  const [maps] = useState(null);
+  // const [reviews, setReviews] = useState([]);
   const [result, setResult] = useState({
     name: '',
     location: '',
-    image: '',
+    image_url: '',
     rating: null,
-    id: ''
+    id: '',
+    reviews: [],
+    coordinates: {}
   });
 
   const [bookmarked, setBookmarked] = useState(false);
@@ -37,26 +39,15 @@ export default function Result(props) {
     const { params } = parseRoute(window.location.hash);
     const term = params.get('term');
     const location = params.get('location');
-    let businessId;
     try {
       const res = await fetch(`/api/yelp/search/${term}/${location}`);
-      const result = await res.json();
-      if (result.total === 0) {
+      const data = await res.json();
+      if (!data.business.id) {
         setResultFound(false);
       } else {
-        businessId = result.id;
-        const resReviews = await fetch(`/api/yelp/${businessId}`);
-        const reviews = await resReviews.json();
         setNetworkError(false);
         setResultFound(true);
-        // set Timeout is used to delay the results from being shown to the user to show loading
-        setTimeout(() => setResult({ name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id }), 4000);
-        setMaps({ lat: result.coordinates.latitude, lng: result.coordinates.longitude });
-        setReviews([
-          { review: reviews.reviews[0] },
-          { review: reviews.reviews[1] },
-          { review: reviews.reviews[2] }
-        ]);
+        setTimeout(() => setResult(data), 4000);
       }
     } catch (err) {
       console.error(err);
@@ -159,20 +150,20 @@ export default function Result(props) {
         <div className='row'>
           <div className='row column-one-third'>
             <div className='result-image-container row align-items-end'>
-              <img src={result.image} className='result-image'></img>
+              <img src={result.business.image_url} className='result-image'></img>
             </div>
           </div>
           <div className='column-two-thirds'>
             <h4 className='roboto-font margin-top result-title-size'>{result.name}</h4>
             <div className='margin-bottom-10'>
-              <Rating rating={result.rating} />
+              <Rating rating={result.business.rating} />
               {bookmarkButton().map(button => button)}
             </div>
             <div className='row-column-responsive'>
               <div className='column-half'>
-                <p className='restaurant-info result-info-size roboto-font'>{result.location.address1}</p>
-                <p className='restaurant-info result-info-size roboto-font'>{result.location.address2}</p>
-                <p className='restaurant-info result-info-size roboto-font'>{result.location.city} {result.location.state} {result.location.zip_code}</p>
+                <p className='restaurant-info result-info-size roboto-font'>{result.business.location.address1}</p>
+                <p className='restaurant-info result-info-size roboto-font'>{result.business.location.address2}</p>
+                <p className='restaurant-info result-info-size roboto-font'>{result.business.location.city} {result.business.location.state} {result.business.location.zip_code}</p>
               </div>
               <div className='column-half'>
                 <TwilioButton address={result.location} name={result.name} />
@@ -181,9 +172,9 @@ export default function Result(props) {
           </div>
         </div>
         <div className='row justify-center'>
-          <MapsComponent maps={maps} />
+          <MapsComponent coordinates={result.business.coordinates} />
         </div>
-        <Accordion reviews={reviews} />
+        <Accordion reviews={result.reviews} />
       </>
     );
   }

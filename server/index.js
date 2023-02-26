@@ -89,12 +89,16 @@ app.get('/api/yelp/search/:search/:location', async (req, res, next) => {
     throw new ClientError(400, 'location and preferences cannot be numbers');
   }
   try {
+    const data = {};
     const response = await yelpClient.search({
       term: search,
       location: location
     });
     const randomNumber = random(response.jsonBody.businesses.length);
-    res.status(200).send(response.jsonBody.businesses[randomNumber]);
+    const reviewReponse = await yelpClient.reviews(response.jsonBody.businesses[randomNumber].id);
+    data.business = response.jsonBody.businesses[randomNumber];
+    data.reviews = reviewReponse.jsonBody.reviews;
+    res.status(200).send(data);
   } catch (err) {
     console.error(err);
   }
