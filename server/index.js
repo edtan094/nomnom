@@ -88,13 +88,25 @@ app.get('/api/yelp/search/:search/:location', async (req, res, next) => {
   } else if (typeof location !== 'string' || typeof search !== 'string') {
     throw new ClientError(400, 'location and preferences cannot be numbers');
   }
-  try {
+  const fetchBusiness = async (search, location) => {
     const response = await yelpClient.search({
       term: search,
       location: location
     });
     const randomNumber = random(response.jsonBody.businesses.length);
-    res.status(200).send(response.jsonBody.businesses[randomNumber]);
+    const business = response.jsonBody.businesses[randomNumber];
+    return business;
+  };
+  const fetchReviews = async businessId => {
+    const response2 = await fetch(`https://api.yelp.com/v3/businesses/${businessId}/reviews`, body);
+    const reviews = await response2.json();
+    return reviews;
+  };
+  try {
+    const business = await fetchBusiness(search, location);
+    const reviews = await fetchReviews(business.id);
+    const result = { ...business, reviews };
+    res.status(200).send(result);
   } catch (err) {
     console.error(err);
   }
