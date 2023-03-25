@@ -98,8 +98,8 @@ app.get('/api/yelp/search/:search/:location', async (req, res, next) => {
     return business;
   };
   const fetchReviews = async businessId => {
-    const response2 = await fetch(`https://api.yelp.com/v3/businesses/${businessId}/reviews`, body);
-    const reviews = await response2.json();
+    const response = await fetch(`https://api.yelp.com/v3/businesses/${businessId}/reviews`, body);
+    const reviews = await response.json();
     return reviews;
   };
   try {
