@@ -88,15 +88,36 @@ app.get('/api/yelp/search/:search/:location', async (req, res, next) => {
   } else if (typeof location !== 'string' || typeof search !== 'string') {
     throw new ClientError(400, 'location and preferences cannot be numbers');
   }
-  try {
+  const fetchBusiness = async (search, location) => {
     const response = await yelpClient.search({
       term: search,
       location: location
     });
     const randomNumber = random(response.jsonBody.businesses.length);
-    res.status(200).send(response.jsonBody.businesses[randomNumber]);
+    const business = response.jsonBody.businesses[randomNumber];
+    return business;
+  };
+  const fetchReviews = async businessId => {
+    const response = await fetch(`https://api.yelp.com/v3/businesses/${businessId}/reviews`, body);
+    const reviews = await response.json();
+    return reviews;
+  };
+  try {
+    const business = await fetchBusiness(search, location);
+    if (!business) {
+      throw new ClientError(404, 'No business found! Please try a different search parameter');
+    }
+    const reviews = await fetchReviews(business.id);
+    const result = { ...business, ...reviews };
+    res.status(200).send(result);
   } catch (err) {
     console.error(err);
+    if (err.status === 404 && err.message === 'No business found! Please try a different search parameter') {
+      next(err);
+    }
+    if (err.status === 400 && (err.message === 'location and preference are required' || err.message === 'location and preferences cannot be numbers')) {
+      next(err);
+    }
   }
 });
 
