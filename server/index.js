@@ -105,7 +105,7 @@ app.get('/api/yelp/search/:search/:location', async (req, res, next) => {
   try {
     const business = await fetchBusiness(search, location);
     const reviews = await fetchReviews(business.id);
-    const result = { ...business, reviews };
+    const result = { ...business, ...reviews };
     res.status(200).send(result);
   } catch (err) {
     console.error(err);

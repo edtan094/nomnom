@@ -49,9 +49,9 @@ export default function Result(props) {
         setTimeout(() => setResult({ name: result.name, location: result.location, image: result.image_url, rating: result.rating, id: result.id }), 4000);
         setMaps({ lat: result.coordinates.latitude, lng: result.coordinates.longitude });
         setReviews([
-          { review: result.reviews.reviews[0] },
-          { review: result.reviews.reviews[1] },
-          { review: result.reviews.reviews[2] }
+          { review: result.reviews[0] },
+          { review: result.reviews[1] },
+          { review: result.reviews[2] }
         ]);
       }
     } catch (err) {
