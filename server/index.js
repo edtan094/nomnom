@@ -104,11 +104,20 @@ app.get('/api/yelp/search/:search/:location', async (req, res, next) => {
   };
   try {
     const business = await fetchBusiness(search, location);
+    if (!business) {
+      throw new ClientError(404, 'No business found! Please try a different search parameter');
+    }
     const reviews = await fetchReviews(business.id);
     const result = { ...business, ...reviews };
     res.status(200).send(result);
   } catch (err) {
     console.error(err);
+    if (err.status === 404 && err.message === 'No business found! Please try a different search parameter') {
+      next(err);
+    }
+    if (err.status === 400 && (err.message === 'location and preference are required' || err.message === 'location and preferences cannot be numbers')) {
+      next(err);
+    }
   }
 });
 
